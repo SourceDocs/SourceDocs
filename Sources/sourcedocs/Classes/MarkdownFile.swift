@@ -19,8 +19,14 @@ struct MarkdownFile {
     func write() throws {
         try createDirectory(path: "\(FileManager.default.currentDirectoryPath)/\(basePath)")
         let absolutePath = "\(FileManager.default.currentDirectoryPath)/\(filePath)"
-        print("Writting documentation file: \(absolutePath)")
-        try content.output.write(toFile: absolutePath, atomically: true, encoding: .utf8)
+        print("  Writting documentation file: \(filePath)", terminator: "")
+        do {
+            try content.output.write(toFile: absolutePath, atomically: true, encoding: .utf8)
+            print(" ✔")
+        } catch let error {
+            print(" ❌")
+            throw error
+        }
     }
 
     private func createDirectory(path: String) throws {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Rainbow
 
 class MarkdownIndex {
     static let shared = MarkdownIndex()
@@ -21,7 +22,7 @@ class MarkdownIndex {
     func write(to docsPath: String) throws {
         extensions = flattenedExtensions()
 
-        print("Generating Markdown documentation...")
+        print("Generating Markdown documentation...".green)
         var content: [MarkdownConvertible] = [
             """
             # Inline Reference Documentation
@@ -38,7 +39,7 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
         try MarkdownFile(filename: "README", basePath: docsPath, content: content).write()
-        print("Done 🎉")
+        print("Done 🎉".green)
     }
 
     private func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
