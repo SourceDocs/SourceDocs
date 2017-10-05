@@ -14,12 +14,12 @@ public protocol Animal {
 }
 
 /// Describes a thing that can be named
-public protocol Nameable {
+public protocol Nameable: CustomStringConvertible {
     /// Name of the thing being named
     var name: String { get }
 }
 
-extension Nameable: CustomStringConvertible {
+extension Nameable {
     /// Describes a named thing
     public var description: String {
         return "Hello, my name is \(name)."

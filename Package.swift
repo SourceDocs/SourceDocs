@@ -13,5 +13,6 @@ let package = Package(
     targets: [
         .target(name: "SourceDocs", dependencies: ["SourceKittenFramework", "Rainbow"]),
         .testTarget(name: "SourceDocsTests", dependencies: ["SourceDocs"]),
+        .target(name: "SourceDocsDemo", dependencies: []),
     ]
 )
