@@ -26,8 +26,7 @@ Make sure the Swift 4 runtime is installed in your computer
 
     $ git clone https://github.com/eneko/SourceDocs.git
     $ cd SourceDocs
-    $ swift build --disable-sandbox -c release -Xswiftc -static-stdlib
-    $ cp -f .build/release/sourcedocs /usr/local/bin/sourcedocs
+    $ make
 
 
 ## Usage
@@ -39,13 +38,15 @@ directly from the root your project.
 
 This command will analyze your MyAppOrFramework project and generate reference
 documentation from all public types found. The documentation is written to
-the directory `docs/reference` relative to the root of your project repository.
+the directory `Docs/Reference` relative to the root of your project repository.
 
 ### Usage options
 Typing `sourcedocs --help` we get a list of all available options:
 
     $ sourcedocs --help
-    OVERVIEW: Generate Markdown Reference Documentation from Inline Source Code Comments
+    SourceDocs v0.2.0
+
+    OVERVIEW: Generate Markdown reference documentation from inline source code comments
 
     USAGE:
         sourcedocs [xcodebuild arguments]
@@ -53,14 +54,23 @@ Typing `sourcedocs --help` we get a list of all available options:
         sourcedocs --module <module name> [xcodebuild arguments]
 
     OPTIONS:
-      xcodebuild arguments
-        Optional: parameters to pass to xcodebuild needed to build (scheme, workspace, etc)
+      [xcodebuild arguments]
+        Optional parameters to pass to xcodebuild needed to build (scheme, workspace, etc)
 
       --spm-module <module name>
-        Optional: Name of the Swift Package Manager module to build
+        Name of the Swift Package Manager module to build
 
       --module <module name> (optional)
-        Optional: Name of the Swift module to build with xcodebuild
+        Name of the Swift module to build with xcodebuild
+
+      --clean
+        Delete reference documentation directory (Docs/Reference)
+
+      --version
+        Prints the executable version
+
+      --help
+        Prints this help
 
 Usually, for most Xcode projects, no parameters are needed at all. `xcodebuild`
 should be able to find the default project and scheme.
@@ -74,12 +84,12 @@ If you are not using Xcode, you can specify a module name using the
 
 
 ## Generated documentation
-SourceDocs writes documentation files to the `docs/reference` directory relative
+SourceDocs writes documentation files to the `Docs/Reference` directory relative
 to your project root. This allows for the generated documentation to live along
 other hand-crafted documentation you might have written or will write in the future.
 
 When specifying a module name, the documentation files will be written to
-`docs/reference/<module name>`.
+`Docs/Reference/<module name>`.
 
 We highly recommend adding the generated documentation to your source code
 repository, so it can be easily browsed inline. GitHub and BitBucket do a great

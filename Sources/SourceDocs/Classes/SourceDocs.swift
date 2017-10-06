@@ -20,14 +20,20 @@ extension Array {
 
 struct SourceDocs {
 
-    /// Base path for generated Markdown reference documentation (not including trailing slash)
+    let version = "0.2.0"
+
+    /// Base path for generated Markdown reference documentation
     /// Note: Constant for now, could be parametrized later on
-    let docsPath = "docs/reference"
+    let docsPath = "Docs/Reference"
 
     func run(arguments: [String]) {
         do {
             if arguments.get(at: 0) == "--help" {
                 printHelp()
+            } else if arguments.get(at: 0) == "--clean" {
+                try removeReferenceDocs()
+            } else if arguments.get(at: 0) == "--version" {
+                print(version)
             } else if arguments.get(at: 0) == "--spm-module", let module = arguments.get(at: 1) {
                 try runSPMModule(moduleName: module)
             } else if arguments.get(at: 0) == "--module", let module = arguments.get(at: 1) {
@@ -44,7 +50,9 @@ struct SourceDocs {
 
     private func printHelp() {
         let help = """
-        OVERVIEW: Generate Markdown Reference Documentation from Inline Source Code Comments
+        SourceDocs v\(version)
+
+        OVERVIEW: Generate Markdown reference documentation from inline source code comments
 
         USAGE:
             sourcedocs [xcodebuild arguments]
@@ -52,16 +60,36 @@ struct SourceDocs {
             sourcedocs --module <module name> [xcodebuild arguments]
 
         OPTIONS:
-          xcodebuild arguments
-            Optional: parameters to pass to xcodebuild needed to build (scheme, workspace, etc)
+          [xcodebuild arguments]
+            Optional parameters to pass to xcodebuild needed to build (scheme, workspace, etc)
 
           --spm-module <module name>
-            Optional: Name of the Swift Package Manager module to build
+            Name of the Swift Package Manager module to build
 
           --module <module name> (optional)
-            Optional: Name of the Swift module to build with xcodebuild
+            Name of the Swift module to build with xcodebuild
+
+          --clean
+            Delete reference documentation directory (\(docsPath))
+
+          --version
+            Prints the executable version
+
+          --help
+            Prints this help
         """
         print(help)
+    }
+
+    private func removeReferenceDocs() throws {
+        var isDir: ObjCBool = false
+        if FileManager.default.fileExists(atPath: docsPath, isDirectory: &isDir) {
+            print("Removing Reference Docs at '\(docsPath)'")
+            try FileManager.default.removeItem(atPath: docsPath)
+            print("Done.".green)
+        } else {
+            print("Could not find any Reference Docs at '\(docsPath)'")
+        }
     }
 
     private func runSPMModule(moduleName: String) throws {
@@ -121,7 +149,7 @@ struct SourceDocs {
             }
         }
 
-        if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [[String: Any]] {
+        if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
             process(dictionaries: substructure)
         }
     }
