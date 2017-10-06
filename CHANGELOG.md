@@ -1,6 +1,18 @@
 ## Master
 
 #### Breaking
+- None
+
+#### Enhancements
+- None
+
+#### Bug Fixes
+- None
+
+
+## 0.2.0
+
+#### Breaking
 - Update output directory to `Docs/Reference` to follow Swift Package Manager
   naming conventions for the project folder structure.
 
