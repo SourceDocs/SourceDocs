@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Rainbow
 
 struct MarkdownFile {
     let filename: String
@@ -22,7 +23,7 @@ struct MarkdownFile {
         print("  Writting documentation file: \(filePath)", terminator: "")
         do {
             try content.output.write(toFile: absolutePath, atomically: true, encoding: .utf8)
-            print(" ✔")
+            print(" ✔".green)
         } catch let error {
             print(" ❌")
             throw error

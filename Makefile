@@ -17,6 +17,9 @@ build:
 uninstall:
 	rm -f $(INSTALL_PATH)
 
+demo:
+	swift run sourcedocs --spm-module SourceDocsDemo
+
 get_sha:
 	wget https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz -O $(TAR_FILENAME)
 	shasum -a 256 $(TAR_FILENAME)
