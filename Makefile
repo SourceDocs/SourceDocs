@@ -10,6 +10,7 @@ install: build
 	cp -f $(BUILD_PATH) $(INSTALL_PATH)
 
 build:
+	swift package clean
 	swift build --disable-sandbox -c release -Xswiftc -static-stdlib
 
 uninstall:
