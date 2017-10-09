@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {
           "branch": "master",
-          "revision": "c858c12abeb8e119aff6e6cd7b23747469f0e241",
+          "revision": "65c2df38af10dfa708789836494f4f10653132e0",
           "version": null
         }
       },
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/jpsim/Yams.git",
         "state": {
           "branch": null,
-          "revision": "5ac9248b378b5e12201c255ba74caf990d1e0f4b",
-          "version": "0.3.6"
+          "revision": "05921531200acff0d8d9caab5ec77b2bcf300b6b",
+          "version": "0.3.7"
         }
       }
     ]
