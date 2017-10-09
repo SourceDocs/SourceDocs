@@ -32,11 +32,11 @@ class MarkdownIndex {
             """
         ]
 
+        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols"))
         try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs"))
         try content.append(writeAndIndexFiles(items: classes, to: docsPath, collectionTitle: "Classes"))
-        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
         try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums"))
-        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols"))
+        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
         try MarkdownFile(filename: "README", basePath: docsPath, content: content).write()

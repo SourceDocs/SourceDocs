@@ -23,9 +23,9 @@
         "package": "MarkdownGenerator",
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {
-          "branch": "master",
-          "revision": "65c2df38af10dfa708789836494f4f10653132e0",
-          "version": null
+          "branch": null,
+          "revision": "dd750f32ac2371d65f8871b9326c3975150e0129",
+          "version": "0.1.1"
         }
       },
       {

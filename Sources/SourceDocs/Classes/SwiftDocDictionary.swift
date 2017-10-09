@@ -52,10 +52,11 @@ extension SwiftDocDictionaryInitializable {
         return codeBlock(title: "Declaration", code: declaration)
     }
     var typename: String {
-        guard let typename: String = dictionary.get(.typeName) else {
-            return ""
-        }
-        return codeBlock(title: "Infered Type", code: typename)
+        return ""
+//        guard let typename: String = dictionary.get(.typeName) else {
+//            return ""
+//        }
+//        return codeBlock(title: "Inferred Type", code: typename)
     }
 
     func codeBlock(title: String, code: String) -> String {
@@ -71,6 +72,9 @@ extension SwiftDocDictionaryInitializable {
         return collection.isEmpty ? "" : """
         \(title)
         \(collection.markdown)
+
+        --------------------
+
         """
     }
 }
