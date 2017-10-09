@@ -1,12 +1,12 @@
 **EXTENSION**
-# Dog
+# `Dog`
 
 --------------------
 
 
 
 ## Methods
-### speak()
+### `speak()`
 
 **Declaration**
 ```swift

@@ -1,5 +1,5 @@
 **PROTOCOL**
-# Animal
+# `Animal`
 
 **Declaration**
 ```swift
@@ -18,7 +18,7 @@ Describes an animal hierarchy of things
 
 
 ## Methods
-### speak()
+### `speak()`
 
 **Declaration**
 ```swift

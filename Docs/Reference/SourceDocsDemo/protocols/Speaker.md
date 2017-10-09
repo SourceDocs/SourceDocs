@@ -1,5 +1,5 @@
 **PROTOCOL**
-# Speaker
+# `Speaker`
 
 **Declaration**
 ```swift
@@ -18,7 +18,7 @@ Describes an entity that can "speak"
 
 
 ## Methods
-### speak()
+### `speak()`
 
 **Declaration**
 ```swift

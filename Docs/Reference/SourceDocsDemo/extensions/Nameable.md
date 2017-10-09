@@ -1,10 +1,10 @@
 **EXTENSION**
-# Nameable
+# `Nameable`
 
 --------------------
 
 ## Properties
-### description
+### `description`
 
 **Declaration**
 ```swift

@@ -1,5 +1,9 @@
 **STRUCT**
-# Dog
+# `Dog`
+
+**Contents**
+- [Properties](#properties)
+  - `name`
 
 **Declaration**
 ```swift
@@ -16,7 +20,7 @@ Common animal many people have as pet
 --------------------
 
 ## Properties
-### name
+### `name`
 
 **Declaration**
 ```swift
@@ -29,4 +33,6 @@ String
 ```
 
 All dogs should have a name
+
+--------------------
 

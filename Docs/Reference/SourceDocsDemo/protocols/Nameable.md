@@ -1,5 +1,5 @@
 **PROTOCOL**
-# Nameable
+# `Nameable`
 
 **Declaration**
 ```swift
@@ -16,7 +16,7 @@ Describes a thing that can be named
 --------------------
 
 ## Properties
-### name
+### `name`
 
 **Declaration**
 ```swift
