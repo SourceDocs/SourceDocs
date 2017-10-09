@@ -6,14 +6,9 @@
 public protocol Speaker
 ```
 
-**Infered Type**
-```swift
-Speaker.Protocol
-```
 
-Describes an entity that can "speak"
 
---------------------
+> Describes an entity that can "speak"
 
 
 
@@ -25,10 +20,7 @@ Describes an entity that can "speak"
 func speak()
 ```
 
-**Infered Type**
-```swift
-<Self where Self : Speaker> (Self) -> () -> ()
-```
 
-Print a greeting message
+
+> Print a greeting message
 

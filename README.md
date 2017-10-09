@@ -43,7 +43,7 @@ the directory `Docs/Reference` relative to the root of your project repository.
 Typing `sourcedocs --help` we get a list of all available options:
 
     $ sourcedocs --help
-    SourceDocs v0.2.0
+    SourceDocs v0.3.0
 
     OVERVIEW: Generate Markdown reference documentation from inline source code comments
 

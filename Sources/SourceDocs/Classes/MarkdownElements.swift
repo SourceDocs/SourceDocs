@@ -80,8 +80,6 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(comment.blockquoted)
 
-        --------------------
-
         \(properties)
 
         \(methods)
@@ -164,8 +162,6 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(comment.blockquoted)
 
-        --------------------
-
         \(cases)
 
         \(properties)
@@ -231,8 +227,6 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(comment.blockquoted)
 
-        --------------------
-
         \(properties)
 
         \(methods)
@@ -260,8 +254,6 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
         \(typename)
 
         \(comment.blockquoted)
-
-        --------------------
         """
     }
 }
@@ -297,8 +289,6 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         return """
         **EXTENSION**
         # `\(name)`
-
-        --------------------
 
         \(properties)
 

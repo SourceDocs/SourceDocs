@@ -1,8 +1,6 @@
 **EXTENSION**
 # `Dog`
 
---------------------
-
 
 
 ## Methods
@@ -13,10 +11,7 @@
 public func speak()
 ```
 
-**Infered Type**
-```swift
-(Dog) -> () -> ()
-```
 
-Dogs know how to speak!
+
+> Dogs know how to speak!
 

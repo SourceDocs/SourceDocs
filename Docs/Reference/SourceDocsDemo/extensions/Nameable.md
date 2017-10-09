@@ -1,8 +1,6 @@
 **EXTENSION**
 # `Nameable`
 
---------------------
-
 ## Properties
 ### `description`
 
@@ -11,10 +9,7 @@
 public var description: String
 ```
 
-**Infered Type**
-```swift
-String
-```
 
-Describes a named thing
+
+> Describes a named thing
 

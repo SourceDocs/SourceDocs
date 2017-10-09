@@ -6,14 +6,9 @@
 public protocol Nameable: CustomStringConvertible
 ```
 
-**Infered Type**
-```swift
-Nameable.Protocol
-```
 
-Describes a thing that can be named
 
---------------------
+> Describes a thing that can be named
 
 ## Properties
 ### `name`
@@ -23,10 +18,7 @@ Describes a thing that can be named
 var name: String
 ```
 
-**Infered Type**
-```swift
-String
-```
 
-Name of the thing being named
+
+> Name of the thing being named
 

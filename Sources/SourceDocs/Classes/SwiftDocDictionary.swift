@@ -72,9 +72,6 @@ extension SwiftDocDictionaryInitializable {
         return collection.isEmpty ? "" : """
         \(title)
         \(collection.markdown)
-
-        --------------------
-
         """
     }
 }

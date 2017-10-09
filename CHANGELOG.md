@@ -10,6 +10,25 @@
 - None
 
 
+## 0.3.0
+
+#### Breaking
+- None
+
+#### Enhancements
+- Use [MarkdownGenerator](https://www.github,com/eneko/MarkdownGenerator)
+  framework to generate Markdown output.
+- Remove inferred type from output to reduce noise.
+- Add contents table for structs, classes and enums.
+- Comment output is now block-quoted for better formatting.
+- Green checkmarks when writing Markdown files to disk.
+- Remove `<sub>` HTML tags for a cleaner Markdown output.
+- Remove horizontal guides to reduce noise.
+
+#### Bug Fixes
+- None
+
+
 ## 0.2.0
 
 #### Breaking
