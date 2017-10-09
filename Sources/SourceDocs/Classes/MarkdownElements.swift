@@ -41,9 +41,22 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
     var output: String {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
+
+        let propertyToc = self.properties.map { "  - `\($0.name)`" }.joined(separator: "\n")
+        let methodToc = self.methods.map { "  - `\($0.name)`" }.joined(separator: "\n")
+        let tableOfContents = """
+        - [Properties](#properties)
+        \(propertyToc)
+        - [Methods](#methods)
+        \(methodToc)
+        """
+
         return """
         **\(elementType.uppercased())**
         # `\(name)`
+
+        **Contents**
+        \(tableOfContents)
 
         \(declaration)
 
