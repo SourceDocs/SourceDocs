@@ -5,16 +5,7 @@
 SourceDocs is a command line tool, written in Swift, that generates markdown
 documentation files from inline source code comments.
 
-    $ sourcedocs --spm-module SourceDocsDemo
-    Parsing SampleCode.swift (1/1)
-    Generating Markdown documentation...
-      Writting documentation file: Docs/Reference/SourceDocsDemo/extensions/Nameable.md ✔
-      Writting documentation file: Docs/Reference/SourceDocsDemo/extensions/Dog.md ✔
-      Writting documentation file: Docs/Reference/SourceDocsDemo/protocols/Animal.md ✔
-      Writting documentation file: Docs/Reference/SourceDocsDemo/protocols/Nameable.md ✔
-      Writting documentation file: Docs/Reference/SourceDocsDemo/protocols/Speaker.md ✔
-      Writting documentation file: Docs/Reference/SourceDocsDemo/README.md ✔
-    Done 🎉
+![Terminal Output](http://www.enekoalonso.com/media/sourcedocs-terminal.png)
 
 Similar to Sphinx or Jazzy, SourceDocs parses your Swift source code and
 generates beautiful reference documentation. In contrast to those other tools,
