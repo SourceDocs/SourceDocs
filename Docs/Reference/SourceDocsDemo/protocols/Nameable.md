@@ -1,12 +1,12 @@
-<sub>**PROTOCOL**</sub>
+**PROTOCOL**
 # Nameable
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public protocol Nameable: CustomStringConvertible
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 Nameable.Protocol
 ```
@@ -18,12 +18,12 @@ Describes a thing that can be named
 ## Properties
 ### name
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 var name: String
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 String
 ```

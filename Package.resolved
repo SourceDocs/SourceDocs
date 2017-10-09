@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "MarkdownGenerator",
+        "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
+        "state": {
+          "branch": "master",
+          "revision": "c858c12abeb8e119aff6e6cd7b23747469f0e241",
+          "version": null
+        }
+      },
+      {
         "package": "Rainbow",
         "repositoryURL": "https://github.com/onevcat/Rainbow",
         "state": {

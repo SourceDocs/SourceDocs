@@ -1,12 +1,12 @@
-<sub>**PROTOCOL**</sub>
+**PROTOCOL**
 # Speaker
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public protocol Speaker
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 Speaker.Protocol
 ```
@@ -20,12 +20,12 @@ Describes an entity that can "speak"
 ## Methods
 ### speak()
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 func speak()
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 <Self where Self : Speaker> (Self) -> () -> ()
 ```

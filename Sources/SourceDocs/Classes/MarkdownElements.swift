@@ -42,8 +42,8 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
-        <sub>**\(elementType.uppercased())**</sub>
-        # \(name)
+        **\(elementType.uppercased())**
+        # `\(name)`
 
         \(declaration)
 
@@ -93,8 +93,8 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
-        <sub>**ENUM**</sub>
-        # \(name)
+        **ENUM**
+        # `\(name)`
 
         \(declaration)
 
@@ -125,7 +125,7 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
 
     var output: String {
         return """
-        ### \(name)
+        ### `\(name)`
 
         \(declaration)
 
@@ -160,8 +160,8 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
-        <sub>**PROTOCOL**</sub>
-        # \(name)
+        **PROTOCOL**
+        # `\(name)`
 
         \(declaration)
 
@@ -190,8 +190,8 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
     var output: String {
         return """
-        <sub>**TYPEALIAS**</sub>
-        # \(name)
+        **TYPEALIAS**
+        # `\(name)`
 
         \(declaration)
 
@@ -233,8 +233,8 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
-        <sub>**EXTENSION**</sub>
-        # \(name)
+        **EXTENSION**
+        # `\(name)`
 
         --------------------
 
@@ -257,7 +257,7 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
     var output: String {
         return """
-        ### \(name)
+        ### `\(name)`
 
         \(declaration)
 
@@ -298,7 +298,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
     var output: String {
         return """
-        ### \(name)
+        ### `\(name)`
 
         \(declaration)
 
@@ -328,7 +328,7 @@ struct MarkdownMethodParameter: SwiftDocDictionaryInitializable, MarkdownConvert
 
     var output: String {
         return """
-        | *\(name)* | \(discussion.joined(separator: "\n")) |
+        | `\(name)` | \(discussion.joined(separator: "\n")) |
         """
     }
 }

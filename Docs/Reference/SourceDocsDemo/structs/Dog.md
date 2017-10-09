@@ -1,12 +1,12 @@
-<sub>**STRUCT**</sub>
+**STRUCT**
 # Dog
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public struct Dog: Animal, Nameable
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 Dog.Type
 ```
@@ -18,12 +18,12 @@ Common animal many people have as pet
 ## Properties
 ### name
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public let name: String
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 String
 ```

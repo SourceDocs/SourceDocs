@@ -1,12 +1,12 @@
-<sub>**PROTOCOL**</sub>
+**PROTOCOL**
 # Animal
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public protocol Animal
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 Animal.Protocol
 ```
@@ -20,12 +20,12 @@ Describes an animal hierarchy of things
 ## Methods
 ### speak()
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 func speak()
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 <Self where Self : Animal> (Self) -> () -> ()
 ```

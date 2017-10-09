@@ -59,7 +59,7 @@ extension SwiftDocDictionaryInitializable {
 
     func codeBlock(title: String, code: String) -> String {
         return """
-        <sub>**\(title)**</sub>
+        **\(title)**
         ```swift
         \(code)
         ```

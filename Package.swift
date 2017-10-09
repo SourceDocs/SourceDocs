@@ -8,6 +8,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.18.0"),
+        .package(url: "https://github.com/eneko/MarkdownGenerator.git", .branch("master")),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
     ],
     targets: [
