@@ -7,6 +7,7 @@
 
 import Foundation
 import SourceKittenFramework
+import MarkdownGenerator
 
 typealias SwiftDocDictionary = [String: Any]
 
@@ -69,7 +70,7 @@ extension SwiftDocDictionaryInitializable {
     func collectionOutput(title: String, collection: [MarkdownConvertible]) -> String {
         return collection.isEmpty ? "" : """
         \(title)
-        \(collection.output)
+        \(collection.markdown)
         """
     }
 }

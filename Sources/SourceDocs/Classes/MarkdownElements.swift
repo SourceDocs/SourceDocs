@@ -7,6 +7,7 @@
 
 import Foundation
 import SourceKittenFramework
+import MarkdownGenerator
 
 struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
     let dictionary: SwiftDocDictionary
@@ -63,7 +64,7 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
         """
     }
 
-    var output: String {
+    var markdown: String {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
 
@@ -77,7 +78,7 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
 
         --------------------
 
@@ -118,7 +119,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         }
     }
 
-    var output: String {
+    var markdown: String {
         let cases = collectionOutput(title: "## Cases", collection: self.cases)
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
@@ -130,7 +131,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
 
         --------------------
 
@@ -153,7 +154,7 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
         self.dictionary = dictionary
     }
 
-    var output: String {
+    var markdown: String {
         return """
         ### `\(name)`
 
@@ -161,7 +162,7 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
         """
     }
 }
@@ -186,7 +187,7 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
         }
     }
 
-    var output: String {
+    var markdown: String {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
@@ -197,7 +198,7 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
 
         --------------------
 
@@ -218,7 +219,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.dictionary = dictionary
     }
 
-    var output: String {
+    var markdown: String {
         return """
         **TYPEALIAS**
         # `\(name)`
@@ -227,7 +228,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
 
         --------------------
         """
@@ -259,7 +260,7 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         }
     }
 
-    var output: String {
+    var markdown: String {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
@@ -285,7 +286,7 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.dictionary = dictionary
     }
 
-    var output: String {
+    var markdown: String {
         return """
         ### `\(name)`
 
@@ -293,7 +294,7 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
         """
     }
 }
@@ -318,15 +319,15 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
         if parameters.isEmpty {
             return ""
         }
+        let data: [[String]] = parameters.map { [$0.name, $0.description] }
+        let table = MarkdownTable(headers: ["Name", "Description"], data: data)
         return """
         #### Parameters
-        | Name | Description |
-        | ---- | ----------- |
-        \(parameters.map { $0.output }.joined(separator: "\n"))
+        \(table.markdown)
         """
     }
 
-    var output: String {
+    var markdown: String {
         return """
         ### `\(name)`
 
@@ -334,48 +335,26 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(typename)
 
-        \(comment)
+        \(comment.blockquoted)
 
         \(parametersTable)
         """
     }
 }
 
-struct MarkdownMethodParameter: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownMethodParameter: SwiftDocDictionaryInitializable {
     let dictionary: SwiftDocDictionary
     let name: String
-    let discussion: [String]
+    let description: String
 
     init?(dictionary: SwiftDocDictionary) {
         self.dictionary = dictionary
         name = dictionary["name"] as? String ?? "[NO NAME]"
         if let discussion = dictionary["discussion"] as? [SwiftDocDictionary] {
-            self.discussion = discussion.flatMap { $0["Para"] as? String }
+            description = discussion.flatMap { $0["Para"] as? String }.joined(separator: " ")
         } else {
-            discussion = []
+            description = ""
         }
     }
-
-    var output: String {
-        return """
-        | `\(name)` | \(discussion.joined(separator: "\n")) |
-        """
-    }
 }
 
-struct MarkdownList: MarkdownConvertible {
-    let items: [MarkdownConvertible]
-
-    var output: String {
-        return items.map { "- \($0.output)" }.joined(separator: "\n")
-    }
-}
-
-struct MarkdownLink: MarkdownConvertible {
-    let title: String
-    let url: String
-
-    var output: String {
-        return "[\(title)](\(url))"
-    }
-}

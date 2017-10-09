@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MarkdownGenerator
 import Rainbow
 
 class MarkdownIndex {
@@ -50,13 +51,22 @@ class MarkdownIndex {
 
         // Make and write files
         let files = makeFiles(with: items, basePath: "\(docsPath)/\(collectionTitle.lowercased())")
-        try files.forEach { try $0.write() }
+        try files.forEach { file in
+            print("  Writting documentation file: \(file.filePath)", terminator: "")
+            do {
+                try file.write()
+                print(" ✔".green)
+            } catch let error {
+                print(" ❌")
+                throw error
+            }
+        }
 
         // Make links for index
-        let links = files.map { MarkdownLink(title: $0.filename, url: "/\($0.filePath)") }
+        let links = files.map { MarkdownLink(text: $0.filename, url: "/\($0.filePath)") }
         return [
             "## \(collectionTitle)",
-            MarkdownList(items: links.sorted { $0.title < $1.title })
+            MarkdownList(items: links.sorted { $0.text < $1.text })
         ]
     }
 
