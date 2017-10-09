@@ -1,17 +1,17 @@
-<sub>**EXTENSION**</sub>
-# Nameable
+**EXTENSION**
+# `Nameable`
 
 --------------------
 
 ## Properties
-### description
+### `description`
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public var description: String
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 String
 ```

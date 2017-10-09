@@ -1,19 +1,19 @@
-<sub>**EXTENSION**</sub>
-# Dog
+**EXTENSION**
+# `Dog`
 
 --------------------
 
 
 
 ## Methods
-### speak()
+### `speak()`
 
-<sub>**Declaration**</sub>
+**Declaration**
 ```swift
 public func speak()
 ```
 
-<sub>**Infered Type**</sub>
+**Infered Type**
 ```swift
 (Dog) -> () -> ()
 ```
