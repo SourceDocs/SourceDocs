@@ -2,6 +2,9 @@
 
 ![SourceDocs Header](http://www.enekoalonso.com/media/sourcedocs-header.jpg)
 
+![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)
+![Swift 4.0](https://img.shields.io/badge/Swift-4.0-orange.svg)
+
 SourceDocs is a command line tool, written in Swift, that generates markdown
 documentation files from inline source code comments.
 
