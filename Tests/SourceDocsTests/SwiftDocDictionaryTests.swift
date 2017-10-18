@@ -13,4 +13,8 @@ class SwiftDocDictionaryTests: XCTestCase {
         XCTAssert(true, "Tests coming soon! I promise :)")
     }
 
+    static var allTests = [
+        ("testExample", testExample),
+    ]
+
 }
