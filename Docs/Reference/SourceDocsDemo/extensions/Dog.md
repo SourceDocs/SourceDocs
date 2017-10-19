@@ -1,8 +1,6 @@
 **EXTENSION**
 # `Dog`
 
-
-
 ## Methods
 ### `speak()`
 
@@ -11,7 +9,4 @@
 public func speak()
 ```
 
-
-
 > Dogs know how to speak!
-

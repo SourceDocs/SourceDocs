@@ -6,6 +6,8 @@ INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
 BUILD_PATH = .build/release/$(TOOL_NAME)
 TAR_FILENAME = $(TOOL_NAME)-$(VERSION).tar.gz
 
+.PHONY: build demo
+
 install: build
 	mkdir -p $(PREFIX)/bin
 	cp -f $(BUILD_PATH) $(INSTALL_PATH)
@@ -18,6 +20,7 @@ uninstall:
 	rm -f $(INSTALL_PATH)
 
 demo:
+	swift run sourcedocs --clean
 	swift run sourcedocs --spm-module SourceDocsDemo
 
 get_sha:

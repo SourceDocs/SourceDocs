@@ -3,14 +3,12 @@
 
 **Contents**
 - [Properties](#properties)
-  - `name`
+- `name`
 
 **Declaration**
 ```swift
 public struct Dog: Animal, Nameable
 ```
-
-
 
 > Common animal many people have as pet
 
@@ -22,7 +20,4 @@ public struct Dog: Animal, Nameable
 public let name: String
 ```
 
-
-
 > All dogs should have a name
-

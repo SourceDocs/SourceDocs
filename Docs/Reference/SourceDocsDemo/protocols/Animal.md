@@ -6,11 +6,7 @@
 public protocol Animal
 ```
 
-
-
 > Describes an animal hierarchy of things
-
-
 
 ## Methods
 ### `speak()`
@@ -20,7 +16,4 @@ public protocol Animal
 func speak()
 ```
 
-
-
 > Print a greeting message
-

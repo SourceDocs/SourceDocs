@@ -12,12 +12,7 @@ Run `sourcedocs` in the repository root to update this documentation.
 
 -   [Dog](/Docs/Reference/SourceDocsDemo/structs/Dog.md)
 
-
-
-
-
 ## Extensions
 
 -   [Dog](/Docs/Reference/SourceDocsDemo/extensions/Dog.md)
 -   [Nameable](/Docs/Reference/SourceDocsDemo/extensions/Nameable.md)
-
