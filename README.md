@@ -7,7 +7,7 @@
 
 ![SourceDocs Header](http://www.enekoalonso.com/media/sourcedocs-header.jpg)
 
-SourceDocs is a command line tool, written in Swift, that generates markdown
+SourceDocs is a command line tool that generates markdown
 documentation files from inline source code comments.
 
 ![Terminal Output](http://www.enekoalonso.com/media/sourcedocs-terminal.png)
