@@ -9,8 +9,8 @@ TAR_FILENAME = $(TOOL_NAME)-$(VERSION).tar.gz
 .PHONY: build demo
 
 install: build
-	mkdir -p $(PREFIX)/bin
-	cp -f $(BUILD_PATH) $(INSTALL_PATH)
+	install -d "$(PREFIX)/bin"
+	install -C -m 755 $(BUILD_PATH) $(INSTALL_PATH)
 
 build:
 	swift package clean
@@ -19,7 +19,7 @@ build:
 uninstall:
 	rm -f $(INSTALL_PATH)
 
-demo:
+docs:
 	swift run sourcedocs --clean
 	swift run sourcedocs --spm-module SourceDocsDemo
 
@@ -27,3 +27,4 @@ get_sha:
 	wget https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz -O $(TAR_FILENAME)
 	shasum -a 256 $(TAR_FILENAME)
 	rm $(TAR_FILENAME)
+
