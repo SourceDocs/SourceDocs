@@ -4,15 +4,15 @@ Run `sourcedocs` in the repository root to update this documentation.
 
 ## Protocols
 
--   [Animal](/Docs/Reference/SourceDocsDemo/protocols/Animal.md)
--   [Nameable](/Docs/Reference/SourceDocsDemo/protocols/Nameable.md)
--   [Speaker](/Docs/Reference/SourceDocsDemo/protocols/Speaker.md)
+-   [Animal](//Users/enekoalonso/dev/eneko/SourceDocs/Docs/Reference/SourceDocsDemo/protocols/Animal.md)
+-   [Nameable](//Users/enekoalonso/dev/eneko/SourceDocs/Docs/Reference/SourceDocsDemo/protocols/Nameable.md)
+-   [Speaker](//Users/enekoalonso/dev/eneko/SourceDocs/Docs/Reference/SourceDocsDemo/protocols/Speaker.md)
 
 ## Structs
 
--   [Dog](/Docs/Reference/SourceDocsDemo/structs/Dog.md)
+-   [Dog](//Users/enekoalonso/dev/eneko/SourceDocs/Docs/Reference/SourceDocsDemo/structs/Dog.md)
 
 ## Extensions
 
--   [Dog](/Docs/Reference/SourceDocsDemo/extensions/Dog.md)
--   [Nameable](/Docs/Reference/SourceDocsDemo/extensions/Nameable.md)
+-   [Dog](//Users/enekoalonso/dev/eneko/SourceDocs/Docs/Reference/SourceDocsDemo/extensions/Dog.md)
+-   [Nameable](//Users/enekoalonso/dev/eneko/SourceDocs/Docs/Reference/SourceDocsDemo/extensions/Nameable.md)
