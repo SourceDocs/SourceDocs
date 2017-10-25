@@ -39,31 +39,6 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
         return ""
     }
 
-    var tableOfContents: String {
-        var tableOfContents: [String] = []
-
-        let propertyToc = self.properties.map { "  - `\($0.name)`" }.joined(separator: "\n")
-        if propertyToc.isEmpty == false {
-            tableOfContents.append("- [Properties](#properties)")
-            tableOfContents.append(propertyToc)
-        }
-
-        let methodToc = self.methods.map { "  - `\($0.name)`" }.joined(separator: "\n")
-        if methodToc.isEmpty == false {
-            tableOfContents.append("- [Methods](#methods)")
-            tableOfContents.append(methodToc)
-        }
-
-        if tableOfContents.isEmpty {
-            return ""
-        }
-
-        return """
-        **Contents**
-        \(tableOfContents.joined(separator: "\n"))
-        """
-    }
-
     var markdown: String {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
@@ -71,8 +46,6 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
         return """
         **\(elementType.uppercased())**
         # `\(name)`
-
-        \(tableOfContents)
 
         \(declaration)
 
@@ -115,37 +88,6 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         }
     }
 
-    var tableOfContents: String {
-        var tableOfContents: [String] = []
-
-        let casesToc = self.cases.map { "  - `\($0.name)`" }.joined(separator: "\n")
-        if casesToc.isEmpty == false {
-            tableOfContents.append("- [Cases](#cases)")
-            tableOfContents.append(casesToc)
-        }
-
-        let propertyToc = self.properties.map { "  - `\($0.name)`" }.joined(separator: "\n")
-        if propertyToc.isEmpty == false {
-            tableOfContents.append("- [Properties](#properties)")
-            tableOfContents.append(propertyToc)
-        }
-
-        let methodToc = self.methods.map { "  - `\($0.name)`" }.joined(separator: "\n")
-        if methodToc.isEmpty == false {
-            tableOfContents.append("- [Methods](#methods)")
-            tableOfContents.append(methodToc)
-        }
-
-        if tableOfContents.isEmpty {
-            return ""
-        }
-
-        return """
-        **Contents**
-        \(tableOfContents.joined(separator: "\n"))
-        """
-    }
-
     var markdown: String {
         let cases = collectionOutput(title: "## Cases", collection: self.cases)
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
@@ -153,8 +95,6 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         return """
         **ENUM**
         # `\(name)`
-
-        \(tableOfContents)
 
         \(declaration)
 
@@ -182,15 +122,14 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
     }
 
     var markdown: String {
-        return """
-        ### `\(name)`
-
+        let details = """
         \(declaration)
 
         \(typename)
 
         \(comment.blockquoted)
         """
+        return MarkdownCollapsibleSection(summary: "<code>\(name)</code>", details: details).markdown
     }
 }
 
@@ -308,15 +247,14 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     var markdown: String {
-        return """
-        ### `\(name)`
-
+        let details = """
         \(declaration)
 
         \(typename)
 
         \(comment.blockquoted)
         """
+        return MarkdownCollapsibleSection(summary: "<code>\(name)</code>", details: details).markdown
     }
 }
 
@@ -349,9 +287,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     var markdown: String {
-        return """
-        ### `\(name)`
-
+        let details = """
         \(declaration)
 
         \(typename)
@@ -360,6 +296,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(parametersTable)
         """
+        return MarkdownCollapsibleSection(summary: "<code>\(name)</code>", details: details).markdown
     }
 }
 
