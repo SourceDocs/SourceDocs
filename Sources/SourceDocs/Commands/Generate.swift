@@ -12,8 +12,6 @@ import Result
 import Curry
 import SourceKittenFramework
 
-fileprivate let defaultOutputPath = "Docs/Reference"
-
 struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
@@ -23,11 +21,11 @@ struct GenerateCommandOptions: OptionsProtocol {
 
     static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
-            <*> mode <| Option(key: "spm-module", defaultValue: nil, usage: "Generate documentation for Swift Package Manager module")
-            <*> mode <| Option(key: "module-name", defaultValue: nil, usage: "Generate documentation for a Swift module")
-            <*> mode <| Option(key: "output-folder", defaultValue: defaultOutputPath, usage: "Output directory (defaults to Docs/Reference)")
-            <*> mode <| Switch(flag: "c", key: "clean", usage: "Delete output folder before generating documentation")
-            <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild")
+            <*> mode <| Option(key: "spm-module", defaultValue: nil, usage: "Generate documentation for Swift Package Manager module.")
+            <*> mode <| Option(key: "module-name", defaultValue: nil, usage: "Generate documentation for a Swift module.")
+            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath, usage: "Output directory (defaults to Docs/Reference).")
+            <*> mode <| Switch(flag: "c", key: "clean", usage: "Delete output folder before generating documentation.")
+            <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
     }
 }
 
@@ -37,19 +35,17 @@ struct GenerateCommand: CommandProtocol {
     let verb = "generate"
     let function = "Generates the Markdown documentation"
 
-    var docsPath = defaultOutputPath
-
     func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
             if options.clean {
-                try removeReferenceDocs(docsPath: options.outputFolder)
+                try CleanCommand.removeReferenceDocs(docsPath: options.outputFolder)
             }
             if let module = options.spmModule {
-                try runSPMModule(moduleName: module)
+                try runSPMModule(moduleName: module, docsPath: options.outputFolder)
             } else if let module = options.moduleName {
-                try runSwiftModule(moduleName: module, args: options.xcodeArguments)
+                try runSwiftModule(moduleName: module, args: options.xcodeArguments, docsPath: options.outputFolder)
             } else {
-                try runXcode(args: options.xcodeArguments)
+                try runXcode(args: options.xcodeArguments, docsPath: options.outputFolder)
             }
             return Result.success(())
         }
@@ -59,7 +55,7 @@ struct GenerateCommand: CommandProtocol {
         }
     }
 
-    private func runSPMModule(moduleName: String) throws {
+    private func runSPMModule(moduleName: String, docsPath: String) throws {
         guard let docs = Module(spmName: moduleName)?.docs else {
             fputs("Error: Failed to generate documentation for SPM module '\(moduleName)'.\n".red, stderr)
             return
@@ -68,7 +64,7 @@ struct GenerateCommand: CommandProtocol {
         try MarkdownIndex.shared.write(to: "\(docsPath)/\(moduleName)")
     }
 
-    private func runSwiftModule(moduleName: String, args: [String]) throws {
+    private func runSwiftModule(moduleName: String, args: [String], docsPath: String) throws {
         guard let docs = Module(xcodeBuildArguments: args, name: moduleName)?.docs else {
             fputs("Error: Failed to generate documentation for module '\(moduleName)'.\n".red, stderr)
             return
@@ -77,7 +73,7 @@ struct GenerateCommand: CommandProtocol {
         try MarkdownIndex.shared.write(to: "\(docsPath)/\(moduleName)")
     }
 
-    private func runXcode(args: [String]) throws {
+    private func runXcode(args: [String], docsPath: String) throws {
         guard let docs = Module(xcodeBuildArguments: args, name: nil)?.docs else {
             fputs("Error: Failed to generate documentation.\n".red, stderr)
             return
@@ -115,16 +111,6 @@ struct GenerateCommand: CommandProtocol {
 
         if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
             process(dictionaries: substructure)
-        }
-    }
-
-    private func removeReferenceDocs(docsPath: String) throws {
-        var isDir: ObjCBool = false
-        if FileManager.default.fileExists(atPath: docsPath, isDirectory: &isDir) {
-            fputs("Removing Reference Docs at '\(docsPath)'.\n", stdout)
-            try FileManager.default.removeItem(atPath: docsPath)
-        } else {
-            fputs("Did not find any Reference Docs at '\(docsPath)'.\n", stdout)
         }
     }
 
