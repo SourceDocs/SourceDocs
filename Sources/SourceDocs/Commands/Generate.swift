@@ -23,7 +23,8 @@ struct GenerateCommandOptions: OptionsProtocol {
         return curry(self.init)
             <*> mode <| Option(key: "spm-module", defaultValue: nil, usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil, usage: "Generate documentation for a Swift module.")
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath, usage: "Output directory (defaults to Docs/Reference).")
+            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
+                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
             <*> mode <| Switch(flag: "c", key: "clean", usage: "Delete output folder before generating documentation.")
             <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
     }

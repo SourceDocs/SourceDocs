@@ -17,10 +17,15 @@ generates beautiful reference documentation. In contrast to those other tools,
 SourceDocs generates markdown files that you can store and browse inline
 within your project repository.
 
+### Features
+- ✅ Browse reference documentation within the project repository (great for
+  private projects)
+- ✅ Browse reference documentation on GitHub Pages (great for public projects)
 
 ## Installation
-Make sure the Swift 4 runtime is installed in your computer
-(Swift 4 comes with Xcode 9).
+
+Requirements:
+- Swift 4 runtime installed in your computer.
 
 ### Homebrew
 
@@ -38,62 +43,66 @@ To generate documentation from your source code, run the `sourcedocs` command
 directly from the root your project.
 
     $ cd ~/path/to/MyAppOrFramework
-    $ sourcedocs
+    $ sourcedocs generate
 
 This command will analyze your MyAppOrFramework project and generate reference
 documentation from all public types found. The documentation is written to
-the directory `Docs/Reference` relative to the root of your project repository.
+the directory `Documentation/Reference` relative to the root of your project repository.
 
 ### Usage options
-Typing `sourcedocs --help` we get a list of all available options:
+Typing `sourcedocs help` we get a list of all available commands:
 
-    $ sourcedocs --help
-    SourceDocs v0.3.0
+    $ sourcedocs help
+    Available commands:
 
-    OVERVIEW: Generate Markdown reference documentation from inline source code comments
+    clean      Delete the output folder and quit.
+    generate   Generates the Markdown documentation
+    help       Display general or command-specific help
+    version    Display the current version of SourceDocs
 
-    USAGE:
-        sourcedocs [xcodebuild arguments]
-        sourcedocs --spm-module <module name>
-        sourcedocs --module <module name> [xcodebuild arguments]
+Typing `sourcedocs help <command>` we get a list of all options for that command:
 
-    OPTIONS:
-      [xcodebuild arguments]
-        Optional parameters to pass to xcodebuild needed to build (scheme, workspace, etc)
+    $ sourcedocs help generate
 
-      --spm-module <module name>
-        Name of the Swift Package Manager module to build
+    Generates the Markdown documentation
 
-      --module <module name> (optional)
-        Name of the Swift module to build with xcodebuild
+    [--spm-module (string)]
+    	Generate documentation for Swift Package Manager module.
 
-      --clean
-        Delete reference documentation directory (Docs/Reference)
+    [--module-name (string)]
+    	Generate documentation for a Swift module.
 
-      --version
-        Prints the executable version
+    [--output-folder (string)]
+    	Output directory (defaults to Documentation/Reference).
 
-      --help
-        Prints this help
+    --clean|-c
+    	Delete output folder before generating documentation.
+
+    [[]]
+    	List of arguments to pass to xcodebuild.
 
 Usually, for most Xcode projects, no parameters are needed at all. `xcodebuild`
 should be able to find the default project and scheme.
 
 If the command fails, try specifying the scheme (`-scheme SchemeName`) or the
-workspace. Any arguments passed to `sourcedocs` will be passed to `xcodebuild`
-without modification.
+workspace. Any arguments passed to `sourcedocs` after `--` will be passed to
+`xcodebuild` without modification.
 
-If you are not using Xcode, you can specify a module name using the
-`--spm-module` or `--module` parameters.
+    $ sourcedocs generate -- -scheme MyScheme
+
+For Swift Package Manager modules, you can the module name using the
+`--spm-module` parameter.
+
+    $ sourcedocs generate --spm-module SourceDocsDemo
 
 
 ## Generated documentation
-SourceDocs writes documentation files to the `Docs/Reference` directory relative
+SourceDocs writes documentation files to the `Documentation/Reference` directory relative
 to your project root. This allows for the generated documentation to live along
 other hand-crafted documentation you might have written or will write in the future.
 
 When specifying a module name, the documentation files will be written to
-`Docs/Reference/<module name>`.
+`Documentation/Reference/<module name>`.
 
 We highly recommend adding the generated documentation to your source code
 repository, so it can be easily browsed inline. GitHub and BitBucket do a great

@@ -1,13 +1,19 @@
 ## Master
 
 #### Breaking
-- None
+- Updated command line argument handling:
+  - Use `sourcedocs generate <options>` to generate documentation.
+  - Use `sourcedocs clean <options>` to delete the output folder.
+  - Use `sourcedocs help <command>` for more help.
+- Update default output directory to `Documentation/Reference`
 
 #### Enhancements
-- None
+- Customize output folder with `--output-folder`.
+- Clean before generating documentation with `--clean`.
+- Terminal output is now routed through stdout/stderr.
 
 #### Bug Fixes
-- None
+- Documentation links now work both on Markdown and rendered GitHub Pages.
 
 
 ## 0.3.0
