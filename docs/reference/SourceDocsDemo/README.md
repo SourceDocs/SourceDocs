@@ -4,9 +4,9 @@ Run `sourcedocs` in the repository root to update this documentation.
 
 ## Protocols
 
--   [Animal](/docs/reference/SourceDocsDemo/protocols/Animal.md)
--   [Nameable](/docs/reference/SourceDocsDemo/protocols/Nameable.md)
--   [Speaker](/docs/reference/SourceDocsDemo/protocols/Speaker.md)
+-   [Animal](protocols/Animal.md)
+-   [Nameable](protocols/Nameable.md)
+-   [Speaker](protocols/Speaker.md)
 
 ## Structs
 
