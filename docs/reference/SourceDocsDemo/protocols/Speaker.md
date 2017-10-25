@@ -1,4 +1,5 @@
 **PROTOCOL**
+
 # `Speaker`
 
 ```swift

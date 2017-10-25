@@ -1,4 +1,5 @@
 **EXTENSION**
+
 # `Nameable`
 
 ## Properties

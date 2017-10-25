@@ -1,7 +1,9 @@
 **STRUCT**
+
 # `Dog`
 
 **Contents**
+
 - [Properties](#properties)
   - `name`
 
