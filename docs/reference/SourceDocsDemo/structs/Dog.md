@@ -1,7 +1,10 @@
 **STRUCT**
 # `Dog`
 
-**Declaration**
+**Contents**
+- [Properties](#properties)
+  - `name`
+
 ```swift
 public struct Dog: Animal, Nameable
 ```
@@ -9,12 +12,10 @@ public struct Dog: Animal, Nameable
 > Common animal many people have as pet
 
 ## Properties
-<details><summary><code>name</code></summary>
+### `name`
 
-**Declaration**
 ```swift
 public let name: String
 ```
 
 > All dogs should have a name
-</details>

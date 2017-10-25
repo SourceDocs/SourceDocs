@@ -2,13 +2,10 @@
 # `Dog`
 
 ## Methods
-<details><summary><code>speak()</code></summary>
+### `speak()`
 
-**Declaration**
 ```swift
 public func speak()
 ```
 
 > Dogs know how to speak!
-
-</details>

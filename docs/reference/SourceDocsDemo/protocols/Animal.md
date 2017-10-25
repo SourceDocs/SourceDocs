@@ -1,7 +1,6 @@
 **PROTOCOL**
 # `Animal`
 
-**Declaration**
 ```swift
 public protocol Animal
 ```
@@ -9,13 +8,10 @@ public protocol Animal
 > Describes an animal hierarchy of things
 
 ## Methods
-<details><summary><code>speak()</code></summary>
+### `speak()`
 
-**Declaration**
 ```swift
 func speak()
 ```
 
 > Print a greeting message
-
-</details>
