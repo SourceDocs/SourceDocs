@@ -1,6 +1,18 @@
 ## Master
 
 #### Breaking
+- None
+
+#### Enhancements
+- None
+
+#### Bug Fixes
+- None
+
+
+## 0.4.0
+
+#### Breaking
 - Updated command line argument handling:
   - Use `sourcedocs generate <options>` to generate documentation.
   - Use `sourcedocs clean <options>` to delete the output folder.
