@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Curry",
+        "repositoryURL": "https://github.com/thoughtbot/Curry.git",
+        "state": {
+          "branch": null,
+          "revision": "c9f1a37e0e12ad38af7933b9386bdc5f9e6222dc",
+          "version": "3.0.0"
+        }
+      },
+      {
         "package": "MarkdownGenerator",
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {

@@ -23,7 +23,7 @@ class MarkdownIndex {
     func write(to docsPath: String) throws {
         extensions = flattenedExtensions()
 
-        print("Generating Markdown documentation...".green, to: &StandardIO.standardOutput)
+        fputs("Generating Markdown documentation...\n".green, stdout)
         var content: [MarkdownConvertible] = [
             """
             # Inline Reference Documentation
@@ -40,7 +40,7 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
         try MarkdownFile(filename: "README", basePath: docsPath, content: content).write()
-        print("Done 🎉".green, to: &StandardIO.standardOutput)
+        fputs("Done 🎉\n".green, stdout)
     }
 
     private func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
@@ -52,12 +52,12 @@ class MarkdownIndex {
         // Make and write files
         let files = makeFiles(with: items, basePath: "\(docsPath)/\(collectionTitle.lowercased())")
         try files.forEach { file in
-            print("  Writting documentation file: \(file.filePath)", terminator: "", to: &StandardIO.standardOutput)
+            fputs("  Writting documentation file: \(file.filePath)", stdout)
             do {
                 try file.write()
-                print(" ✔".green, to: &StandardIO.standardOutput)
+                fputs(" ✔\n".green, stdout)
             } catch let error {
-                print(" ❌", to: &StandardIO.standardOutput)
+                fputs(" ❌\n", stdout)
                 throw error
             }
         }
