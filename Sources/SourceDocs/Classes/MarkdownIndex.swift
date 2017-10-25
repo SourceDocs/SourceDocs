@@ -39,7 +39,7 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
-        try MarkdownFile(filename: "README", basePath: docsPath, content: content).write()
+        try writeFile(file: MarkdownFile(filename: "README", basePath: docsPath, content: content))
         fputs("Done 🎉\n".green, stdout)
     }
 
@@ -51,23 +51,28 @@ class MarkdownIndex {
 
         // Make and write files
         let files = makeFiles(with: items, basePath: "\(docsPath)/\(collectionTitle.lowercased())")
-        try files.forEach { file in
-            fputs("  Writting documentation file: \(file.filePath)", stdout)
-            do {
-                try file.write()
-                fputs(" ✔\n".green, stdout)
-            } catch let error {
-                fputs(" ❌\n", stdout)
-                throw error
-            }
-        }
+        try files.forEach { try writeFile(file: $0) }
 
         // Make links for index
-        let links = files.map { MarkdownLink(text: $0.filename, url: "/\($0.filePath)") }
+        let links: [MarkdownLink] = files.map {
+            let url = "\(collectionTitle.lowercased())/\($0.filename).md"
+            return MarkdownLink(text: $0.filename, url: url)
+        }
         return [
             "## \(collectionTitle)",
             MarkdownList(items: links.sorted { $0.text < $1.text })
         ]
+    }
+
+    private func writeFile(file: MarkdownFile) throws {
+        fputs("  Writting documentation file: \(file.filePath)", stdout)
+        do {
+            try file.write()
+            fputs(" ✔\n".green, stdout)
+        } catch let error {
+            fputs(" ❌\n", stdout)
+            throw error
+        }
     }
 
     private func makeFiles(with items: [MarkdownConvertible & SwiftDocDictionaryInitializable], basePath: String) -> [MarkdownFile] {
