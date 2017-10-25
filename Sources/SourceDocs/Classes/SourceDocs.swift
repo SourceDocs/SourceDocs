@@ -44,7 +44,7 @@ struct SourceDocs {
             }
         }
         catch let error {
-            print(error.localizedDescription.red)
+            print(error.localizedDescription.red, to: &StandardIO.standardError)
         }
     }
 
@@ -78,24 +78,24 @@ struct SourceDocs {
           --help
             Prints this help
         """
-        print(help)
+        print(help, to: &StandardIO.standardOutput)
     }
 
     private func removeReferenceDocs() throws {
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: docsPath, isDirectory: &isDir) {
-            print("Removing Reference Docs at '\(docsPath)'")
+            print("Removing Reference Docs at '\(docsPath)'", to: &StandardIO.standardOutput)
             try FileManager.default.removeItem(atPath: docsPath)
-            print("Done.".green)
+            print("Done.".green, to: &StandardIO.standardOutput)
         } else {
-            print("Could not find any Reference Docs at '\(docsPath)'")
+            print("Did not find any Reference Docs at '\(docsPath)'", to: &StandardIO.standardOutput)
         }
     }
 
     private func runSPMModule(moduleName: String) throws {
         guard let docs = Module(spmName: moduleName)?.docs else {
-            print("Error: Failed to generate documentation for module '\(moduleName)'".red)
-            print("  Please, try running 'sourcekitten doc --spm-module \(moduleName)' for more information.")
+            print("Error: Failed to generate documentation for module '\(moduleName)'".red, to: &StandardIO.standardError)
+            print("Please, try running 'sourcekitten doc --spm-module \(moduleName)' for more information.", to: &StandardIO.standardError)
             return
         }
         process(docs: docs)
@@ -104,8 +104,8 @@ struct SourceDocs {
 
     private func runSwiftModule(moduleName: String, args: [String]) throws {
         guard let docs = Module(xcodeBuildArguments: args, name: moduleName)?.docs else {
-            print("Error: Failed to generate documentation for module '\(moduleName)'".red)
-            print(" > Please, try running 'sourcekitten doc --module-name \(moduleName)' for more information.")
+            print("Error: Failed to generate documentation for module '\(moduleName)'".red, to: &StandardIO.standardError)
+            print("Please, try running 'sourcekitten doc --module-name \(moduleName)' for more information.", to: &StandardIO.standardError)
             return
         }
         process(docs: docs)
@@ -114,8 +114,8 @@ struct SourceDocs {
 
     private func runXcode(args: [String]) throws {
         guard let docs = Module(xcodeBuildArguments: args, name: nil)?.docs else {
-            print("Error: Failed to generate documentation".red)
-            print(" > Please, try running 'sourcekitten doc' for more information.")
+            print("Error: Failed to generate documentation".red, to: &StandardIO.standardError)
+            print("Please, try running 'sourcekitten doc' for more information.", to: &StandardIO.standardError)
             return
         }
         process(docs: docs)

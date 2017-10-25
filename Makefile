@@ -6,7 +6,7 @@ INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
 BUILD_PATH = .build/release/$(TOOL_NAME)
 TAR_FILENAME = $(TOOL_NAME)-$(VERSION).tar.gz
 
-.PHONY: build demo
+.PHONY: build docs
 
 install: build
 	install -d "$(PREFIX)/bin"
