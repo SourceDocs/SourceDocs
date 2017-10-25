@@ -12,7 +12,7 @@
       },
       {
         "package": "Commandant",
-        "repositoryURL": "https://github.com/Carthage/Commandant.git",
+        "repositoryURL": "https://github.com/carthage/Commandant.git",
         "state": {
           "branch": null,
           "revision": "c281992c31c3f41c48b5036c5a38185eaec32626",
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {
           "branch": null,
-          "revision": "9c8c3fe3ab0a3fe43a1592add8d4b276a8e24e99",
-          "version": "0.2.0"
+          "revision": "a804d79a7fc71afba25d43ce772b61a22eb10b34",
+          "version": "0.2.1"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
           "branch": null,
-          "revision": "7c4c6d8194389493f841b75fafa8c29b274c7ea6",
-          "version": "0.18.1"
+          "revision": "18e391d9b1ed5032d401015740f3c19e7937e279",
+          "version": "0.18.2"
         }
       },
       {

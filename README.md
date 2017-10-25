@@ -15,7 +15,7 @@ documentation files from inline source code comments.
 Similar to Sphinx or Jazzy, SourceDocs parses your Swift source code and
 generates beautiful reference documentation. In contrast to those other tools,
 SourceDocs generates markdown files that you can store and browse inline
-within your project repository.
+within your project repository or render with GitHub Pages.
 
 ### Features
 - ✅ Browse reference documentation within the project repository (great for
