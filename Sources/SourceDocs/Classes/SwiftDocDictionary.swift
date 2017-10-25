@@ -42,30 +42,16 @@ extension SwiftDocDictionaryInitializable {
     var name: String {
         return dictionary.get(.name) ?? "[NO NAME]"
     }
+
     var comment: String {
         return dictionary.get(.documentationComment) ?? ""
     }
+
     var declaration: String {
         guard let declaration: String = dictionary.get(.parsedDeclaration) else {
             return ""
         }
-        return codeBlock(title: "Declaration", code: declaration)
-    }
-    var typename: String {
-        return ""
-//        guard let typename: String = dictionary.get(.typeName) else {
-//            return ""
-//        }
-//        return codeBlock(title: "Inferred Type", code: typename)
-    }
-
-    func codeBlock(title: String, code: String) -> String {
-        return """
-        **\(title)**
-        ```swift
-        \(code)
-        ```
-        """
+        return MarkdownCodeBlock(code: declaration, style: .backticks(language: "swift")).markdown
     }
 
     func collectionOutput(title: String, collection: [MarkdownConvertible]) -> String {

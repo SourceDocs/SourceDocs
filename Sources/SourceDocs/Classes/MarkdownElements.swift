@@ -49,8 +49,6 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(declaration)
 
-        \(typename)
-
         \(comment.blockquoted)
 
         \(properties)
@@ -98,8 +96,6 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(declaration)
 
-        \(typename)
-
         \(comment.blockquoted)
 
         \(cases)
@@ -124,8 +120,6 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
     var markdown: String {
         let details = """
         \(declaration)
-
-        \(typename)
 
         \(comment.blockquoted)
         """
@@ -162,8 +156,6 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(declaration)
 
-        \(typename)
-
         \(comment.blockquoted)
 
         \(properties)
@@ -189,8 +181,6 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
         # `\(name)`
 
         \(declaration)
-
-        \(typename)
 
         \(comment.blockquoted)
         """
@@ -250,8 +240,6 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let details = """
         \(declaration)
 
-        \(typename)
-
         \(comment.blockquoted)
         """
         return MarkdownCollapsibleSection(summary: "<code>\(name)</code>", details: details).markdown
@@ -289,8 +277,6 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
     var markdown: String {
         let details = """
         \(declaration)
-
-        \(typename)
 
         \(comment.blockquoted)
 
