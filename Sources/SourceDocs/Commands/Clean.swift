@@ -44,7 +44,7 @@ struct CleanCommand: CommandProtocol {
             fputs("Removing reference documentation at '\(docsPath)'...".green, stdout)
             do {
                 try FileManager.default.removeItem(atPath: docsPath)
-                fputs(" ✔\n".green, stdout)
+                fputs(" ✔".green + "\n", stdout)
             } catch let error {
                 fputs(" ❌\n", stdout)
                 throw error
