@@ -16,6 +16,7 @@ struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
     let outputFolder: String
+    let includeModuleNameInPath: Bool
     let clean: Bool
     let xcodeArguments: [String]
 
@@ -25,6 +26,7 @@ struct GenerateCommandOptions: OptionsProtocol {
             <*> mode <| Option(key: "module-name", defaultValue: nil, usage: "Generate documentation for a Swift module.")
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Switch(flag: "m", key: "module-name-path", usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean", usage: "Delete output folder before generating documentation.")
             <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
     }
@@ -38,49 +40,54 @@ struct GenerateCommand: CommandProtocol {
 
     func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
-            if options.clean {
-                try CleanCommand.removeReferenceDocs(docsPath: options.outputFolder)
-            }
             if let module = options.spmModule {
-                try runSPMModule(moduleName: module, docsPath: options.outputFolder)
+                let docs = try parseSPMModule(moduleName: module)
+                try generateDocumentation(docs: docs, options: options, module: module)
             } else if let module = options.moduleName {
-                try runSwiftModule(moduleName: module, args: options.xcodeArguments, docsPath: options.outputFolder)
+                let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments)
+                try generateDocumentation(docs: docs, options: options, module: module)
             } else {
-                try runXcode(args: options.xcodeArguments, docsPath: options.outputFolder)
+                let docs = try parseXcodeProject(args: options.xcodeArguments)
+                try generateDocumentation(docs: docs, options: options, module: "")
             }
             return Result.success(())
         }
+        catch let error as SourceDocsError {
+            return Result.failure(error)
+        }
         catch let error {
-            fputs("\(error.localizedDescription)\n)".red, stderr)
-            return Result.failure(SourceDocsError.internalError)
+            return Result.failure(SourceDocsError.internalError(message: error.localizedDescription))
         }
     }
 
-    private func runSPMModule(moduleName: String, docsPath: String) throws {
+    private func parseSPMModule(moduleName: String) throws -> [SwiftDocs] {
         guard let docs = Module(spmName: moduleName)?.docs else {
-            fputs("Error: Failed to generate documentation for SPM module '\(moduleName)'.\n".red, stderr)
-            return
+            throw SourceDocsError.internalError(message: "Error: Failed to generate documentation for SPM module '\(moduleName)'.")
         }
-        process(docs: docs)
-        try MarkdownIndex.shared.write(to: "\(docsPath)/\(moduleName)")
+        return docs
     }
 
-    private func runSwiftModule(moduleName: String, args: [String], docsPath: String) throws {
+    private func parseSwiftModule(moduleName: String, args: [String]) throws -> [SwiftDocs] {
         guard let docs = Module(xcodeBuildArguments: args, name: moduleName)?.docs else {
-            fputs("Error: Failed to generate documentation for module '\(moduleName)'.\n".red, stderr)
-            return
+            throw SourceDocsError.internalError(message: "Error: Failed to generate documentation for module '\(moduleName)'.")
         }
-        process(docs: docs)
-        try MarkdownIndex.shared.write(to: "\(docsPath)/\(moduleName)")
+        return docs
     }
 
-    private func runXcode(args: [String], docsPath: String) throws {
+    private func parseXcodeProject(args: [String]) throws -> [SwiftDocs] {
         guard let docs = Module(xcodeBuildArguments: args, name: nil)?.docs else {
-            fputs("Error: Failed to generate documentation.\n".red, stderr)
-            return
+            throw SourceDocsError.internalError(message: "Error: Failed to generate documentation.")
+        }
+        return docs
+    }
+
+    private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String) throws {
+        let docsPath = options.includeModuleNameInPath ? "\(options.outputFolder)/\(module)" : options.outputFolder
+        if options.clean {
+            try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
         process(docs: docs)
-        try MarkdownIndex.shared.write(to: "\(docsPath)")
+        try MarkdownIndex.shared.write(to: docsPath)
     }
 
     private func process(docs: [SwiftDocs]) {

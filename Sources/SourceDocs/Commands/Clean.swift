@@ -33,8 +33,7 @@ struct CleanCommand: CommandProtocol {
             return Result.success(())
         }
         catch let error {
-            fputs("\(error.localizedDescription)\n)".red, stderr)
-            return Result.failure(SourceDocsError.internalError)
+            return Result.failure(SourceDocsError.internalError(message: error.localizedDescription))
         }
     }
 

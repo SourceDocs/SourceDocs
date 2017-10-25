@@ -8,5 +8,14 @@
 import Foundation
 
 enum SourceDocsError: Error {
-    case internalError
+    case internalError(message: String)
+}
+
+extension SourceDocsError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case let .internalError(message):
+            return message
+        }
+    }
 }
