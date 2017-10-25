@@ -60,6 +60,7 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         return """
         **Contents**
+
         \(tableOfContents.joined(separator: "\n"))
         """
     }
@@ -70,6 +71,7 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         return """
         **\(elementType.uppercased())**
+
         # `\(name)`
 
         \(tableOfContents)
@@ -140,6 +142,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         return """
         **Contents**
+
         \(tableOfContents.joined(separator: "\n"))
         """
     }
@@ -150,6 +153,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
         **ENUM**
+
         # `\(name)`
 
         \(tableOfContents)
@@ -213,6 +217,7 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
         **PROTOCOL**
+
         # `\(name)`
 
         \(declaration)
@@ -239,6 +244,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
     var markdown: String {
         return """
         **TYPEALIAS**
+
         # `\(name)`
 
         \(declaration)
@@ -278,6 +284,7 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """
         **EXTENSION**
+
         # `\(name)`
 
         \(properties)
@@ -332,6 +339,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let table = MarkdownTable(headers: ["Name", "Description"], data: data)
         return """
         #### Parameters
+        
         \(table.markdown)
         """
     }
