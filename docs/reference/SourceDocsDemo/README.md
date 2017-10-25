@@ -4,7 +4,7 @@ Run `sourcedocs` in the repository root to update this documentation.
 
 ## Protocols
 
--   [Animal](protocols/Animal.md)
+-   [Animal-o](protocols/Animal.md)
 -   [Nameable](protocols/Nameable.md)
 -   [Speaker](protocols/Speaker.md)
 
