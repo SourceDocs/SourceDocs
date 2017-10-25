@@ -20,7 +20,7 @@ extension Array {
 
 struct SourceDocs {
 
-    let version = "0.3.0"
+    let version = "0.4.0"
 
     /// Base path for generated Markdown reference documentation
     /// Note: Constant for now, could be parametrized later on
