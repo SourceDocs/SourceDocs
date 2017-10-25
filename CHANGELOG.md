@@ -9,8 +9,10 @@
 
 #### Enhancements
 - Customize output folder with `--output-folder`.
-- Clean before generating documentation with `--clean`.
+- Clean output before generating documentation with `--clean`.
 - Terminal output is now routed through stdout/stderr.
+- Removed "Declaration" title to reduce noise.
+- New flag `--module-name-path` to explicitly include module name in output path.
 
 #### Bug Fixes
 - Documentation links now work both on Markdown and rendered GitHub Pages.
