@@ -20,8 +20,7 @@ uninstall:
 	rm -f $(INSTALL_PATH)
 
 docs:
-	swift run sourcedocs --clean
-	swift run sourcedocs --spm-module SourceDocsDemo
+	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference
 
 get_sha:
 	wget https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz -O $(TAR_FILENAME)

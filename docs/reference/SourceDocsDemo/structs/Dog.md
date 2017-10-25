@@ -3,7 +3,7 @@
 
 **Contents**
 - [Properties](#properties)
-- `name`
+  - `name`
 
 **Declaration**
 ```swift
