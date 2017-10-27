@@ -296,6 +296,7 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
 struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
     let dictionary: SwiftDocDictionary
+    var collapsible = true
 
     init?(dictionary: SwiftDocDictionary) {
         guard dictionary.hasPublicACL && dictionary.isKind(.varInstance) else {
@@ -304,20 +305,34 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.dictionary = dictionary
     }
 
-    var markdown: String {
-        return """
-        ### `\(name)`
+    init?(dictionary: SwiftDocDictionary, collapsible: Bool) {
+        self.init(dictionary: dictionary)
+        self.collapsible = collapsible
+    }
 
+    var markdown: String {
+        let details = """
         \(declaration)
 
         \(comment.blockquoted)
         """
+
+        if collapsible {
+            return MarkdownCollapsibleSection(summary: "<code>\(name)</code>", details: details).markdown
+        } else {
+            return """
+            ### `\(name)`
+
+            \(details)
+            """
+        }
     }
 }
 
 struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
     let dictionary: SwiftDocDictionary
     let parameters: [MarkdownMethodParameter]
+    var collapsible = true
 
     init?(dictionary: SwiftDocDictionary) {
         guard dictionary.hasPublicACL && dictionary.isKind([.functionMethodInstance, .functionMethodStatic, .functionMethodClass]) else {
@@ -345,15 +360,23 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     var markdown: String {
-        return """
-        ### `\(name)`
-
+        let details = """
         \(declaration)
 
         \(comment.blockquoted)
 
         \(parametersTable)
         """
+
+        if collapsible {
+            return MarkdownCollapsibleSection(summary: "<code>\(name)</code>", details: details).markdown
+        } else {
+            return """
+            ### `\(name)`
+
+            \(details)
+            """
+        }
     }
 }
 

@@ -12,7 +12,7 @@
       },
       {
         "package": "Commandant",
-        "repositoryURL": "https://github.com/carthage/Commandant.git",
+        "repositoryURL": "https://github.com/Carthage/Commandant.git",
         "state": {
           "branch": null,
           "revision": "c281992c31c3f41c48b5036c5a38185eaec32626",
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {
           "branch": null,
-          "revision": "a804d79a7fc71afba25d43ce772b61a22eb10b34",
-          "version": "0.2.1"
+          "revision": "f135a97ef187abd9e5d6c6935e7e621abd07b8e8",
+          "version": "0.3.0"
         }
       },
       {

@@ -1,5 +1,5 @@
 TOOL_NAME = sourcedocs
-VERSION = 0.3.0
+VERSION = 0.4.0
 
 PREFIX = /usr/local
 INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
@@ -13,7 +13,6 @@ install: build
 	install -C -m 755 $(BUILD_PATH) $(INSTALL_PATH)
 
 build:
-	swift package clean
 	swift build --disable-sandbox -c release -Xswiftc -static-stdlib
 
 uninstall:

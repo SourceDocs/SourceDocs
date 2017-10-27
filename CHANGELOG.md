@@ -10,6 +10,19 @@
 - None
 
 
+## 0.5.0
+
+#### Breaking
+- None
+
+#### Enhancements
+- Enable collapsible blocks for a cleaner output with `--collapsible`.
+- Enable table of contents for each type with `--table-of-contents`.
+
+#### Bug Fixes
+- None
+
+
 ## 0.4.0
 
 #### Breaking

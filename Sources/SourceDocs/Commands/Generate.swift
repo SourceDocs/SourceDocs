@@ -18,6 +18,8 @@ struct GenerateCommandOptions: OptionsProtocol {
     let outputFolder: String
     let includeModuleNameInPath: Bool
     let clean: Bool
+    let collapsibleBlocks: Bool
+    let tableOfContents: Bool
     let xcodeArguments: [String]
 
     static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
@@ -28,6 +30,8 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
             <*> mode <| Switch(flag: "m", key: "module-name-path", usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean", usage: "Delete output folder before generating documentation.")
+            <*> mode <| Switch(flag: "l", key: "collapsible", usage: "Put methods, properties and enum cases inside collapsible blocks.")
+            <*> mode <| Switch(flag: "t", key: "table-of-contents", usage: "Generate a table of contents with properties and methods for each type.")
             <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
     }
 }
@@ -86,20 +90,22 @@ struct GenerateCommand: CommandProtocol {
         if options.clean {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
-        process(docs: docs)
+        process(docs: docs, options: options)
         try MarkdownIndex.shared.write(to: docsPath)
     }
 
-    private func process(docs: [SwiftDocs]) {
+    private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
         let dictionaries = docs.flatMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
-        process(dictionaries: dictionaries)
+        process(dictionaries: dictionaries, options: options)
     }
 
-    private func process(dictionaries: [SwiftDocDictionary]) {
-        dictionaries.forEach { process(dictionary: $0) }
+    private func process(dictionaries: [SwiftDocDictionary], options: GenerateCommandOptions) {
+        dictionaries.forEach { process(dictionary: $0, options: options) }
     }
 
-    private func process(dictionary: SwiftDocDictionary) {
+    private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
+        let collapsible = options.collapsibleBlocks
+
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary) {
                 MarkdownIndex.shared.structs.append(item)
@@ -118,7 +124,7 @@ struct GenerateCommand: CommandProtocol {
         }
 
         if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
-            process(dictionaries: substructure)
+            process(dictionaries: substructure, options: options)
         }
     }
 
