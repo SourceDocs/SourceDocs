@@ -8,7 +8,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.18.0"),
-        .package(url: "https://github.com/carthage/Commandant.git", from: "0.12.0"),
+        .package(url: "https://github.com/Carthage/Commandant.git", from: "0.12.0"),
         .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.1.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
         .package(url: "https://github.com/thoughtbot/Curry.git", from: "3.0.0"),
