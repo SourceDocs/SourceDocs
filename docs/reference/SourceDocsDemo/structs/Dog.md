@@ -2,11 +2,6 @@
 
 # `Dog`
 
-**Contents**
-
-- [Properties](#properties)
-  - `name`
-
 ```swift
 public struct Dog: Animal, Nameable
 ```
