@@ -10,7 +10,14 @@ import Foundation
 import MarkdownGenerator
 import Rainbow
 
+struct MarkdownOptions {
+    var collapsibleBlocks: Bool
+    var tableOfContents: Bool
+}
+
 class MarkdownIndex {
+
+    // Not very happy with the singleton implementation here, looking for alternatives.
     static let shared = MarkdownIndex()
 
     var structs: [MarkdownObject] = []
@@ -26,9 +33,9 @@ class MarkdownIndex {
         fputs("Generating Markdown documentation...\n".green, stdout)
         var content: [MarkdownConvertible] = [
             """
-            # Inline Reference Documentation
-            This Inline Reference Documentation has been generated with [SourceDocs](https://github.com/eneko/SourceDocs).
-            Run `sourcedocs` in the repository root to update this documentation.
+            # Reference Documentation
+            This Reference Documentation has been generated with
+            [SourceDocs](https://github.com/eneko/SourceDocs).
             """
         ]
 
@@ -75,14 +82,16 @@ class MarkdownIndex {
         }
     }
 
-    private func makeFiles(with items: [MarkdownConvertible & SwiftDocDictionaryInitializable], basePath: String) -> [MarkdownFile] {
+    private func makeFiles(with items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
+                           basePath: String) -> [MarkdownFile] {
         return items.map { MarkdownFile(filename: $0.name, basePath: basePath, content: [$0]) }
     }
 
-    /// While other types can only have one declaration within a Swift module, there can be multiple extensions for the same type.
+    /// While other types can only have one declaration within a Swift module,
+    /// there can be multiple extensions for the same type.
     private func flattenedExtensions() -> [MarkdownExtension] {
         let extensionsByType = zip(extensions.map { $0.name }, extensions)
-        let groupedByType = Dictionary(extensionsByType) { (existing, new) -> MarkdownExtension in
+        let groupedByType = Dictionary(extensionsByType) { existing, new -> MarkdownExtension in
             var merged = existing
             merged.methods += new.methods
             merged.properties += new.properties

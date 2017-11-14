@@ -1,0 +1,56 @@
+//
+//  MarkdownProtocol.swift
+//  SourceDocs
+//
+//  Created by Eneko Alonso on 11/13/17.
+//
+
+import Foundation
+import SourceKittenFramework
+import MarkdownGenerator
+
+struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
+    let dictionary: SwiftDocDictionary
+    let options: MarkdownOptions
+
+    let properties: [MarkdownVariable]
+    let methods: [MarkdownMethod]
+
+    init?(dictionary: SwiftDocDictionary) {
+        fatalError("Not supported")
+    }
+
+    init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
+        guard dictionary.hasPublicACL && dictionary.isKind([.protocol]) else {
+            return nil
+        }
+        self.dictionary = dictionary
+        self.options = options
+
+        if let structure: [SwiftDocDictionary] = dictionary.get(.substructure) {
+            properties = structure.flatMap { MarkdownVariable(dictionary: $0, options: options) }
+            methods = structure.flatMap { MarkdownMethod(dictionary: $0, options: options) }
+        } else {
+            properties = []
+            methods = []
+        }
+    }
+
+    var markdown: String {
+        let properties = collectionOutput(title: "## Properties", collection: self.properties)
+        let methods = collectionOutput(title: "## Methods", collection: self.methods)
+        return """
+        **PROTOCOL**
+
+        # `\(name)`
+
+        \(declaration)
+
+        \(comment.blockquoted)
+
+        \(properties)
+
+        \(methods)
+        """
+    }
+}

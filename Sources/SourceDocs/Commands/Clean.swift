@@ -31,8 +31,7 @@ struct CleanCommand: CommandProtocol {
         do {
             try CleanCommand.removeReferenceDocs(docsPath: options.outputFolder)
             return Result.success(())
-        }
-        catch let error {
+        } catch let error {
             return Result.failure(SourceDocsError.internalError(message: error.localizedDescription))
         }
     }

@@ -24,14 +24,20 @@ struct GenerateCommandOptions: OptionsProtocol {
 
     static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
-            <*> mode <| Option(key: "spm-module", defaultValue: nil, usage: "Generate documentation for Swift Package Manager module.")
-            <*> mode <| Option(key: "module-name", defaultValue: nil, usage: "Generate documentation for a Swift module.")
+            <*> mode <| Option(key: "spm-module", defaultValue: nil,
+                               usage: "Generate documentation for Swift Package Manager module.")
+            <*> mode <| Option(key: "module-name", defaultValue: nil,
+                               usage: "Generate documentation for a Swift module.")
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
-            <*> mode <| Switch(flag: "m", key: "module-name-path", usage: "Include the module name as part of the output folder path.")
-            <*> mode <| Switch(flag: "c", key: "clean", usage: "Delete output folder before generating documentation.")
-            <*> mode <| Switch(flag: "l", key: "collapsible", usage: "Put methods, properties and enum cases inside collapsible blocks.")
-            <*> mode <| Switch(flag: "t", key: "table-of-contents", usage: "Generate a table of contents with properties and methods for each type.")
+            <*> mode <| Switch(flag: "m", key: "module-name-path",
+                               usage: "Include the module name as part of the output folder path.")
+            <*> mode <| Switch(flag: "c", key: "clean",
+                               usage: "Delete output folder before generating documentation.")
+            <*> mode <| Switch(flag: "l", key: "collapsible",
+                               usage: "Put methods, properties and enum cases inside collapsible blocks.")
+            <*> mode <| Switch(flag: "t", key: "table-of-contents",
+                               usage: "Generate a table of contents with properties and methods for each type.")
             <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
     }
 }
@@ -55,25 +61,25 @@ struct GenerateCommand: CommandProtocol {
                 try generateDocumentation(docs: docs, options: options, module: "")
             }
             return Result.success(())
-        }
-        catch let error as SourceDocsError {
+        } catch let error as SourceDocsError {
             return Result.failure(error)
-        }
-        catch let error {
+        } catch let error {
             return Result.failure(SourceDocsError.internalError(message: error.localizedDescription))
         }
     }
 
     private func parseSPMModule(moduleName: String) throws -> [SwiftDocs] {
         guard let docs = Module(spmName: moduleName)?.docs else {
-            throw SourceDocsError.internalError(message: "Error: Failed to generate documentation for SPM module '\(moduleName)'.")
+            let message = "Error: Failed to generate documentation for SPM module '\(moduleName)'."
+            throw SourceDocsError.internalError(message: message)
         }
         return docs
     }
 
     private func parseSwiftModule(moduleName: String, args: [String]) throws -> [SwiftDocs] {
         guard let docs = Module(xcodeBuildArguments: args, name: moduleName)?.docs else {
-            throw SourceDocsError.internalError(message: "Error: Failed to generate documentation for module '\(moduleName)'.")
+            let message = "Error: Failed to generate documentation for module '\(moduleName)'."
+            throw SourceDocsError.internalError(message: message)
         }
         return docs
     }
@@ -104,21 +110,21 @@ struct GenerateCommand: CommandProtocol {
     }
 
     private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
-        let collapsible = options.collapsibleBlocks
+        let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
+                                              tableOfContents: options.tableOfContents)
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
-            if kind == .struct, let item = MarkdownObject(dictionary: dictionary) {
+            if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.structs.append(item)
-            } else if kind == .class, let item = MarkdownObject(dictionary: dictionary) {
+            } else if kind == .class, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.classes.append(item)
-            } else if [.extension, .extensionProtocol, .extensionStruct, .extensionClass, .extensionEnum].contains(kind),
-                let item = MarkdownExtension(dictionary: dictionary) {
+            } else if let item = MarkdownExtension(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.extensions.append(item)
-            } else if kind == .enum, let item = MarkdownEnum(dictionary: dictionary) {
+            } else if let item = MarkdownEnum(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.enums.append(item)
-            } else if kind == .protocol, let item = MarkdownProtocol(dictionary: dictionary) {
+            } else if let item = MarkdownProtocol(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.protocols.append(item)
-            } else if kind == .typealias, let item = MarkdownTypealias(dictionary: dictionary) {
+            } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.typealiases.append(item)
             }
         }

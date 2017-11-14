@@ -1,0 +1,34 @@
+included:
+  - Sources
+  - Tests
+
+opt_in_rules:
+  - attributes
+  - closure_end_indentation
+  - closure_spacing 
+  - conditional_returns_on_newline
+  - empty_count
+  - explicit_enum_raw_value
+  - fatal_error_message
+  - first_where
+  - force_unwrapping
+  - joined_default_parameter
+  - let_var_whitespace
+  - nimble_operator
+  - no_extension_access_modifier
+  - number_separator
+  - object_literal
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - private_outlet
+  - prohibited_super_call
+  - quick_discouraged_call 
+  - redundant_nil_coalescing
+  - single_test_class
+  - strict_fileprivate
+  - switch_case_on_newline
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - vertical_parameter_alignment_on_call
+
