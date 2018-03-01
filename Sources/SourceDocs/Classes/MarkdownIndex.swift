@@ -72,7 +72,7 @@ class MarkdownIndex {
     }
 
     private func writeFile(file: MarkdownFile) throws {
-        fputs("  Writting documentation file: \(file.filePath)", stdout)
+        fputs("  Writing documentation file: \(file.filePath)", stdout)
         do {
             try file.write()
             fputs(" ✔\n".green, stdout)
