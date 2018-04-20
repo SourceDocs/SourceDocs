@@ -7,11 +7,11 @@ let package = Package(
         .executable(name: "sourcedocs", targets: ["SourceDocs"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.18.0"),
-        .package(url: "https://github.com/Carthage/Commandant.git", from: "0.12.0"),
-        .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.1.0"),
+        .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.20.0"),
+        .package(url: "https://github.com/Carthage/Commandant.git", from: "0.13.0"),
+        .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.4.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
-        .package(url: "https://github.com/thoughtbot/Curry.git", from: "3.0.0"),
+        .package(url: "https://github.com/thoughtbot/Curry.git", from: "4.0.1"),
     ],
     targets: [
         .target(name: "SourceDocs", dependencies: [

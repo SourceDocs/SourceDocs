@@ -101,7 +101,7 @@ struct GenerateCommand: CommandProtocol {
     }
 
     private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
-        let dictionaries = docs.flatMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
+        let dictionaries = docs.compactMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
         process(dictionaries: dictionaries, options: options)
     }
 
