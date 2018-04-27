@@ -28,8 +28,8 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.options = options
 
         if let structure: [SwiftDocDictionary] = dictionary.get(.substructure) {
-            properties = structure.flatMap { MarkdownVariable(dictionary: $0, options: options) }
-            methods = structure.flatMap { MarkdownMethod(dictionary: $0, options: options) }
+            properties = structure.compactMap { MarkdownVariable(dictionary: $0, options: options) }
+            methods = structure.compactMap { MarkdownMethod(dictionary: $0, options: options) }
         } else {
             properties = []
             methods = []

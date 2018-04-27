@@ -29,15 +29,15 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.options = options
 
         if let structure: [SwiftDocDictionary] = dictionary.get(.substructure) {
-            cases = structure.flatMap {
+            cases = structure.compactMap {
                 guard let substructure: [SwiftDocDictionary] = $0.get(.substructure),
                     let first = substructure.first else {
                         return nil
                 }
                 return MarkdownEnumCaseElement(dictionary: first)
             }
-            properties = structure.flatMap { MarkdownVariable(dictionary: $0, options: options) }
-            methods = structure.flatMap { MarkdownMethod(dictionary: $0, options: options) }
+            properties = structure.compactMap { MarkdownVariable(dictionary: $0, options: options) }
+            methods = structure.compactMap { MarkdownMethod(dictionary: $0, options: options) }
         } else {
             cases = []
             properties = []

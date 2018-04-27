@@ -30,7 +30,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.options = options
 
         if let params: [SwiftDocDictionary] = dictionary.get(.docParameters) {
-            parameters = params.flatMap { MarkdownMethodParameter(dictionary: $0) }
+            parameters = params.compactMap { MarkdownMethodParameter(dictionary: $0) }
         } else {
             parameters = []
         }
@@ -79,7 +79,7 @@ struct MarkdownMethodParameter: SwiftDocDictionaryInitializable {
         self.dictionary = dictionary
         name = dictionary["name"] as? String ?? "[NO NAME]"
         if let discussion = dictionary["discussion"] as? [SwiftDocDictionary] {
-            description = discussion.flatMap { $0["Para"] as? String }.joined(separator: " ")
+            description = discussion.compactMap { $0["Para"] as? String }.joined(separator: " ")
         } else {
             description = ""
         }
