@@ -49,7 +49,7 @@ extension SwiftDocDictionaryInitializable {
     }
 
     var declaration: String {
-        guard let declaration: String = dictionary.get(.parsedDeclaration) else {
+        guard let declaration: String = dictionary.get(.docDeclaration) else {
             return ""
         }
         return MarkdownCodeBlock(code: declaration, style: .backticks(language: "swift")).markdown
