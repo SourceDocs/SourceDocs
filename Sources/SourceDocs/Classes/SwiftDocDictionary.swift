@@ -45,7 +45,18 @@ extension SwiftDocDictionaryInitializable {
     }
 
     var comment: String {
-        return dictionary.get(.documentationComment) ?? ""
+        let abstract = dictionary.get(.docAbstract) ?? ""
+        // TODO fix this
+        let discussion: [String: SourceKitRepresentable]? = dictionary.get(.docDiscussion)
+        guard let comments = discussion?.compactMap({ return $0.key == "Para" ? $0.value as? String : nil }), !comments.isEmpty else {
+            return abstract
+        }
+        return abstract + "\n" + comments.joined(separator: "\n")
+    }
+
+    // TODO
+    var comments: String  {
+        return "TODO"
     }
 
     var declaration: String {
