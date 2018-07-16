@@ -16,6 +16,7 @@ struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
     let outputFolder: String
+    let sourcePath: String?
     let includeModuleNameInPath: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
@@ -30,6 +31,8 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for a Swift module.")
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "source-path", defaultValue: nil,
+                               usage: "Output directory (defaults to the current directory).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean",
@@ -50,6 +53,10 @@ struct GenerateCommand: CommandProtocol {
 
     func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
+            if let sourcePath = options.sourcePath {
+                FileManager.default.changeCurrentDirectoryPath(NSString(string: sourcePath).expandingTildeInPath)
+            }
+
             if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module)
                 try generateDocumentation(docs: docs, options: options, module: module)
