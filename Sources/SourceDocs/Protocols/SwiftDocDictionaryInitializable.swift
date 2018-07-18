@@ -39,13 +39,29 @@ private enum SwiftDocDiscussionKey: String {
 
     case paragraph = "Para"
     case codeListing = "CodeListing"
+    case listBullet = "List-Bullet"
+    case item = "Item"
 
     static var calloutKeys: [SwiftDocDiscussionKey] {
         return [ .attention, .author, .authors, .bug, .complexity, .copyright, .date, .example, .experiment, .important, .invariant, .note, .precondition, .postcondition, .remark, .requires, .seeAlso, .since, .version, .warning ]
     }
 
     static var all: [SwiftDocDiscussionKey] {
-        return calloutKeys + [ .paragraph, .codeListing ]
+        return calloutKeys + [ .paragraph, .codeListing, .listBullet, .item ]
+    }
+
+    static func isCalloutKey(_ string: String?) -> Bool {
+        guard SwiftDocDiscussionKey.calloutKeys.contains(where: { (key) -> Bool in return key.rawValue == string }) else {
+            return false
+        }
+        return true
+    }
+
+    static func isDiscussionKey(_ string: String?) -> Bool {
+        guard SwiftDocDiscussionKey.all.contains(where: { (key) -> Bool in return key.rawValue == string }) else {
+            return false
+        }
+        return true
     }
 }
 
@@ -106,7 +122,7 @@ extension SwiftDocDictionaryInitializable {
         }
 
         return children.compactMap { (node) -> String? in
-            guard SwiftDocDiscussionKey.all.contains(where: { (key) -> Bool in return key.rawValue == node.name }) else {
+            guard SwiftDocDiscussionKey.isDiscussionKey(node.name) else {
                 return node.description
             }
 
@@ -115,20 +131,33 @@ extension SwiftDocDictionaryInitializable {
                 return "```\n\(code)\n```"
             }
 
+            /// Handle bullet lists
+            if node.name == SwiftDocDiscussionKey.listBullet.rawValue {
+                return node.children?.compactMap({
+                    guard let stringValue = $0.stringValue, !stringValue.isEmpty else { return nil }
+                    return "- \(stringValue)"
+                }).joined(separator: "\n")
+            }
+
             guard let element = node.children?.first as? XMLElement, let elementName = element.name else {
                 return node.stringValue
             }
 
+            /// Handle links
             if elementName == "Link", let text = node.stringValue, let url = element.attribute(forName: "href")?.stringValue {
                 return "[\(text)](\(url))"
             }
 
+            /// Handle images
             if elementName == "img", let url = element.attribute(forName: "src")?.stringValue {
                 let text = element.attribute(forName: "atl")?.stringValue ?? ""
                 return "![\(text)](\(url))"
             }
 
-            return nil
+            guard !SwiftDocDiscussionKey.isCalloutKey(node.name) else {
+                return nil
+            }
+            return node.children?.first?.description
             }.joined(separator: "\n\n")
     }
 
