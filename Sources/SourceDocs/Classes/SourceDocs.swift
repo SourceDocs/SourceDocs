@@ -11,7 +11,8 @@ import Rainbow
 
 struct SourceDocs {
     static let version = "0.5.0"
-    static let defaultOutputPath = "Documentation/Reference"
+    static let defaultOutputDirectory = "Documentation/Reference"
+    static let defaultContentsFilename = "README"
 
     func run() {
         let registry = CommandRegistry<SourceDocsError>()

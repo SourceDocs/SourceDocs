@@ -15,8 +15,9 @@ import SourceKittenFramework
 struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
-    let outputFolder: String
-    let sourcePath: String?
+    let outputDirectory: String
+    let sourceDirectory: String?
+    let contentsFileName: String
     let includeModuleNameInPath: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
@@ -29,10 +30,12 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil,
                                usage: "Generate documentation for a Swift module.")
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
-                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
-            <*> mode <| Option(key: "source-path", defaultValue: nil,
+            <*> mode <| Option(key: "output", defaultValue: SourceDocs.defaultOutputDirectory,
+                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputDirectory)).")
+            <*> mode <| Option(key: "source", defaultValue: nil,
                                usage: "Output directory (defaults to the current directory).")
+            <*> mode <| Option(key: "contents-filename", defaultValue: SourceDocs.defaultContentsFilename,
+                               usage: "Output file (defaults to \(SourceDocs.defaultContentsFilename)).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean",
@@ -53,7 +56,7 @@ struct GenerateCommand: CommandProtocol {
 
     func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
-            if let sourcePath = options.sourcePath {
+            if let sourcePath = options.sourceDirectory {
                 FileManager.default.changeCurrentDirectoryPath(NSString(string: sourcePath).expandingTildeInPath)
             }
 
@@ -99,7 +102,7 @@ struct GenerateCommand: CommandProtocol {
     }
 
     private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String) throws {
-        let docsPath = options.includeModuleNameInPath ? "\(options.outputFolder)/\(module)" : options.outputFolder
+        let docsPath = options.includeModuleNameInPath ? "\(options.outputDirectory)/\(module)" : options.outputDirectory
         if options.clean {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }

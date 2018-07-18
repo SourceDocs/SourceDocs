@@ -27,7 +27,7 @@ class MarkdownIndex {
     var protocols: [MarkdownProtocol] = []
     var typealiases: [MarkdownTypealias] = []
 
-    func write(to docsPath: String) throws {
+    func write(to docsPath: String, contentsFileName filename: String) throws {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
@@ -46,7 +46,7 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
-        try writeFile(file: MarkdownFile(filename: "README", basePath: docsPath, content: content))
+        try writeFile(file: MarkdownFile(filename: filename, basePath: docsPath, content: content))
         fputs("Done 🎉\n".green, stdout)
     }
 
@@ -57,12 +57,12 @@ class MarkdownIndex {
         }
 
         // Make and write files
-        let files = makeFiles(with: items, basePath: "\(docsPath)/\(collectionTitle.lowercased())")
+        let files = makeFiles(with: items, basePath: "\(docsPath)/\(collectionTitle)")
         try files.forEach { try writeFile(file: $0) }
 
         // Make links for index
         let links: [MarkdownLink] = files.map {
-            let url = "\(collectionTitle.lowercased())/\($0.filename).md"
+            let url = "\(collectionTitle)/\($0.filename)"
             return MarkdownLink(text: $0.filename, url: url)
         }
         return [
