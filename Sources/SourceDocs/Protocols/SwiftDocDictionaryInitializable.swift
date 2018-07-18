@@ -62,10 +62,17 @@ extension SwiftDocDictionaryInitializable {
     }
 
     var declaration: String {
-        guard let declaration: String = dictionary.get(.docDeclaration) else {
+        let declaration: String = dictionary.get(.docDeclaration) ?? dictionary.get(.parsedDeclaration) ?? ""
+
+        guard declaration.isEmpty else {
+            return MarkdownCodeBlock(code: declaration, style: .backticks(language: "swift")).markdown
+        }
+
+        guard let parseDeclaration: String = dictionary.get(.parsedDeclaration) else {
             return ""
         }
-        return MarkdownCodeBlock(code: declaration, style: .backticks(language: "swift")).markdown
+        return MarkdownCodeBlock(code: parseDeclaration, style: .backticks(language: "swift")).markdown
+
     }
 
     var debugInfo: [String: Any] {
