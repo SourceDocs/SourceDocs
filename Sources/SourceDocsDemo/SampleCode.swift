@@ -9,38 +9,27 @@ import Foundation
 
 /// Describes an animal hierarchy of things
 ///
-/// This could be big
-///
-/// might be many
-///
-/// many
-///
-///
-/// - Attention:  Blah blah blah
-///
-/// many comments here.
-///
-/// Test Test TEst
-/// - Author:  Blah blah blah
-/// - Authors:  Blah blah blah
-/// - Bug:  Blah blah blah
-/// - Complexity:  Blah blah blah
-/// - Copyright:  Blah blah blah
-/// - CustomCallout:  Blah blah blah
-/// - Date:  Blah blah blah
-/// - Example:  Blah blah blah
-/// - Experiment:  Blah blah blah
-/// - Important:  Blah blah blah
-/// - Invariant:  Blah blah blah
-/// - Note:  Blah blah blah
-/// - Precondition:  Blah blah blah
-/// - Postcondition:  Blah blah blah
-/// - Remark:  Blah blah blah
-/// - Requires:  Blah blah blah
-/// - SeeAlso:  Blah blah blah
-/// - Since:  Blah blah blah
-/// - Version:  Blah blah blah
-/// - Warning:  Blah blah blah
+/// - Attention: Attention Callout Example
+/// - Author: Author Callout Example
+/// - Authors: Authors Callout Example
+/// - Bug: Bug Callout Example
+/// - Complexity: Complexity Callout Example
+/// - Copyright: Copyright Callout Example
+/// - CustomCallout: CustomCallout Callout Example. CustomCallout is not supported! The will appear as bullet lists.
+/// - Date: Date Callout Example
+/// - Example: Example Callout Example
+/// - Experiment: Experiment Callout Example
+/// - Important: Important Callout Example
+/// - Invariant: Invariant Callout Example
+/// - Note: Note Callout Example
+/// - Precondition: Precondition Callout Example
+/// - Postcondition: Postcondition Callout Example
+/// - Remark: Remark Callout Example
+/// - Requires: Requires Callout Example
+/// - SeeAlso: SeeAlso Callout Example
+/// - Since: Since Callout Example
+/// - Version: Version Callout Example
+/// - Warning: Warning Callout Example
 public protocol Animal {
     /// Print a greeting message
     func greet()
@@ -54,13 +43,18 @@ public protocol Animal {
 /// - domesticated: For animal that are domesticated.
 /// - undomesticated: For animal that are not domesticated.
 /// - unknown: For animals which have an unknown domestication state.
+///
+/// Here is a comment with raw html
+///
+/// <svg width="100" height="100"><rect width="100" height="100" style="fill:rgba(0,150,0,1);" /></svg>
+
 public enum DomesticationState {
     /// For animal that are domesticated.
     case domesticated
     /// For animal that are not domesticated.
     case undomesticated
     /// For animals which have an unknown domestication state.
-    case unknown
+    case unknown(String)
 }
 
 /// Describes a thing that can be named
@@ -72,7 +66,6 @@ public protocol Nameable: CustomStringConvertible {
 extension Nameable {
     /// Describes a named thing
     public var description: String {
-        DomesticationState.domesticated
         return "Hello, my name is \(name)."
     }
 }

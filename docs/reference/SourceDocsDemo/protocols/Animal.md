@@ -8,19 +8,10 @@ public protocol Animal
 
 > Describes an animal hierarchy of things
 >
-> This could be big
+> <See><Para>SeeAlso Callout Example</Para></See>
 >
-> might be many
->
-> many
->
-> many comments here.
->
-> Test Test TEst
->
-> <See><Para>Blah blah blah</Para></See>
->
-> <List-Bullet><Item><Para>CustomCallout: Blah blah blah</Para></Item><Item><Para>Example: Blah blah blah</Para></Item></List-Bullet>
+> - CustomCallout: CustomCallout Callout Example. CustomCallout is not supported! The will appear as bullet lists.
+> - Example: Example Callout Example
 >
 >
 >
@@ -28,11 +19,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
->
-> many comments here.
->
-> Test Test TEst
+> Attention Callout Example
 >
 > </details>
 >
@@ -42,7 +29,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Author Callout Example
 >
 > </details>
 >
@@ -52,7 +39,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Authors Callout Example
 >
 > </details>
 >
@@ -62,7 +49,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Bug Callout Example
 >
 > </details>
 >
@@ -72,7 +59,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Complexity Callout Example
 >
 > </details>
 >
@@ -82,7 +69,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Copyright Callout Example
 >
 > </details>
 >
@@ -92,7 +79,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Date Callout Example
 >
 > </details>
 >
@@ -102,7 +89,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Experiment Callout Example
 >
 > </details>
 >
@@ -112,7 +99,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Important Callout Example
 >
 > </details>
 >
@@ -122,7 +109,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Invariant Callout Example
 >
 > </details>
 >
@@ -132,7 +119,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Note Callout Example
 >
 > </details>
 >
@@ -142,7 +129,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Precondition Callout Example
 >
 > </details>
 >
@@ -152,7 +139,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Postcondition Callout Example
 >
 > </details>
 >
@@ -162,7 +149,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Remark Callout Example
 >
 > </details>
 >
@@ -172,7 +159,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Requires Callout Example
 >
 > </details>
 >
@@ -182,7 +169,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Since Callout Example
 >
 > </details>
 >
@@ -192,7 +179,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Version Callout Example
 >
 > </details>
 >
@@ -202,7 +189,7 @@ public protocol Animal
 >
 >
 >
-> Blah blah blah
+> Warning Callout Example
 >
 > </details>
 >

@@ -121,7 +121,7 @@
       "isDocumented" : true
     },
     {
-      "declaration" : "case unknown",
+      "declaration" : "case unknown(String)",
       "name" : "unknown",
       "file" : "\/Sources\/SourceDocsDemo\/SampleCode.swift",
       "isDocumented" : true
