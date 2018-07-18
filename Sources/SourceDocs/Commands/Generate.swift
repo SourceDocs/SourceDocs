@@ -52,6 +52,7 @@ struct GenerateCommand: CommandProtocol {
     typealias Options = GenerateCommandOptions
 
     private let markdownIndex = MarkdownIndex()
+    private let initialPath = FileManager.default.currentDirectoryPath
 
     let verb = "generate"
     let function = "Generates the Markdown documentation"
@@ -103,11 +104,16 @@ struct GenerateCommand: CommandProtocol {
         return docs
     }
 
-    private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String) throws {
-        let docsPath = options.includeModuleNameInPath ? "\(options.outputDirectory)/\(module)" : options.outputDirectory
+    private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String = "") throws {
+        FileManager.default.changeCurrentDirectoryPath(initialPath)
+
+        let relativeDocsPath = options.includeModuleNameInPath ? "\(options.outputDirectory)/\(module)" : options.outputDirectory
+        let docsPath = NSString(string: relativeDocsPath).expandingTildeInPath
+
         if options.clean {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
+
         process(docs: docs, options: options)
         try markdownIndex.write(to: docsPath, contentsFileName: options.contentsFileName)
     }
