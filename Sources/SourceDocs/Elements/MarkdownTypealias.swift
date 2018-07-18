@@ -18,7 +18,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
-        guard dictionary.hasPublicACL && dictionary.isKind([.protocol]) else {
+        guard dictionary.hasPublicACL && dictionary.isKind([.protocol, .class, .enum, .struct, .typealias]) else {
             return nil
         }
         self.dictionary = dictionary

@@ -18,7 +18,7 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
-        guard dictionary.hasPublicACL && dictionary.isKind([.varInstance, .varStatic]) else {
+        guard dictionary.hasPublicACL && dictionary.isKind([.varInstance, .varStatic, .varClass, .varParameter]) else {
             return nil
         }
         self.dictionary = dictionary
