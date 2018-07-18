@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
           "branch": null,
-          "revision": "3e3023569c8d4c4a0d000f58db765df53041117f",
-          "version": "1.3.0"
+          "revision": "b060679e70d13c3c7dcd124201b5b1b34ce6f340",
+          "version": "1.3.1"
         }
       },
       {
@@ -66,11 +66,11 @@
       },
       {
         "package": "SourceKitten",
-        "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
+        "repositoryURL": "/Users/jhildensperger/Documents/SourceKitten",
         "state": {
-          "branch": null,
-          "revision": "e6efd3d8702fe6668ac43aa882d56f82430c6caf",
-          "version": "0.21.1"
+          "branch": "fix/comments",
+          "revision": "8c293777af7ed710ecac6f1cae2335cdef2de317",
+          "version": null
         }
       },
       {
