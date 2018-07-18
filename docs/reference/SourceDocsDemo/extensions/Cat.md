@@ -10,5 +10,3 @@ public func speak()
 ```
 
 > Cats know how to speak!!!
->
->

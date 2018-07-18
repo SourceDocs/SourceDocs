@@ -18,8 +18,6 @@ public let name: String
 ```
 
 > All dogs should have a name
->
->
 
 ### `family`
 
@@ -28,8 +26,6 @@ public static let family: String
 ```
 
 > All dogs are canines
->
->
 
 ## Methods
 ### `greet()`
@@ -39,5 +35,3 @@ func greet()
 ```
 
 > Print a greeting message
->
->

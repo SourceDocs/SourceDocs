@@ -203,8 +203,6 @@ static var family: String { get }
 ```
 
 > All animals belong to a family
->
->
 
 ## Methods
 ### `greet()`
@@ -214,5 +212,3 @@ func greet()
 ```
 
 > Print a greeting message
->
->

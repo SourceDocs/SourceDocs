@@ -42,5 +42,3 @@ func speak()
 ```
 
 > Print a greeting message
->
->

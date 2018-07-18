@@ -7,8 +7,6 @@ public protocol Nameable : CustomStringConvertible
 ```
 
 > Describes a thing that can be named
->
->
 
 ## Properties
 ### `name`
@@ -18,5 +16,3 @@ var name: String { get }
 ```
 
 > Name of the thing being named
->
->

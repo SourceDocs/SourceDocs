@@ -24,8 +24,6 @@ case domesticated
 ```
 
 > For animal that are domesticated.
->
->
 
 ### `undomesticated`
 
@@ -34,8 +32,6 @@ case undomesticated
 ```
 
 > For animal that are not domesticated.
->
->
 
 ### `unknown`
 
@@ -44,5 +40,3 @@ case unknown(String)
 ```
 
 > For animals which have an unknown domestication state.
->
->

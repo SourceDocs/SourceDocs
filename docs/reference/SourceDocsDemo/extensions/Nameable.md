@@ -10,5 +10,3 @@ public var description: String { get }
 ```
 
 > Describes a named thing
->
->

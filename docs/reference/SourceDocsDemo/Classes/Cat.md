@@ -18,8 +18,6 @@ public let name: String
 ```
 
 > All cats should have a name too
->
->
 
 ### `owner`
 
@@ -28,8 +26,6 @@ public var owner: String?
 ```
 
 > Some cats have an owner
->
->
 
 ### `family`
 
@@ -38,8 +34,6 @@ public static let family: String
 ```
 
 > All cats are felines
->
->
 
 ## Methods
 ### `init(name:owner:)`
@@ -88,5 +82,3 @@ func greet()
 ```
 
 > Print a greeting message
->
->

@@ -74,7 +74,7 @@ extension SwiftDocDictionaryInitializable {
     }
 
     var comment: String {
-        return abstract + discussion + callouts
+        return [abstract, discussion, callouts].compactMap({$0}).joined(separator: "\n\n")
     }
 
     var declaration: String {
@@ -104,21 +104,21 @@ extension SwiftDocDictionaryInitializable {
 
     // MARK: - Private Properties
 
-    private var abstract: String {
+    private var abstract: String? {
         guard let text: String = dictionary.get(.docAbstract) else {
-            return ""
+            return nil
         }
-        return text + "\n\n"
+        return text
     }
 
-    private var discussion: String {
+    private var discussion: String? {
         guard let xmlString: String = dictionary.get(.docDiscussionXML) else {
-            return ""
+            return nil
         }
 
         guard let xml = try? XMLDocument(xmlString: xmlString, options: XMLNode.Options.documentTidyXML),
             let children = xml.children?.first?.children else {
-                return ""
+                return nil
         }
 
         return children.compactMap { (node) -> String? in
@@ -161,15 +161,15 @@ extension SwiftDocDictionaryInitializable {
             }.joined(separator: "\n\n")
     }
 
-    private var callouts: String {
-        let callouts = SwiftDocDiscussionKey.calloutKeys.reduce("\n\n") { (string, key) -> String in
+    private var callouts: String? {
+        let callouts = SwiftDocDiscussionKey.calloutKeys.reduce("") { (string, key) -> String in
             var string = string
             if let text = paragraph(for: key), !text.isEmpty {
                 string += "\n\n\(MarkdownCollapsibleSection(summary: key.rawValue, details: text).markdown)\n\n"
             }
             return string
         }
-        return callouts.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "" : callouts
+        return callouts.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : callouts
     }
 
     // MARK: - Public
