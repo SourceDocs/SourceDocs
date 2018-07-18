@@ -7,16 +7,6 @@
 
 import Foundation
 
-protocol Documentable {
-    func checkDocumentation() -> DocumentationStatus
-}
-
-extension Documentable where Self: SwiftDocDictionaryInitializable {
-    func checkDocumentation() -> DocumentationStatus {
-        return DocumentationStatus(self)
-    }
-}
-
 struct DocumentationStatus {
     private var interfaces: [[String: Any]]?
 

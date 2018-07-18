@@ -16,10 +16,6 @@ struct MarkdownOptions {
 }
 
 class MarkdownIndex {
-
-    // Not very happy with the singleton implementation here, looking for alternatives.
-    static let shared = MarkdownIndex()
-
     var structs: [MarkdownObject] = []
     var classes: [MarkdownObject] = []
     var extensions: [MarkdownExtension] = []
@@ -31,11 +27,24 @@ class MarkdownIndex {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
+
+        let status = [protocols, structs, classes, enums, extensions, typealiases].compactMap {
+            guard let documentables = $0 as? [Documentable] else {
+                return nil
+            }
+
+            return documentables.reduce(DocumentationStatus()) { (result, documentable) in
+                return result + documentable.checkDocumentation()
+            }
+            }.reduce(DocumentationStatus(), +)
+
         var content: [MarkdownConvertible] = [
             """
             # Reference Documentation
             This Reference Documentation has been generated with
             [SourceDocs](https://github.com/eneko/SourceDocs).
+
+            Coverage \(Int(status.precentage * 100))%
             """
         ]
 
@@ -47,6 +56,7 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
         try writeFile(file: MarkdownFile(filename: filename, basePath: docsPath, content: content))
+        try writeFile(file: DocumentationStatusFile(basePath: docsPath, status: status))
         fputs("Done 🎉\n".green, stdout)
     }
 
@@ -71,7 +81,7 @@ class MarkdownIndex {
         ]
     }
 
-    private func writeFile(file: MarkdownFile) throws {
+    private func writeFile(file: Writeable) throws {
         fputs("  Writing documentation file: \(file.filePath)", stdout)
         do {
             try file.write()
