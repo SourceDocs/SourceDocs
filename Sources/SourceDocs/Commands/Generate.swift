@@ -51,6 +51,8 @@ struct GenerateCommandOptions: OptionsProtocol {
 struct GenerateCommand: CommandProtocol {
     typealias Options = GenerateCommandOptions
 
+    private let markdownIndex = MarkdownIndex()
+
     let verb = "generate"
     let function = "Generates the Markdown documentation"
 
@@ -107,7 +109,7 @@ struct GenerateCommand: CommandProtocol {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
         process(docs: docs, options: options)
-        try MarkdownIndex.shared.write(to: docsPath)
+        try markdownIndex.write(to: docsPath, contentsFileName: options.contentsFileName)
     }
 
     private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
@@ -125,17 +127,17 @@ struct GenerateCommand: CommandProtocol {
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.structs.append(item)
+                markdownIndex.structs.append(item)
             } else if kind == .class, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.classes.append(item)
+                markdownIndex.classes.append(item)
             } else if let item = MarkdownExtension(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.extensions.append(item)
+                markdownIndex.extensions.append(item)
             } else if let item = MarkdownEnum(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.enums.append(item)
+                markdownIndex.enums.append(item)
             } else if let item = MarkdownProtocol(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.protocols.append(item)
+                markdownIndex.protocols.append(item)
             } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.typealiases.append(item)
+                markdownIndex.typealiases.append(item)
             }
         }
 
