@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible, Documentable {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 

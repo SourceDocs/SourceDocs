@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible, Documentable {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
@@ -101,9 +101,27 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         \(methods)
         """
     }
+
+    func checkDocumentation() -> DocumentationStatus {
+        var status = DocumentationStatus(self)
+
+        status += cases.reduce(DocumentationStatus(), { (status: DocumentationStatus, documentable) in
+            return status + documentable.checkDocumentation()
+        })
+
+        status += properties.reduce(DocumentationStatus(), { (status: DocumentationStatus, documentable) in
+            return status + documentable.checkDocumentation()
+        })
+
+        status += methods.reduce(DocumentationStatus(), { (status: DocumentationStatus, documentable) in
+            return status + documentable.checkDocumentation()
+        })
+
+        return status
+    }
 }
 
-struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvertible, Documentable {
     let dictionary: SwiftDocDictionary
 
     init?(dictionary: SwiftDocDictionary) {
