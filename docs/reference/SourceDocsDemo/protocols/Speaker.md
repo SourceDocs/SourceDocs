@@ -6,7 +6,33 @@
 public protocol Speaker
 ```
 
-> Describes an entity that can "speak"
+> Describes an entity that can “speak”
+>
+> <h2>Cool noises</h2>
+>
+> moo, woof, yap, meow, squawk, etc
+>
+>
+>
+> <details><summary markdown="span">Note</summary>
+>
+>
+>
+> Name must be fun!
+>
+> </details>
+>
+>
+>
+> <details><summary markdown="span">Warning</summary>
+>
+>
+>
+> Nyan Nyan Nyan Nyan Nyan
+>
+> </details>
+>
+>
 
 ## Methods
 ### `speak()`
@@ -16,3 +42,5 @@ func speak()
 ```
 
 > Print a greeting message
+>
+>

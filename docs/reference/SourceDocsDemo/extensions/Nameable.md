@@ -6,7 +6,9 @@
 ### `description`
 
 ```swift
-public var description: String
+public var description: String { get }
 ```
 
 > Describes a named thing
+>
+>
