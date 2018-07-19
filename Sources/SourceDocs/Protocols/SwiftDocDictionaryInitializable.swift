@@ -40,6 +40,7 @@ private enum SwiftDocDiscussionKey: String {
     case paragraph = "Para"
     case codeListing = "CodeListing"
     case listBullet = "List-Bullet"
+    case codeLine = "zCodeLineNumbered"
     case item = "Item"
 
     static var calloutKeys: [SwiftDocDiscussionKey] {
@@ -64,6 +65,9 @@ private enum SwiftDocDiscussionKey: String {
         return true
     }
 }
+
+
+private let imgRegularExpression = try? NSRegularExpression(pattern: "<img\\s*src=\"(.*?)\"(?:\\s?alt=\"(.*)\")?", options: .allowCommentsAndWhitespace)
 
 extension SwiftDocDictionaryInitializable {
 
@@ -112,12 +116,13 @@ extension SwiftDocDictionaryInitializable {
     }
 
     private var discussion: String? {
-        guard let xmlString: String = dictionary.get(.docDiscussionXML) else {
+        guard let xmlString: String = dictionary.get(.fullXMLDocs) else {
             return nil
         }
 
-        guard let xml = try? XMLDocument(xmlString: xmlString, options: XMLNode.Options.documentTidyXML),
-            let children = xml.children?.first?.children else {
+        guard let xml = try? XMLDocument(xmlString: xmlString, options: XMLNode.Options.nodePreserveAll),
+            let documentationNodes = try? xml.nodes(forXPath: "//CommentParts//Discussion").first,
+            let children = documentationNodes?.children else {
                 return nil
         }
 
@@ -127,8 +132,18 @@ extension SwiftDocDictionaryInitializable {
             }
 
             /// Handle code
-            if node.name == SwiftDocDiscussionKey.codeListing.rawValue, let code = node.children?.compactMap({ $0.stringValue?.isEmpty ?? true ? nil : $0.stringValue }).joined(separator: "\n") {
-                return "```\n\(code)\n```"
+            if node.name == SwiftDocDiscussionKey.codeListing.rawValue {
+                guard let element = node as? XMLElement else {
+                    return nil
+                }
+
+                let language = element.attribute(forName: "language")?.stringValue ?? ""
+
+                guard let code = element.children?.compactMap({ $0.stringValue }).joined(separator: "\n") else {
+                    return element.stringValue
+                }
+                
+                return "```\(language)\n\(code)\n```"
             }
 
             /// Handle bullet lists
@@ -139,7 +154,7 @@ extension SwiftDocDictionaryInitializable {
                 }).joined(separator: "\n")
             }
 
-            guard let element = node.children?.first as? XMLElement, let elementName = element.name else {
+            guard let element = node.children?.first as? Foundation.XMLElement, let elementName = element.name else {
                 return node.stringValue
             }
 
@@ -149,9 +164,22 @@ extension SwiftDocDictionaryInitializable {
             }
 
             /// Handle images
-            if elementName == "img", let url = element.attribute(forName: "src")?.stringValue {
-                let text = element.attribute(forName: "atl")?.stringValue ?? ""
-                return "![\(text)](\(url))"
+            if elementName == "rawHTML" {
+                let rawElement = element.description
+                let range = NSRange(rawElement.startIndex..., in: rawElement)
+
+                if let match = imgRegularExpression?.matches(in: rawElement, range: range).first {
+                    guard match.numberOfRanges >= 2, let imgRange = Range(match.range(at: 1), in: rawElement) else {
+                        return nil
+                    }
+
+                    guard match.numberOfRanges == 3, let atlRange = Range(match.range(at: 2), in: rawElement) else {
+                        return "![](\(rawElement[imgRange]))"
+                    }
+
+                    return "![\(rawElement[atlRange])](\(rawElement[imgRange]))"
+                }
+                return nil
             }
 
             guard !SwiftDocDiscussionKey.isCalloutKey(node.name) else {
