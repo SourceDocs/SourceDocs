@@ -38,13 +38,15 @@ class MarkdownIndex {
             }
             }.reduce(DocumentationStatus(), +)
 
+        let coverage = Int(status.precentage * 100)
+
         var content: [MarkdownConvertible] = [
             """
             # Reference Documentation
             This Reference Documentation has been generated with
-            [SourceDocs](https://github.com/eneko/SourceDocs).
+            [SourceDocs](https://github.com/jhildensperger/SourceDocs).
 
-            Coverage \(Int(status.precentage * 100))%
+            \(SVGBadgeGenerator.badge(for: coverage))
             """
         ]
 
