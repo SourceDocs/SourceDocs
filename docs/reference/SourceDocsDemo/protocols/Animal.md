@@ -7,12 +7,8 @@ public protocol Animal
 ```
 
 > Describes an animal hierarchy of things
->
-> <See><Para>SeeAlso Callout Example</Para></See>
->
 > - CustomCallout: CustomCallout Callout Example. CustomCallout is not supported! The will appear as bullet lists.
 > - Example: Example Callout Example
->
 >
 >
 > <details><summary markdown="span">Attention</summary>
@@ -160,6 +156,16 @@ public protocol Animal
 >
 >
 > Requires Callout Example
+>
+> </details>
+>
+>
+>
+> <details><summary markdown="span">See</summary>
+>
+>
+>
+> SeeAlso Callout Example
 >
 > </details>
 >

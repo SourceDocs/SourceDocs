@@ -7,14 +7,21 @@ public enum DomesticationState
 ```
 
 > Describes the state of domestication
+> ### h3 _this is italics_
+> # h1 __this is bold__
+> ## h2 WHAT
+> ###### h6
+> ---
+> ---
+>
 >
 > - domesticated: For animal that are domesticated.
 > - undomesticated: For animal that are not domesticated.
 > - unknown: For animals which have an unknown domestication state.
 >
-> Here is a comment with raw html
+> Here is a comment with [link that is](http://www.link.com) embedded
 >
-> <svg width="100" height="100"><rect width="100" height="100" style="fill:rgba(0,150,0,1);"></rect></svg>
+> ![dog gif](https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif)
 
 ## Cases
 ### `domesticated`

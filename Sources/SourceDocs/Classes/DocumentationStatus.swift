@@ -2,19 +2,21 @@
 //  DocumentationStatus.swift
 //  SourceDocs
 //
-//  Created by xs19on on 16/07/2018.
+//  Created by Jim Hildensperger on 16/07/2018.
 //
 
 import Foundation
 
-struct DocumentationStatus {
-    private var interfaces: [[String: Any]]?
+typealias JSON = [String: Any]
 
-    var undocumentedInterfaces: [[String: Any]]? {
+struct DocumentationStatus {
+    private var interfaces: [JSON]?
+
+    var undocumentedInterfaces: [JSON]? {
         return interfaces?.filter { !($0["isDocumented"] as? Bool ?? true) }
     }
 
-    var documentedInterfaces: [[String: Any]]? {
+    var documentedInterfaces: [JSON]? {
         return interfaces?.filter { $0["isDocumented"] as? Bool ?? false }
     }
 
@@ -42,7 +44,7 @@ struct DocumentationStatus {
         }
     }
 
-    private init(interfaces: [[String: Any]]? = nil) {
+    private init(interfaces: [JSON]? = nil) {
         self.interfaces = interfaces
     }
 

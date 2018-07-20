@@ -7,7 +7,6 @@ public struct Dog : Animal, Nameable
 ```
 
 > Common animal many people have as pet
->
 > ![Look at this dog](https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif)
 
 ## Properties

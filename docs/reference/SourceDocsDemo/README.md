@@ -1,6 +1,6 @@
 # Reference Documentation
 This Reference Documentation has been generated with
-[SourceDocs](https://github.com/jhildensperger/SourceDocs).
+[SourceDocs v1.0.0](https://github.com/jhildensperger/SourceDocs).
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="20">
     <linearGradient id="b" x2="0" y2="100%">

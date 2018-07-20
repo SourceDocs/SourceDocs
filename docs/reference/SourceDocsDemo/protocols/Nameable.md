@@ -7,6 +7,9 @@ public protocol Nameable : CustomStringConvertible
 ```
 
 > Describes a thing that can be named
+> 1. one
+> 2. two
+> 3. three
 
 ## Properties
 ### `name`

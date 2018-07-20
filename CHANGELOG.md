@@ -9,6 +9,21 @@
 #### Bug Fixes
 - None
 
+## 1.0.0
+
+#### Breaking
+- Change `--output-file` to `--output`.
+
+#### Enhancements
+- Enable specification of source directory with `--source`.
+- Enable specification of contents filename with `--contents-filename`.
+- Support for callouts.
+- redesign comment output.
+- SVG badge added to contents file.
+
+#### Bug Fixes
+- None
+
 
 ## 0.5.0
 

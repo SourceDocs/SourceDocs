@@ -2,7 +2,7 @@
 //  SwiftDocDictionaryInitializable.swift
 //  SourceDocs
 //
-//  Created by xs19on on 18/07/2018.
+//  Created by Jim Hildensperger on 18/07/2018.
 //
 
 import Foundation
@@ -15,59 +15,16 @@ protocol SwiftDocDictionaryInitializable {
     init?(dictionary: SwiftDocDictionary)
 }
 
-private enum SwiftDocDiscussionKey: String {
-    case attention = "Attention"
-    case author = "Author"
-    case authors = "Authors"
-    case bug = "Bug"
-    case complexity = "Complexity"
-    case copyright = "Copyright"
-    case date = "Date"
-    case example = "Example"
-    case experiment = "Experiment"
-    case important = "Important"
-    case invariant = "Invariant"
-    case note = "Note"
-    case precondition = "Precondition"
-    case postcondition = "Postcondition"
-    case remark = "Remark"
-    case requires = "Requires"
-    case seeAlso = "SeeAlso"
-    case since = "Since"
-    case version = "Version"
-    case warning = "Warning"
-
-    case paragraph = "Para"
-    case codeListing = "CodeListing"
-    case listBullet = "List-Bullet"
-    case codeLine = "zCodeLineNumbered"
-    case item = "Item"
-
-    static var calloutKeys: [SwiftDocDiscussionKey] {
-        return [ .attention, .author, .authors, .bug, .complexity, .copyright, .date, .example, .experiment, .important, .invariant, .note, .precondition, .postcondition, .remark, .requires, .seeAlso, .since, .version, .warning ]
-    }
-
-    static var all: [SwiftDocDiscussionKey] {
-        return calloutKeys + [ .paragraph, .codeListing, .listBullet, .item ]
-    }
-
-    static func isCalloutKey(_ string: String?) -> Bool {
-        guard SwiftDocDiscussionKey.calloutKeys.contains(where: { (key) -> Bool in return key.rawValue == string }) else {
-            return false
-        }
-        return true
-    }
-
-    static func isDiscussionKey(_ string: String?) -> Bool {
-        guard SwiftDocDiscussionKey.all.contains(where: { (key) -> Bool in return key.rawValue == string }) else {
-            return false
-        }
-        return true
-    }
+private struct RegularExpression {
+    static let codeVoice = try! NSRegularExpression(pattern: "</?codeVoice>", options: NSRegularExpression.Options.caseInsensitive)
+    static let emphasis = try! NSRegularExpression(pattern: "</?emphasis>", options: NSRegularExpression.Options.caseInsensitive)
+    static let img = try! NSRegularExpression(pattern: "<rawHTML><!\\[CDATA\\[<img\\s*src=\"(.*?)\"\\s*(?:alt=\"(.*?)\")?\\/>\\]\\]><\\/rawHTML>", options: .allowCommentsAndWhitespace)
+    static let link = try! NSRegularExpression(pattern: "<Link\\s*href=\"(.*?)\">(.*?)<\\/Link>", options: .allowCommentsAndWhitespace)
+    static let bold = try! NSRegularExpression(pattern: "</?bold>", options: NSRegularExpression.Options.caseInsensitive)
+    static let horizontalRule = try! NSRegularExpression(pattern: "<rawHTML><!\\[CDATA\\[<hr\\/>\\]\\]><\\/rawHTML>", options: NSRegularExpression.Options.caseInsensitive)
+    static let openingHeaderTag = try! NSRegularExpression(pattern: "<rawHTML><!\\[CDATA\\[<h(\\d)>\\]\\]><\\/rawHTML>", options: NSRegularExpression.Options.caseInsensitive)
+    static let closingHeaderTag = try! NSRegularExpression(pattern: "<rawHTML><!\\[CDATA\\[<\\/h\\d>\\]\\]><\\/rawHTML>", options: NSRegularExpression.Options.caseInsensitive)
 }
-
-
-private let imgRegularExpression = try? NSRegularExpression(pattern: "<img\\s*src=\"(.*?)\"(?:\\s?alt=\"(.*)\")?", options: .allowCommentsAndWhitespace)
 
 extension SwiftDocDictionaryInitializable {
 
@@ -78,7 +35,7 @@ extension SwiftDocDictionaryInitializable {
     }
 
     var comment: String {
-        return [abstract, discussion, callouts].compactMap({$0}).joined(separator: "\n\n")
+        return [abstract, discussion, callouts].compactMap({$0}).joined(separator: "\n")
     }
 
     var declaration: String {
@@ -116,8 +73,23 @@ extension SwiftDocDictionaryInitializable {
     }
 
     private var discussion: String? {
-        guard let xmlString: String = dictionary.get(.fullXMLDocs) else {
+        guard var xmlString: String = dictionary.get(.fullXMLDocs) else {
             return nil
+        }
+        
+        xmlString.replacingMatches(RegularExpression.bold, with: "__")
+        xmlString.replacingMatches(RegularExpression.codeVoice, with: "`")
+        xmlString.replacingMatches(RegularExpression.emphasis, with: "_")
+        xmlString.replacingMatches(RegularExpression.horizontalRule, with: "---\n")
+        xmlString.replacingMatches(RegularExpression.closingHeaderTag, with: "\n")
+        xmlString.replacingMatches(RegularExpression.img, with: "![$2]($1)")
+        xmlString.replacingMatches(RegularExpression.link, with: "[$2]($1)")
+        
+        /// Replace all opening header tags with the cooresponding number of #'s
+        (1...6).forEach {
+            let headerOpeningTag = "<rawHTML><![CDATA[<h\($0)>]]></rawHTML>"
+            let replacement = String(repeating: "#", count: $0) + " "
+            xmlString = xmlString.replacingOccurrences(of: headerOpeningTag, with: replacement)
         }
 
         guard let xml = try? XMLDocument(xmlString: xmlString, options: XMLNode.Options.nodePreserveAll),
@@ -127,14 +99,15 @@ extension SwiftDocDictionaryInitializable {
         }
 
         return children.compactMap { (node) -> String? in
+            /// Check that the node is a known key. It could be that the old XML was stripped.
             guard SwiftDocDiscussionKey.isDiscussionKey(node.name) else {
-                return node.description
+                return node.stringValue
             }
 
             /// Handle code
             if node.name == SwiftDocDiscussionKey.codeListing.rawValue {
                 guard let element = node as? XMLElement else {
-                    return nil
+                    return node.stringValue
                 }
 
                 let language = element.attribute(forName: "language")?.stringValue ?? ""
@@ -142,8 +115,7 @@ extension SwiftDocDictionaryInitializable {
                 guard let code = element.children?.compactMap({ $0.stringValue }).joined(separator: "\n") else {
                     return element.stringValue
                 }
-                
-                return "```\(language)\n\(code)\n```"
+                return "```\(language)\n\(code)```"
             }
 
             /// Handle bullet lists
@@ -153,39 +125,18 @@ extension SwiftDocDictionaryInitializable {
                     return "- \(stringValue)"
                 }).joined(separator: "\n")
             }
-
-            guard let element = node.children?.first as? Foundation.XMLElement, let elementName = element.name else {
-                return node.stringValue
+            
+            /// Handle numbered lists
+            if node.name == SwiftDocDiscussionKey.listNumber.rawValue {
+                return node.children?.enumerated().compactMap({
+                    let index = $0.0 + 1
+                    guard let stringValue = $0.1.stringValue, !stringValue.isEmpty else { return nil }
+                    return "\(index). \(stringValue)"
+                }).joined(separator: "\n")
             }
 
-            /// Handle links
-            if elementName == "Link", let text = node.stringValue, let url = element.attribute(forName: "href")?.stringValue {
-                return "[\(text)](\(url))"
-            }
-
-            /// Handle images
-            if elementName == "rawHTML" {
-                let rawElement = element.description
-                let range = NSRange(rawElement.startIndex..., in: rawElement)
-
-                if let match = imgRegularExpression?.matches(in: rawElement, range: range).first {
-                    guard match.numberOfRanges >= 2, let imgRange = Range(match.range(at: 1), in: rawElement) else {
-                        return nil
-                    }
-
-                    guard match.numberOfRanges == 3, let atlRange = Range(match.range(at: 2), in: rawElement) else {
-                        return "![](\(rawElement[imgRange]))"
-                    }
-
-                    return "![\(rawElement[atlRange])](\(rawElement[imgRange]))"
-                }
-                return nil
-            }
-
-            guard !SwiftDocDiscussionKey.isCalloutKey(node.name) else {
-                return nil
-            }
-            return node.children?.first?.description
+            // The node is either a callout or we don't know how to parse it
+            return SwiftDocDiscussionKey.isCalloutKey(node.name) ? nil : node.stringValue
             }.joined(separator: "\n\n")
     }
 

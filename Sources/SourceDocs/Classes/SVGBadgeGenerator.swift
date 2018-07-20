@@ -2,7 +2,7 @@
 //  SVGBadgeGenerator.swift
 //  SourceDocs
 //
-//  Created by xs19on on 19/07/2018.
+//  Created by Jim Hildensperger on 19/07/2018.
 //
 
 import Foundation

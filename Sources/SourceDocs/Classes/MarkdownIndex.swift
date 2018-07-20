@@ -44,7 +44,7 @@ class MarkdownIndex {
             """
             # Reference Documentation
             This Reference Documentation has been generated with
-            [SourceDocs](https://github.com/jhildensperger/SourceDocs).
+            [SourceDocs v\(SourceDocs.version)](https://github.com/jhildensperger/SourceDocs).
 
             \(SVGBadgeGenerator.badge(for: coverage))
             """

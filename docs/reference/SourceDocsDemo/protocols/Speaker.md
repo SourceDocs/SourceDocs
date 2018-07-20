@@ -7,11 +7,10 @@ public protocol Speaker
 ```
 
 > Describes an entity that can “speak”
+> ## Cool noises
 >
-> <h2>Cool noises</h2>
 >
 > moo, woof, yap, meow, squawk, etc
->
 >
 >
 > <details><summary markdown="span">Note</summary>

@@ -7,7 +7,6 @@ open class Cat : Animal, Nameable
 ```
 
 > Common animal many people have as pets, which is not a dog
->
 > ![The real head of the household?](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
 >
 > [google it](http://www.google.com)
@@ -22,21 +21,14 @@ open class Cat : Animal, Nameable
 >
 >         </body>
 >     </html>
->
 > ```
->
-> pretest
->
-> ```java
-> var anyLang = 1
->
-> ```
->
-> post test
 >
 > ```swift
->     let swifty = 1
+> var unspecifiedLanguagueVar = 1
+> ```
 >
+> ```swift
+>     let swiftyConstant = 1
 > ```
 
 ## Properties
@@ -72,9 +64,7 @@ public init(name: String, owner: String?)
 ```
 
 > Initialize a new Cat with an name and an owner’s name
->
 > The name of the cat.
->
 >
 >
 > <details><summary markdown="span">Note</summary>

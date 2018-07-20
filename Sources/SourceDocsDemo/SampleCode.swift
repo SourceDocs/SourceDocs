@@ -40,14 +40,22 @@ public protocol Animal {
 
 /// Describes the state of domestication
 ///
+/// ### h3 _this is italics_
+///
+/// # h1 **this is bold**
+///
+/// ## h2 WHAT
+///
+/// ###### h6
+/// ---
+/// ***
 /// - domesticated: For animal that are domesticated.
 /// - undomesticated: For animal that are not domesticated.
 /// - unknown: For animals which have an unknown domestication state.
 ///
-/// Here is a comment with raw html
+/// Here is a comment with [link that is](http://www.link.com) embedded
 ///
-/// <svg width="100" height="100"><rect width="100" height="100" style="fill:rgba(0,150,0,1);" /></svg>
-
+/// ![dog gif](https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif)
 public enum DomesticationState {
     /// For animal that are domesticated.
     case domesticated
@@ -58,6 +66,10 @@ public enum DomesticationState {
 }
 
 /// Describes a thing that can be named
+/// 1. one
+/// 1. two
+/// 1. three
+///
 public protocol Nameable: CustomStringConvertible {
     /// Name of the thing being named
     var name: String { get }
@@ -107,6 +119,28 @@ extension Dog: Speaker {
 /// Common animal many people have as pets, which is not a dog
 ///
 /// ![The real head of the household?](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
+///
+/// [google it](http://www.google.com)
+///
+/// ```html
+///     <html>
+///         <body>
+///
+///             <h1>My First Heading</h1>
+///
+///             <p>My first paragraph.</p>
+///
+///         </body>
+///     </html>
+/// ```
+///
+/// ```
+/// var unspecifiedLanguagueVar = 1
+/// ```
+///
+/// ```swift
+///     let swiftyConstant = 1
+/// ```
 open class Cat: Animal, Nameable {
     /// All cats should have a name too
     public let name: String

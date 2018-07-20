@@ -2,7 +2,7 @@
 //  Documentable.swift
 //  SourceDocs
 //
-//  Created by xs19on on 18/07/2018.
+//  Created by Jim Hildensperger on 18/07/2018.
 //
 
 import Foundation
