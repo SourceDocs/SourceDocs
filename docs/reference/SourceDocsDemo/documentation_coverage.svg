@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="139.18310546875" height="21.0">
+    <linearGradient id="b" x2="0" y2="100%">
+        <stop offset="0" stop-color="#bbb" stop-opacity=".1" />
+        <stop offset="1" stop-opacity=".1" />
+    </linearGradient>
+    <clipPath id="a">
+        <rect width="139.18310546875" height="21.0" rx="4" ry="4" fill="#fff" />
+    </clipPath>
+    <g clip-path="url(#a)" >
+        <path fill="#555" d="M0 0h94.36572265625v21.0H0z" />
+        <path fill="#4c1" d="M94.36572265625 0h44.8173828125v21.0H94.36572265625z" />
+        <path fill="url(#b)" d="M0 0h139.18310546875v21.0H0z" />
+    </g>
+    <g fill="#fff" text-anchor="left" font-family="Verdana,Geneva,sans-serif" font-size="11.0">
+        <text x="6.0" y="14.5" fill="#010101" fill-opacity=".3" textLength="82.36572265625">
+            documentation
+        </text>
+        <text x="6.0" y="14.5" textLength="82.36572265625">
+            documentation
+        </text>
+        <text x="100.36572265625" y="14.5" fill="#010101" fill-opacity=".3" textLength="32.8173828125">
+            100%
+        </text>
+        <text x="100.36572265625" y="14.5" textLength="32.8173828125">
+            100%
+        </text>
+    </g>
+</svg>

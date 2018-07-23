@@ -38,15 +38,13 @@ class MarkdownIndex {
             }
             }.reduce(DocumentationStatus(), +)
 
-        let coverage = Int(status.precentage * 100)
-
         var content: [MarkdownConvertible] = [
             """
             # Reference Documentation
             This Reference Documentation has been generated with
             [SourceDocs v\(SourceDocs.version)](https://github.com/jhildensperger/SourceDocs).
 
-            \(SVGBadgeGenerator.badge(for: coverage))
+            ![](\(SourceDocs.defaultCoverageSvgFilename))
             """
         ]
 
@@ -57,6 +55,7 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
 
+        try writeFile(file: CoverageBadge(coverage: Int(status.precentage * 100), basePath: docsPath))
         try writeFile(file: MarkdownFile(filename: filename, basePath: docsPath, content: content))
         try writeFile(file: DocumentationStatusFile(basePath: docsPath, status: status))
         fputs("Done 🎉\n".green, stdout)

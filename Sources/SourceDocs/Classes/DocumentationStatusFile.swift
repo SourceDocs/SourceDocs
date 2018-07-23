@@ -12,7 +12,7 @@ struct DocumentationStatusFile: Writeable {
     let status: DocumentationStatus
 
     var filePath: String {
-        return basePath + "/documentation_status.json"
+        return basePath + "/" + SourceDocs.defaultStatusFilename
     }
 
     func write() throws {
