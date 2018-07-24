@@ -10,6 +10,7 @@ import MarkdownGenerator
 
 protocol Writeable {
     var filePath: String { get }
+    var basePath: String { get }
 
     func write() throws
 }

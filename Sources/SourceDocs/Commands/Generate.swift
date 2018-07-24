@@ -51,7 +51,6 @@ struct GenerateCommandOptions: OptionsProtocol {
 struct GenerateCommand: CommandProtocol {
     typealias Options = GenerateCommandOptions
 
-    private let markdownIndex = MarkdownIndex()
     private let initialPath = FileManager.default.currentDirectoryPath
 
     let verb = "generate"
@@ -114,42 +113,7 @@ struct GenerateCommand: CommandProtocol {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
 
-        process(docs: docs, options: options)
-        try markdownIndex.write(to: docsPath, contentsFileName: options.contentsFileName)
-    }
-
-    private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
-        let dictionaries = docs.compactMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
-        process(dictionaries: dictionaries, options: options)
-    }
-
-    private func process(dictionaries: [SwiftDocDictionary], options: GenerateCommandOptions) {
-        dictionaries.forEach { process(dictionary: $0, options: options) }
-    }
-
-    private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
-        let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
-                                              tableOfContents: options.tableOfContents)
-
-        if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
-            if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                markdownIndex.structs.append(item)
-            } else if kind == .class, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                markdownIndex.classes.append(item)
-            } else if let item = MarkdownExtension(dictionary: dictionary, options: markdownOptions) {
-                markdownIndex.extensions.append(item)
-            } else if let item = MarkdownEnum(dictionary: dictionary, options: markdownOptions) {
-                markdownIndex.enums.append(item)
-            } else if let item = MarkdownProtocol(dictionary: dictionary, options: markdownOptions) {
-                markdownIndex.protocols.append(item)
-            } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
-                markdownIndex.typealiases.append(item)
-            }
-        }
-
-        if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
-            process(dictionaries: substructure, options: options)
-        }
+        try MarkdownIndex(basePath: docsPath, docs: docs, options: options).write()
     }
 
 }

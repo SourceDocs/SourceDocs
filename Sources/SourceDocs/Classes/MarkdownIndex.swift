@@ -9,26 +9,38 @@
 import Foundation
 import MarkdownGenerator
 import Rainbow
+import SourceKittenFramework
 
 struct MarkdownOptions {
     var collapsibleBlocks: Bool
     var tableOfContents: Bool
 }
 
-class MarkdownIndex {
-    var structs: [MarkdownObject] = []
-    var classes: [MarkdownObject] = []
-    var extensions: [MarkdownExtension] = []
-    var enums: [MarkdownEnum] = []
-    var protocols: [MarkdownProtocol] = []
-    var typealiases: [MarkdownTypealias] = []
+class MarkdownIndex: Writeable {
+    let basePath: String
+    let filePath: String
 
-    func write(to docsPath: String, contentsFileName filename: String) throws {
-        extensions = flattenedExtensions()
+    private let filename: String
+    private var structs: [MarkdownObject] = []
+    private var classes: [MarkdownObject] = []
+    private var extensions: [MarkdownExtension] = []
+    private var enums: [MarkdownEnum] = []
+    private var protocols: [MarkdownProtocol] = []
+    private var typealiases: [MarkdownTypealias] = []
+
+    init(basePath: String, docs: [SwiftDocs], options: GenerateCommandOptions) {
+        self.basePath = basePath
+        self.filename = options.contentsFileName
+        self.filePath = basePath + "/" + filename
+        self.process(docs: docs, options: options)
+    }
+
+    func write() throws {
+        let flattenedExtensions = self.flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
 
-        let status = [protocols, structs, classes, enums, extensions, typealiases].compactMap {
+        let status = [protocols, structs, classes, enums, flattenedExtensions, typealiases].compactMap {
             guard let documentables = $0 as? [Documentable] else {
                 return nil
             }
@@ -50,27 +62,66 @@ class MarkdownIndex {
             """
         ]
 
-        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols"))
-        try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs"))
-        try content.append(writeAndIndexFiles(items: classes, to: docsPath, collectionTitle: "Classes"))
-        try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums"))
-        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
-        try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
+        try content.append(writeAndIndexFiles(items: protocols, to: basePath, collectionTitle: "Protocols"))
+        try content.append(writeAndIndexFiles(items: structs, to: basePath, collectionTitle: "Structs"))
+        try content.append(writeAndIndexFiles(items: classes, to: basePath, collectionTitle: "Classes"))
+        try content.append(writeAndIndexFiles(items: enums, to: basePath, collectionTitle: "Enums"))
+        try content.append(writeAndIndexFiles(items: flattenedExtensions, to: basePath, collectionTitle: "Extensions"))
+        try content.append(writeAndIndexFiles(items: typealiases, to: basePath, collectionTitle: "Typealiases"))
 
-        try writeFile(file: CoverageBadge(coverage: Int(status.precentage * 100), basePath: docsPath))
-        try writeFile(file: MarkdownFile(filename: filename, basePath: docsPath, content: content))
-        try writeFile(file: DocumentationStatusFile(basePath: docsPath, status: status))
+        try writeFile(file: CoverageBadge(coverage: coverage, basePath: basePath))
+        try writeFile(file: MarkdownFile(filename: filename, basePath: basePath, content: content))
+        try writeFile(file: DocumentationStatusFile(basePath: basePath, status: status))
         fputs("Done 🎉\n".green, stdout)
     }
 
+    func addItem(from dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
+        let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks, tableOfContents: options.tableOfContents)
+
+        if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
+            if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
+                structs.append(item)
+            } else if kind == .class, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
+                classes.append(item)
+            } else if let item = MarkdownExtension(dictionary: dictionary, options: markdownOptions) {
+                extensions.append(item)
+            } else if let item = MarkdownEnum(dictionary: dictionary, options: markdownOptions) {
+                enums.append(item)
+            } else if let item = MarkdownProtocol(dictionary: dictionary, options: markdownOptions) {
+                protocols.append(item)
+            } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
+                typealiases.append(item)
+            }
+        }
+    }
+
+    // MARK: - Private
+
+    private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
+        let dictionaries = docs.compactMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
+        process(dictionaries: dictionaries, options: options)
+    }
+
+    private func process(dictionaries: [SwiftDocDictionary], options: GenerateCommandOptions) {
+        dictionaries.forEach { process(dictionary: $0, options: options) }
+    }
+
+    private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
+        addItem(from: dictionary, options: options)
+
+        if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
+            process(dictionaries: substructure, options: options)
+        }
+    }
+
     private func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
-                                    to docsPath: String, collectionTitle: String) throws -> [MarkdownConvertible] {
+                                    to basePath: String, collectionTitle: String) throws -> [MarkdownConvertible] {
         if items.isEmpty {
             return []
         }
 
         // Make and write files
-        let files = makeFiles(with: items, basePath: "\(docsPath)/\(collectionTitle)")
+        let files = makeFiles(with: items, basePath: "\(basePath)/\(collectionTitle)")
         try files.forEach { try writeFile(file: $0) }
 
         // Make links for index
