@@ -38,13 +38,15 @@ class MarkdownIndex {
             }
             }.reduce(DocumentationStatus(), +)
 
+        let coverage = Int(status.precentage * 100)
+
         var content: [MarkdownConvertible] = [
             """
             # Reference Documentation
             This Reference Documentation has been generated with
             [SourceDocs v\(SourceDocs.version)](https://github.com/jhildensperger/SourceDocs).
 
-            ![](\(SourceDocs.defaultCoverageSvgFilename))
+            ![\(coverage)%](\(SourceDocs.defaultCoverageSvgFilename))
             """
         ]
 
