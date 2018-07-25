@@ -9,7 +9,7 @@
 #### Bug Fixes
 - None
 
-## 1.0.0
+## 0.6.0
 
 #### Breaking
 - Change `--output-file` to `--output`.
@@ -22,8 +22,7 @@
 - SVG badge added to contents file.
 
 #### Bug Fixes
-- None
-
+- Generate markdown for `open` classes.
 
 ## 0.5.0
 
