@@ -16,8 +16,8 @@ struct CleanCommandOptions: OptionsProtocol {
 
     static func evaluate(_ mode: CommandMode) -> Result<CleanCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
-                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputDirectory,
+                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputDirectory)).")
     }
 }
 
@@ -40,13 +40,23 @@ struct CleanCommand: CommandProtocol {
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: docsPath, isDirectory: &isDir) {
             fputs("Removing reference documentation at '\(docsPath)'...".green, stdout)
-            do {
-                try FileManager.default.removeItem(atPath: docsPath)
-                fputs(" ✔".green + "\n", stdout)
-            } catch let error {
+
+            guard let paths = try? FileManager.default.contentsOfDirectory(atPath: docsPath) else {
                 fputs(" ❌\n", stdout)
-                throw error
+                throw NSError(domain: "file", code: 9999, userInfo: nil)
             }
+
+            for path in paths {
+                do {
+                    guard path.first != "." else { continue }
+                    try FileManager.default.removeItem(atPath: docsPath.appending("/\(path)"))
+                } catch let error {
+                    fputs(" ❌\n", stdout)
+                    throw error
+                }
+            }
+
+            fputs(" ✔".green + "\n", stdout)
         } else {
             fputs("Did not find any reference docs at '\(docsPath)'.\n", stdout)
         }

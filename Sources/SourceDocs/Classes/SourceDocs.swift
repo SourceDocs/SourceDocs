@@ -10,8 +10,11 @@ import Commandant
 import Rainbow
 
 struct SourceDocs {
-    static let version = "0.5.0"
-    static let defaultOutputPath = "Documentation/Reference"
+    static let version = "0.6.0"
+    static let defaultOutputDirectory = "Documentation/Reference"
+    static let defaultContentsFilename = "README"
+    static let defaultStatusFilename = "documentation_status.json"
+    static let defaultCoverageSvgFilename = "documentation_coverage.svg"
 
     func run() {
         let registry = CommandRegistry<SourceDocsError>()

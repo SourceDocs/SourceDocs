@@ -1,18 +1,29 @@
 # Reference Documentation
 This Reference Documentation has been generated with
-[SourceDocs](https://github.com/eneko/SourceDocs).
+[SourceDocs v0.6.0](https://github.com/jhildensperger/SourceDocs).
+
+![100%](documentation_coverage.svg)
 
 ## Protocols
 
--   [Animal](protocols/Animal.md)
--   [Nameable](protocols/Nameable.md)
--   [Speaker](protocols/Speaker.md)
+-   [Animal](Protocols/Animal)
+-   [Nameable](Protocols/Nameable)
+-   [Speaker](Protocols/Speaker)
 
 ## Structs
 
--   [Dog](structs/Dog.md)
+-   [Dog](Structs/Dog)
+
+## Classes
+
+-   [Cat](Classes/Cat)
+
+## Enums
+
+-   [DomesticationState](Enums/DomesticationState)
 
 ## Extensions
 
--   [Dog](extensions/Dog.md)
--   [Nameable](extensions/Nameable.md)
+-   [Cat](Extensions/Cat)
+-   [Dog](Extensions/Dog)
+-   [Nameable](Extensions/Nameable)

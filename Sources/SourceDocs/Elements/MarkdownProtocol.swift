@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible, Documentable {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
@@ -52,5 +52,19 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(methods)
         """
+    }
+
+    func checkDocumentation() -> DocumentationStatus {
+        var status = DocumentationStatus(self)
+
+        status += properties.reduce(DocumentationStatus(), { (status: DocumentationStatus, documentable) in
+            return status + documentable.checkDocumentation()
+        })
+
+        status += methods.reduce(DocumentationStatus(), { (status: DocumentationStatus, documentable) in
+            return status + documentable.checkDocumentation()
+        })
+
+        return status
     }
 }

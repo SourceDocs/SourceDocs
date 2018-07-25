@@ -1,0 +1,151 @@
+{
+  "documentedInterfaces" : [
+    {
+      "declaration" : "public protocol Animal",
+      "name" : "Animal",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "static var family: String",
+      "name" : "family",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "func greet()",
+      "name" : "greet()",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public protocol Nameable: CustomStringConvertible",
+      "name" : "Nameable",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "var name: String",
+      "name" : "name",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public protocol Speaker",
+      "name" : "Speaker",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "func speak()",
+      "name" : "speak()",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public struct Dog: Animal, Nameable",
+      "name" : "Dog",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public let name: String",
+      "name" : "name",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public static let family = \"Canidae\"",
+      "name" : "family",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public func greet()",
+      "name" : "greet()",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "open class Cat: Animal, Nameable",
+      "name" : "Cat",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public let name: String",
+      "name" : "name",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public var owner: String?",
+      "name" : "owner",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public static let family = \"Felidae\"",
+      "name" : "family",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public init(name: String, owner: String?)",
+      "name" : "init(name:owner:)",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public func greet()",
+      "name" : "greet()",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public enum DomesticationState",
+      "name" : "DomesticationState",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "case domesticated",
+      "name" : "domesticated",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "case undomesticated",
+      "name" : "undomesticated",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "case unknown(String)",
+      "name" : "unknown",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public var description: String",
+      "name" : "description",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public func speak()",
+      "name" : "speak()",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    },
+    {
+      "declaration" : "public func speak()",
+      "name" : "speak()",
+      "file" : "\/Users\/jhildensperger\/Documents\/SourceDocs\/Sources\/SourceDocsDemo\/SampleCode.swift",
+      "isDocumented" : true
+    }
+  ],
+  "undocumentedCount" : 0,
+  "documentedCount" : 24,
+  "interfaceCount" : 24
+}

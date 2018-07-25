@@ -2,21 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Clang_C",
-        "repositoryURL": "https://github.com/norio-nomura/Clang_C.git",
-        "state": {
-          "branch": null,
-          "revision": "90a9574276f0fd17f02f58979423c3fd4d73b59e",
-          "version": "1.0.2"
-        }
-      },
-      {
         "package": "Commandant",
         "repositoryURL": "https://github.com/Carthage/Commandant.git",
         "state": {
           "branch": null,
-          "revision": "7f29606ec3a2054a601f0e72f562a104dbc1a11a",
-          "version": "0.13.0"
+          "revision": "066bf9a79c37cf24fe4746ab7a1793b0359d1fe5",
+          "version": "0.14.0"
         }
       },
       {
@@ -42,8 +33,8 @@
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
           "branch": null,
-          "revision": "21f4fed2052cea480f5f1d2044d45aa25fdfb988",
-          "version": "7.1.1"
+          "revision": "9c1379fdcd58c4f2278aea5e029394ba9a2b8f07",
+          "version": "7.1.3"
         }
       },
       {
@@ -51,8 +42,8 @@
         "repositoryURL": "https://github.com/Quick/Quick.git",
         "state": {
           "branch": null,
-          "revision": "3e3023569c8d4c4a0d000f58db765df53041117f",
-          "version": "1.3.0"
+          "revision": "b060679e70d13c3c7dcd124201b5b1b34ce6f340",
+          "version": "1.3.1"
         }
       },
       {
@@ -60,8 +51,8 @@
         "repositoryURL": "https://github.com/onevcat/Rainbow",
         "state": {
           "branch": null,
-          "revision": "7737750b25a9cb4174c7567bef11d175715a824f",
-          "version": "3.1.2"
+          "revision": "797a68d0a642609424b08f11eb56974a54d5f6e2",
+          "version": "3.1.4"
         }
       },
       {
@@ -74,21 +65,12 @@
         }
       },
       {
-        "package": "SourceKit",
-        "repositoryURL": "https://github.com/norio-nomura/SourceKit.git",
-        "state": {
-          "branch": null,
-          "revision": "18eaa67ca44443bbe39646916792b9f0c98dbaa1",
-          "version": "1.0.1"
-        }
-      },
-      {
         "package": "SourceKitten",
-        "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
+        "repositoryURL": "https://github.com/jhildensperger/SourceKitten.git",
         "state": {
-          "branch": null,
-          "revision": "b6b10419ee439167ba6f7bd928ad30754ff5eb5d",
-          "version": "0.20.0"
+          "branch": "fix/comments",
+          "revision": "ce672f8e9abe9c24b1e0c65dbce2d89714998200",
+          "version": null
         }
       },
       {
@@ -96,8 +78,8 @@
         "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
         "state": {
           "branch": null,
-          "revision": "17d992beb3aaeda403fd35f8d5e70ab1a8124f35",
-          "version": "4.6.0"
+          "revision": "2211b35c2e0e8b08493f86ba52b26e530cabb751",
+          "version": "4.7.0"
         }
       },
       {
@@ -105,8 +87,8 @@
         "repositoryURL": "https://github.com/jpsim/Yams.git",
         "state": {
           "branch": null,
-          "revision": "6652aa7b793d3c8a075db0614acb575fcaecf457",
-          "version": "0.7.0"
+          "revision": "618582e09699b577fa183bab7d88e3ee7d9a1d19",
+          "version": "0.6.0"
         }
       }
     ]

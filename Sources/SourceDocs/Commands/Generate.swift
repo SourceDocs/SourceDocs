@@ -15,7 +15,9 @@ import SourceKittenFramework
 struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
-    let outputFolder: String
+    let outputDirectory: String
+    let sourceDirectory: String?
+    let contentsFileName: String
     let includeModuleNameInPath: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
@@ -28,8 +30,12 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil,
                                usage: "Generate documentation for a Swift module.")
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
-                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "output", defaultValue: SourceDocs.defaultOutputDirectory,
+                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputDirectory)).")
+            <*> mode <| Option(key: "source", defaultValue: nil,
+                               usage: "Output directory (defaults to the current directory).")
+            <*> mode <| Option(key: "contents-filename", defaultValue: SourceDocs.defaultContentsFilename,
+                               usage: "Output file (defaults to \(SourceDocs.defaultContentsFilename)).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean",
@@ -45,11 +51,17 @@ struct GenerateCommandOptions: OptionsProtocol {
 struct GenerateCommand: CommandProtocol {
     typealias Options = GenerateCommandOptions
 
+    private let initialPath = FileManager.default.currentDirectoryPath
+
     let verb = "generate"
     let function = "Generates the Markdown documentation"
 
     func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
+            if let sourcePath = options.sourceDirectory {
+                FileManager.default.changeCurrentDirectoryPath(NSString(string: sourcePath).expandingTildeInPath)
+            }
+
             if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module)
                 try generateDocumentation(docs: docs, options: options, module: module)
@@ -91,47 +103,17 @@ struct GenerateCommand: CommandProtocol {
         return docs
     }
 
-    private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String) throws {
-        let docsPath = options.includeModuleNameInPath ? "\(options.outputFolder)/\(module)" : options.outputFolder
+    private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String = "") throws {
+        FileManager.default.changeCurrentDirectoryPath(initialPath)
+
+        let relativeDocsPath = options.includeModuleNameInPath ? "\(options.outputDirectory)/\(module)" : options.outputDirectory
+        let docsPath = NSString(string: relativeDocsPath).expandingTildeInPath
+
         if options.clean {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
-        process(docs: docs, options: options)
-        try MarkdownIndex.shared.write(to: docsPath)
-    }
 
-    private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
-        let dictionaries = docs.compactMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
-        process(dictionaries: dictionaries, options: options)
-    }
-
-    private func process(dictionaries: [SwiftDocDictionary], options: GenerateCommandOptions) {
-        dictionaries.forEach { process(dictionary: $0, options: options) }
-    }
-
-    private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
-        let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
-                                              tableOfContents: options.tableOfContents)
-
-        if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
-            if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.structs.append(item)
-            } else if kind == .class, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.classes.append(item)
-            } else if let item = MarkdownExtension(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.extensions.append(item)
-            } else if let item = MarkdownEnum(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.enums.append(item)
-            } else if let item = MarkdownProtocol(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.protocols.append(item)
-            } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.typealiases.append(item)
-            }
-        }
-
-        if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
-            process(dictionaries: substructure, options: options)
-        }
+        try MarkdownIndex(basePath: docsPath, docs: docs, options: options).write()
     }
 
 }

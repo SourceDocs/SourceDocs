@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible, Documentable {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
@@ -18,7 +18,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
-        guard dictionary.hasPublicACL && dictionary.isKind([.protocol]) else {
+        guard dictionary.hasPublicACL && dictionary.isKind([.protocol, .class, .enum, .struct, .typealias]) else {
             return nil
         }
         self.dictionary = dictionary
