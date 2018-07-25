@@ -1,8 +1,8 @@
 # SourceDocs
 
-[![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)](https://github.com/eneko/SourceDocs/releases)
-[![Build Status](https://travis-ci.org/eneko/SourceDocs.svg?branch=master)](https://travis-ci.org/eneko/SourceDocs)
-[![codecov](https://codecov.io/gh/eneko/SourceDocs/branch/master/graph/badge.svg)](https://codecov.io/gh/eneko/SourceDocs)
+[![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)](https://github.com/jhildensperger/SourceDocs/releases)
+[![Build Status](https://travis-ci.org/eneko/SourceDocs.svg?branch=master)](https://travis-ci.org/jhildensperger/SourceDocs)
+[![codecov](https://codecov.io/gh/eneko/SourceDocs/branch/master/graph/badge.svg)](https://codecov.io/gh/jhildensperger/SourceDocs)
 ![Swift 4.1](https://img.shields.io/badge/Swift-4.1-orange.svg)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org/package-manager)
 
@@ -30,25 +30,30 @@ Requirements:
 
 ### Homebrew
 
-    $ brew install eneko/tap/sourcedocs
+    $ brew install jhildensperger/tap/sourcedocs
 
 ### Swift Package Manager
 
-    $ git clone https://github.com/eneko/SourceDocs.git
+    $ git clone https://github.com/jhildensperger/SourceDocs.git
     $ cd SourceDocs
     $ make
 
 
 ## Usage
-To generate documentation from your source code, run the `sourcedocs` command
-directly from the root your project.
+To generate documentation from your source code, run the `sourcedocs` command directly
+from the root your project or use the `--source` option with the path to your source.
 
     $ cd ~/path/to/MyAppOrFramework
     $ sourcedocs generate
 
+or
+
+    $ sourcedocs generate --source ~/path/to/MyAppOrFramework
+
 This command will analyze your MyAppOrFramework project and generate reference
 documentation from all public types found. The documentation is written to
 the directory `Documentation/Reference` relative to the root of your project repository.
+You can also use the `--output` option to specific an output directory.
 
 ### Usage options
 Typing `sourcedocs help` we get a list of all available commands:
@@ -73,8 +78,14 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
     [--module-name (string)]
     	Generate documentation for a Swift module.
 
-    [--output-folder (string)]
+    [--output (string)]
     	Output directory (defaults to Documentation/Reference).
+
+    [--source (string)]
+    	Source directory (defaults to current directory).
+    
+    [--contents-filename (string)]
+    	Filename used for the root markdown file (defaults to README).
 
     --clean|-c
     	Delete output folder before generating documentation.
@@ -109,16 +120,9 @@ We highly recommend adding the generated documentation to your source code
 repository, so it can be easily browsed inline. GitHub and BitBucket do a great
 job rendering Markdown files, so your documentation will be very nice to read.
 
-**Example Generated Documentation**
-![SourceDocs Example](http://www.enekoalonso.com/media/sourcedocs-example.png)
-
-
-## Contact
-Follow and contact me on Twitter at [@eneko](https://www.twitter.com/eneko).
-
 
 ## Contributions
-If you find an issue, just [open a ticket](https://github.com/eneko/SourceDocs/issues/new)
+If you find an issue, just [open a ticket](https://github.com/jhildensperger/SourceDocs/issues/new)
 on it. Pull requests are warmly welcome as well.
 
 
