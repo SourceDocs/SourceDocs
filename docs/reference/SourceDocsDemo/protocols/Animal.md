@@ -7,8 +7,10 @@ public protocol Animal
 ```
 
 > Describes an animal hierarchy of things
+>
 > - CustomCallout: CustomCallout Callout Example. CustomCallout is not supported! The will appear as bullet lists.
 > - Example: Example Callout Example
+>
 >
 >
 > <details><summary markdown="span">Attention</summary>

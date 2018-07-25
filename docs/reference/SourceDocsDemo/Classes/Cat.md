@@ -7,6 +7,7 @@ open class Cat : Animal, Nameable
 ```
 
 > Common animal many people have as pets, which is not a dog
+>
 > ![The real head of the household?](https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif)
 >
 > [google it](http://www.google.com)
@@ -64,7 +65,9 @@ public init(name: String, owner: String?)
 ```
 
 > Initialize a new Cat with an name and an owner’s name
+>
 > The name of the cat.
+>
 >
 >
 > <details><summary markdown="span">Note</summary>

@@ -35,7 +35,7 @@ extension SwiftDocDictionaryInitializable {
     }
 
     var comment: String {
-        return [abstract, discussion, callouts].compactMap({$0}).joined(separator: "\n")
+        return [abstract, discussion, callouts].compactMap({$0}).joined(separator: "\n\n")
     }
 
     var declaration: String {

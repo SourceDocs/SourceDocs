@@ -7,6 +7,7 @@ public enum DomesticationState
 ```
 
 > Describes the state of domestication
+>
 > ### h3 _this is italics_
 > # h1 __this is bold__
 > ## h2 WHAT
