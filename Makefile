@@ -4,7 +4,7 @@ VERSION = 0.5.0
 PREFIX = /usr/local
 INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
 BUILD_PATH = .build/release/$(TOOL_NAME)
-TAR_FILENAME = $(TOOL_NAME)-$(VERSION).tar.gz
+TAR_FILENAME = $(VERSION).tar.gz
 
 .PHONY: build docs
 
@@ -26,7 +26,7 @@ docs:
 	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference --module-name-path
 
 get_sha:
-	wget https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz -O $(TAR_FILENAME)
+	curl -OLs https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz
 	shasum -a 256 $(TAR_FILENAME)
 	rm $(TAR_FILENAME)
 
