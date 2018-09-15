@@ -25,6 +25,9 @@ lint:
 docs:
 	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference --module-name-path
 
+zip: build
+	zip -D $(TOOL_NAME).macos.zip $(BUILD_PATH)
+
 get_sha:
 	curl -OLs https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz
 	shasum -a 256 $(TAR_FILENAME)
