@@ -43,7 +43,7 @@ struct CleanCommand: CommandProtocol {
 
             guard let paths = try? FileManager.default.contentsOfDirectory(atPath: docsPath) else {
                 fputs(" ❌\n", stdout)
-                throw NSError(domain: "file", code: 9999, userInfo: nil)
+                throw NSError(domain: "file", code: 0, userInfo: nil)
             }
 
             for path in paths {

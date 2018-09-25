@@ -50,7 +50,11 @@ class MarkdownIndex: Writeable {
             }
             }.reduce(DocumentationStatus(), +)
 
-        let coverage = Int(status.precentage * 100)
+        guard let precentage = status.precentage else {
+            throw NSError(domain: "No documentable interfaces", code: 0, userInfo: nil)
+        }
+
+        let coverage = Int(precentage * 100)
 
         var content: [MarkdownConvertible] = [
             """
