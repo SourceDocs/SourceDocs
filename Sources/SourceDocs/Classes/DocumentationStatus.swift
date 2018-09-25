@@ -32,8 +32,9 @@ struct DocumentationStatus {
         return undocumentedInterfaces?.count ?? 0
     }
 
-    var precentage: Double {
-        return Double(interfaceCount - undocumentedCount) / Double(interfaceCount)
+    var precentage: Double? {
+        let value = Double(interfaceCount - undocumentedCount) / Double(interfaceCount)
+        return value.isFinite ? value : nil
     }
 
     init(_ documentable: SwiftDocDictionaryInitializable? = nil) {

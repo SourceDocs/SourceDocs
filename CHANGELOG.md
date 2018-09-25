@@ -9,6 +9,18 @@
 #### Bug Fixes
 - None
 
+## 0.6.1
+
+#### Breaking
+- None
+
+#### Enhancements
+- None
+
+#### Bug Fixes
+- Throw an error where there are no public interfaces
+- Remove undocumentated status for obsoleted interfaces
+
 ## 0.6.0
 
 #### Breaking

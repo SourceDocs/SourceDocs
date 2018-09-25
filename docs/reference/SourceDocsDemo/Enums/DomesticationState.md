@@ -41,7 +41,7 @@ case undomesticated
 
 > For animal that are not domesticated.
 
-### `unknown`
+### `unknown(_:)`
 
 ```swift
 case unknown(String)

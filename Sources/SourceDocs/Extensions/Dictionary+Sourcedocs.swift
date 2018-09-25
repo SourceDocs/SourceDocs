@@ -13,6 +13,10 @@ typealias SwiftDocDictionary = [String: Any]
 
 extension Dictionary where Key == String, Value == Any {
     var hasPublicACL: Bool {
+        guard let filePath: String = get(.filePath), !filePath.isEmpty else {
+            return false
+        }
+
         let accessLevel: String? = get(.accessibility)
         return accessLevel == "source.lang.swift.accessibility.public" || accessLevel == "source.lang.swift.accessibility.open"
     }
