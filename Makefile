@@ -23,7 +23,7 @@ lint:
 	swiftlint lint --quiet
 
 docs:
-	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference --module-name-path
+	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output docs/reference/SourceDocsDemo
 
 get_sha:
 	wget https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz -O $(TAR_FILENAME)
