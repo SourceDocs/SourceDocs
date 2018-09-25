@@ -67,7 +67,7 @@ public enum DomesticationState {
 
 @objc
 @available(swift, obsoleted: 1.0)
-public class ObjcOnlyClass {
+public class ObjcOnlyClass: NSObject {
 
 }
 
