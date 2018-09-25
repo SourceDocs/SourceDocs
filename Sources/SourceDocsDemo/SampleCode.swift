@@ -65,6 +65,18 @@ public enum DomesticationState {
     case unknown(String)
 }
 
+@objc
+@available(swift, obsoleted: 1.0)
+public class ObjcOnlyClass {
+
+}
+
+@objc
+@available(swift, obsoleted: 1.0)
+public protocol ObjcOnlyProtocol {
+
+}
+
 /// Describes a thing that can be named
 /// 1. one
 /// 1. two
@@ -164,6 +176,12 @@ open class Cat: Animal, Nameable {
     }
 
     public func greet() {
+        print("ew people.")
+    }
+
+    @objc
+    @available(swift, obsoleted: 1.0)
+    public func obsoletedGreet() {
         print("ew people.")
     }
 }
