@@ -13,5 +13,14 @@ jobs:
   - stage: Test
     name: Homebrew Installation
     script:
+    - brew upgrade
     - brew install eneko/tap/sourcedocs
+    - sourcedocs version
+  - stage: Test
+    name: Installation from Source
+    script:
+    - git clone --depth 1 https://github.com/eneko/SourceDocs.git
+    - cd SourceDocs
+    - make install
+    - sourcedocs version
 
