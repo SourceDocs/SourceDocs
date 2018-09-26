@@ -1,9 +1,17 @@
 os: osx
 osx_image: xcode10
-script:
-  - swift test --parallel
-  - swift package generate-xcodeproj --enable-code-coverage
-  - xcodebuild -scheme SourceDocs-Package test
+jobs:
+  include:
+  - stage: Test
+    name: Unit Tests and Code Coverage
+    script:
+    - swift test --parallel
+    - swift package generate-xcodeproj --enable-code-coverage
+    - xcodebuild -scheme SourceDocs-Package test
+    after_success:
+    - bash <(curl -s https://codecov.io/bash)
+  - stage: Test
+    name: Homebrew Installation
+    script:
+    - brew install eneko/tap/sourcedocs
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
