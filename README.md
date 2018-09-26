@@ -23,21 +23,6 @@ within your project repository or render with GitHub Pages.
   private projects)
 - ✅ Browse reference documentation on GitHub Pages (great for public projects)
 
-## Installation
-
-Requirements:
-- Swift 4 runtime installed in your computer.
-
-### Homebrew
-
-    $ brew install eneko/tap/sourcedocs
-
-### Swift Package Manager
-
-    $ git clone https://github.com/eneko/SourceDocs.git
-    $ cd SourceDocs
-    $ make
-
 
 ## Usage
 To generate documentation from your source code, run the `sourcedocs` command
@@ -111,6 +96,28 @@ job rendering Markdown files, so your documentation will be very nice to read.
 
 **Example Generated Documentation**
 ![SourceDocs Example](http://www.enekoalonso.com/media/sourcedocs-example.png)
+
+
+## Installation
+
+### Download Binary
+
+    $ curl -Ls https://github.com/eneko/SourceDocs/releases/download/0.5.0/sourcedocs.macos.zip -o /tmp/sourcedocs.macos.zip
+    $ unzip -j -d /usr/local/bin /tmp/sourcedocs.macos.zip 
+
+### From Sources
+Requirements:
+- Swift 4 runtime and Xcode installed in your computer.
+
+#### Using Homebrew
+
+    $ brew install eneko/tap/sourcedocs
+
+#### Building with Swift Package Manager
+
+    $ git clone https://github.com/eneko/SourceDocs.git
+    $ cd SourceDocs
+    $ make
 
 
 ## Contact
