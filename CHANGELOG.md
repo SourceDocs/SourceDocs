@@ -10,6 +10,18 @@
 - None
 
 
+## 0.5.1
+
+#### Breaking
+- None
+
+#### Enhancements
+- None
+
+#### Bug Fixes
+- Cannot be installed via Homebrew on Mojave (#10)
+
+
 ## 0.5.0
 
 #### Breaking
