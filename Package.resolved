@@ -66,11 +66,11 @@
       },
       {
         "package": "SourceKitten",
-        "repositoryURL": "https://github.com/jhildensperger/SourceKitten.git",
+        "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
-          "branch": "fix/comments",
-          "revision": "ce672f8e9abe9c24b1e0c65dbce2d89714998200",
-          "version": null
+          "branch": null,
+          "revision": "4be914be6fa49cd30b1e7ef5d32d06c037d8f469",
+          "version": "0.21.2"
         }
       },
       {

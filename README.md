@@ -1,8 +1,8 @@
 # SourceDocs
 
-[![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)](https://github.com/jhildensperger/SourceDocs/releases)
-[![Build Status](https://travis-ci.org/eneko/SourceDocs.svg?branch=master)](https://travis-ci.org/jhildensperger/SourceDocs)
-[![codecov](https://codecov.io/gh/eneko/SourceDocs/branch/master/graph/badge.svg)](https://codecov.io/gh/jhildensperger/SourceDocs)
+[![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)](https://github.com/eneko/SourceDocs/releases)
+[![Build Status](https://travis-ci.org/eneko/SourceDocs.svg?branch=master)](https://travis-ci.org/eneko/SourceDocs)
+[![codecov](https://codecov.io/gh/eneko/SourceDocs/branch/master/graph/badge.svg)](https://codecov.io/gh/eneko/SourceDocs)
 ![Swift 4.1](https://img.shields.io/badge/Swift-4.1-orange.svg)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org/package-manager)
 
@@ -22,21 +22,6 @@ within your project repository or render with GitHub Pages.
 - ✅ Browse reference documentation within the project repository (great for
   private projects)
 - ✅ Browse reference documentation on GitHub Pages (great for public projects)
-
-## Installation
-
-Requirements:
-- Swift 4 runtime installed in your computer.
-
-### Homebrew
-
-    $ brew install jhildensperger/tap/sourcedocs
-
-### Swift Package Manager
-
-    $ git clone https://github.com/jhildensperger/SourceDocs.git
-    $ cd SourceDocs
-    $ make
 
 
 ## Usage
@@ -120,9 +105,38 @@ We highly recommend adding the generated documentation to your source code
 repository, so it can be easily browsed inline. GitHub and BitBucket do a great
 job rendering Markdown files, so your documentation will be very nice to read.
 
+**Example Generated Documentation**
+![SourceDocs Example](http://www.enekoalonso.com/media/sourcedocs-example.png)
+
+
+## Installation
+
+### Download Binary
+
+    $ curl -Ls https://github.com/eneko/SourceDocs/releases/download/latest/sourcedocs.macos.zip -o /tmp/sourcedocs.macos.zip
+    $ unzip -j -d /usr/local/bin /tmp/sourcedocs.macos.zip 
+
+### From Sources
+Requirements:
+- Swift 4 runtime and Xcode installed in your computer.
+
+#### Using Homebrew
+
+    $ brew install eneko/tap/sourcedocs
+
+#### Building with Swift Package Manager
+
+    $ git clone https://github.com/eneko/SourceDocs.git
+    $ cd SourceDocs
+    $ make
+
+
+## Contact
+Follow and contact me on Twitter at [@eneko](https://www.twitter.com/eneko).
+
 
 ## Contributions
-If you find an issue, just [open a ticket](https://github.com/jhildensperger/SourceDocs/issues/new)
+If you find an issue, just [open a ticket](https://github.com/eneko/SourceDocs/issues/new)
 on it. Pull requests are warmly welcome as well.
 
 

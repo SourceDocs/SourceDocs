@@ -1,6 +1,6 @@
 # Reference Documentation
 This Reference Documentation has been generated with
-[SourceDocs v0.6.0](https://github.com/jhildensperger/SourceDocs).
+[SourceDocs v0.6.1](https://github.com/eneko/SourceDocs).
 
 ![100%](documentation_coverage.svg)
 

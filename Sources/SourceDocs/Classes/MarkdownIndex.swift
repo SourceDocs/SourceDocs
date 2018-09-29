@@ -60,7 +60,7 @@ class MarkdownIndex: Writeable {
             """
             # Reference Documentation
             This Reference Documentation has been generated with
-            [SourceDocs v\(SourceDocs.version)](https://github.com/jhildensperger/SourceDocs).
+            [SourceDocs v\(SourceDocs.version)](https://github.com/eneko/SourceDocs).
 
             ![\(coverage)%](\(SourceDocs.defaultCoverageSvgFilename))
             """
