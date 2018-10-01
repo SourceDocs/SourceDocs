@@ -18,6 +18,9 @@ build:
 uninstall:
 	rm -f $(INSTALL_PATH)
 
+xcode:
+	swift package generate-xcodeproj --enable-code-coverage
+
 lint:
 	swiftlint autocorrect --quiet
 	swiftlint lint --quiet
