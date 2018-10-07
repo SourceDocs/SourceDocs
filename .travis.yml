@@ -2,41 +2,41 @@ language: generic
 
 jobs:
   include:
-  - stage: CI
+  - stage: Continuous Integration
     name: SwiftPM macOS
     os: osx
-    osx_image: xcode9
+    osx_image: xcode9.3
     script:
     - swift test --parallel
-  - stage: CI
+  - stage: Continuous Integration
     name: SwiftPM Linux
     os: Linux
     dist: trusty
     install:
     - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-    - swiftenv install 4.0
-    - swiftenv local 4.0
+    - swiftenv install 4.1
+    - swiftenv local 4.1
     - swift --version
     script:
     - swift test --parallel
-  - stage: CI
-    name: Code Coverage (Xcode 9)
+  - stage: Continuous Integration
+    name: Code Coverage (Xcode 9.3)
     os: osx
-    osx_image: xcode9
+    osx_image: xcode9.3
     script:
     - swift package generate-xcodeproj --enable-code-coverage
     - xcodebuild -scheme SourceDocs-Package test
     after_success:
     - bash <(curl -s https://codecov.io/bash)
-  - stage: CI
+  - stage: Continuous Integration
     name: Homebrew Install macOS
     os: osx
-    osx_image: xcode9
+    osx_image: xcode9.3
     script:
     - brew update
     - brew install eneko/tap/sourcedocs
     - sourcedocs version
-  - stage: CI
+  - stage: Continuous Integration
     name: Installation from Source
     os: osx
     osx_image: xcode9
