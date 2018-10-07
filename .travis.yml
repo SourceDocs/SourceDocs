@@ -12,6 +12,7 @@ jobs:
     name: SwiftPM Linux
     os: Linux
     dist: trusty
+    sudo: required
     install:
     - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
     - swiftenv install 4.1
@@ -29,7 +30,7 @@ jobs:
     after_success:
     - bash <(curl -s https://codecov.io/bash)
   - stage: Continuous Integration
-    name: Homebrew Install macOS
+    name: Installation with Homebrew (macOS)
     os: osx
     osx_image: xcode9.3
     script:
@@ -37,9 +38,9 @@ jobs:
     - brew install eneko/tap/sourcedocs
     - sourcedocs version
   - stage: Continuous Integration
-    name: Installation from Source
+    name: Installation from Source (macOS)
     os: osx
-    osx_image: xcode9
+    osx_image: xcode9.3
     script:
     - git clone --depth 1 https://github.com/eneko/SourceDocs.git
     - cd SourceDocs
