@@ -111,7 +111,7 @@ Requirements:
 
 #### Using Homebrew
 
-    $ brew install eneko/tap/sourcedocs
+    $ brew install sourcedocs
 
 #### Building with Swift Package Manager
 
