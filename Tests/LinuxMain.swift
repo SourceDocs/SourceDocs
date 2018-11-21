@@ -1,6 +1,8 @@
 import XCTest
-@testable import SourceDocsTests
 
-XCTMain([
-    testCase(SwiftDocDictionaryTests.allTests)
-])
+import SourceDocsTests
+
+var tests = [XCTestCaseEntry]()
+tests += SourceDocsTests.__allTests()
+
+XCTMain(tests)

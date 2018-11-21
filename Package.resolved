@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/eneko/MarkdownGenerator.git",
         "state": {
           "branch": null,
-          "revision": "add164ca1e35b537bd7ef1e8a46e8d91e114da59",
-          "version": "0.4.0"
+          "revision": "1fc31be6b66245187c3f87f35d86b6aeac6dfe7f",
+          "version": "0.5.0"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
           "branch": null,
-          "revision": "4be914be6fa49cd30b1e7ef5d32d06c037d8f469",
-          "version": "0.21.2"
+          "revision": "79ca340f609adee48defa966e6a3dd0e0acbeb08",
+          "version": "0.21.3"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
         "state": {
           "branch": null,
-          "revision": "0ce63a93a455adb3cd5e4c55f78f1232a590a5a5",
-          "version": "4.7.2"
+          "revision": "b130217d81833cecd7ddf78b76d60200f1070d98",
+          "version": "4.7.4"
         }
       },
       {

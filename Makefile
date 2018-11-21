@@ -25,6 +25,12 @@ lint:
 docs:
 	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference --module-name-path
 
+xcode:
+	swift package generate-xcodeproj --enable-code-coverage
+
+linuxmain:
+	swift test --generate-linuxmain
+
 zip: build
 	zip -D $(TOOL_NAME).macos.zip $(BUILD_PATH)
 
