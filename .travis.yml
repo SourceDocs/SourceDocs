@@ -35,7 +35,7 @@ jobs:
     osx_image: xcode9.3
     script:
     - brew update
-    - brew install eneko/tap/sourcedocs
+    - brew install sourcedocs
     - sourcedocs version
   - stage: Continuous Integration
     name: Installation from Source (macOS)
