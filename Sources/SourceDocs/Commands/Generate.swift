@@ -126,6 +126,8 @@ struct GenerateCommand: CommandProtocol {
                 MarkdownIndex.shared.protocols.append(item)
             } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.typealiases.append(item)
+            } else if kind == .functionFree, let item = MarkdownMethod(dictionary: dictionary, options: markdownOptions) {
+                MarkdownIndex.shared.methods.append(item)
             }
         }
 
