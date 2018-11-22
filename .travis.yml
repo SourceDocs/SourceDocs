@@ -28,7 +28,7 @@ jobs:
     - swift package generate-xcodeproj --enable-code-coverage
     - xcodebuild -scheme SourceDocs-Package test
     after_success:
-    - bash <(curl -s https://codecov.io/bash)
+    - bash <(curl -s https://codecov.io/bash) -J 'SourceDocs'
   - stage: Continuous Integration
     name: Installation with Homebrew (macOS)
     os: osx
