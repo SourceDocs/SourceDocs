@@ -26,18 +26,13 @@ class MarkdownIndex {
     var enums: [MarkdownEnum] = []
     var protocols: [MarkdownProtocol] = []
     var typealiases: [MarkdownTypealias] = []
+    var methods: [MarkdownMethod] = []
 
     func write(to docsPath: String) throws {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
-        var content: [MarkdownConvertible] = [
-            """
-            # Reference Documentation
-            This Reference Documentation has been generated with
-            [SourceDocs](https://github.com/eneko/SourceDocs).
-            """
-        ]
+        var content: [MarkdownConvertible] = []
 
         try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols"))
         try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs"))
@@ -45,6 +40,14 @@ class MarkdownIndex {
         try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums"))
         try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
         try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
+        try content.append(writeAndIndexFiles(items: methods, to: docsPath, collectionTitle: "Methods"))
+
+        let footer = """
+            # Reference Documentation
+            This reference documentation was generated with
+            [SourceDocs](https://github.com/eneko/SourceDocs).
+            """
+        content.append(footer)
 
         try writeFile(file: MarkdownFile(filename: "README", basePath: docsPath, content: content))
         fputs("Done 🎉\n".green, stdout)
