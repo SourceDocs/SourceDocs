@@ -1,15 +1,15 @@
 import XCTest
 
-extension SwiftDocDictionaryTests {
+extension VersionCommandTests {
     static let __allTests = [
-        ("testExample", testExample),
+        ("testVersion", testVersion),
     ]
 }
 
 #if !os(macOS)
 public func __allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(SwiftDocDictionaryTests.__allTests),
+        testCase(VersionCommandTests.__allTests),
     ]
 }
 #endif
