@@ -11,6 +11,7 @@ import class Foundation.Bundle
 class VersionCommandTests: XCTestCase {
 
     func testVersion() throws {
+        #if os(macOS)
         // Some of the APIs that we use below are available in macOS 10.13 and above.
         guard #available(macOS 10.13, *) else {
             return
@@ -32,6 +33,7 @@ class VersionCommandTests: XCTestCase {
         let output = String(data: data, encoding: .utf8)
 
         XCTAssertEqual(output, "SourceDocs v0.5.1\n")
+        #endif
     }
 
     /// Returns path to the built products directory.
