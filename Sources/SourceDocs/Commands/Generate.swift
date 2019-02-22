@@ -19,6 +19,7 @@ struct GenerateCommandOptions: OptionsProtocol {
     let sourceDirectory: String?
     let contentsFileName: String
     let includeModuleNameInPath: Bool
+    let includeFileExtInLinks: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
     let tableOfContents: Bool
@@ -38,6 +39,8 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Output file (defaults to \(SourceDocs.defaultContentsFilename)).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
+            <*> mode <| Switch(flag: "e", key: "extension-in-links",
+                               usage: "Include the file extension in links.")
             <*> mode <| Switch(flag: "c", key: "clean",
                                usage: "Delete output folder before generating documentation.")
             <*> mode <| Switch(flag: "l", key: "collapsible",

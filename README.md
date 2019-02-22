@@ -73,25 +73,37 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
     Generates the Markdown documentation
 
     [--spm-module (string)]
-    	Generate documentation for Swift Package Manager module.
+        Generate documentation for Swift Package Manager module.
 
     [--module-name (string)]
-    	Generate documentation for a Swift module.
+        Generate documentation for a Swift module.
 
     [--output (string)]
-    	Output directory (defaults to Documentation/Reference).
+        Output directory (defaults to Documentation/Reference).
 
     [--source (string)]
-    	Source directory (defaults to current directory).
+        Source directory (defaults to current directory).
     
     [--contents-filename (string)]
-    	Filename used for the root markdown file (defaults to README).
+        Filename used for the root markdown file (defaults to README).
+
+    --module-name-path|-m
+        Include the module name as part of the output folder path.
+
+    --extension-in-links|-e
+        Include the .md file extension in links.
 
     --clean|-c
-    	Delete output folder before generating documentation.
+        Delete output folder before generating documentation.
+
+    --collapsible|-l
+        Put methods, properties and enum cases inside collapsible blocks.
+     
+    --table-of-contents|-t
+        Generate a table of contents with properties and methods for each type.
 
     [[]]
-    	List of arguments to pass to xcodebuild.
+        List of arguments to pass to xcodebuild.
 
 Usually, for most Xcode projects, no parameters are needed at all. `xcodebuild`
 should be able to find the default project and scheme.

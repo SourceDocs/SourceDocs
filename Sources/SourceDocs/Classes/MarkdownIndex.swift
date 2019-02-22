@@ -19,6 +19,7 @@ struct MarkdownOptions {
 class MarkdownIndex: Writeable {
     let basePath: String
     let filePath: String
+    let options: GenerateCommandOptions
 
     private let filename: String
     private var structs: [MarkdownObject] = []
@@ -32,7 +33,8 @@ class MarkdownIndex: Writeable {
         self.basePath = basePath
         self.filename = options.contentsFileName
         self.filePath = basePath + "/" + filename
-        self.process(docs: docs, options: options)
+        self.options = options
+        process(docs: docs)
     }
 
     func write() throws {
@@ -66,12 +68,12 @@ class MarkdownIndex: Writeable {
             """
         ]
 
-        try content.append(writeAndIndexFiles(items: protocols, to: basePath, collectionTitle: "Protocols"))
-        try content.append(writeAndIndexFiles(items: structs, to: basePath, collectionTitle: "Structs"))
-        try content.append(writeAndIndexFiles(items: classes, to: basePath, collectionTitle: "Classes"))
-        try content.append(writeAndIndexFiles(items: enums, to: basePath, collectionTitle: "Enums"))
-        try content.append(writeAndIndexFiles(items: flattenedExtensions, to: basePath, collectionTitle: "Extensions"))
-        try content.append(writeAndIndexFiles(items: typealiases, to: basePath, collectionTitle: "Typealiases"))
+        try content.append(writeAndIndexFiles(items: protocols, collectionTitle: "Protocols"))
+        try content.append(writeAndIndexFiles(items: structs, collectionTitle: "Structs"))
+        try content.append(writeAndIndexFiles(items: classes, collectionTitle: "Classes"))
+        try content.append(writeAndIndexFiles(items: enums, collectionTitle: "Enums"))
+        try content.append(writeAndIndexFiles(items: flattenedExtensions, collectionTitle: "Extensions"))
+        try content.append(writeAndIndexFiles(items: typealiases, collectionTitle: "Typealiases"))
 
         try writeFile(file: CoverageBadge(coverage: coverage, basePath: basePath))
         try writeFile(file: MarkdownFile(filename: filename, basePath: basePath, content: content))
@@ -79,7 +81,7 @@ class MarkdownIndex: Writeable {
         fputs("Done 🎉\n".green, stdout)
     }
 
-    func addItem(from dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
+    func addItem(from dictionary: SwiftDocDictionary) {
         let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks, tableOfContents: options.tableOfContents)
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
@@ -101,25 +103,25 @@ class MarkdownIndex: Writeable {
 
     // MARK: - Private
 
-    private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
+    private func process(docs: [SwiftDocs]) {
         let dictionaries = docs.compactMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
-        process(dictionaries: dictionaries, options: options)
+        process(dictionaries: dictionaries)
     }
 
-    private func process(dictionaries: [SwiftDocDictionary], options: GenerateCommandOptions) {
-        dictionaries.forEach { process(dictionary: $0, options: options) }
+    private func process(dictionaries: [SwiftDocDictionary]) {
+        dictionaries.forEach { process(dictionary: $0) }
     }
 
-    private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
-        addItem(from: dictionary, options: options)
+    private func process(dictionary: SwiftDocDictionary) {
+        addItem(from: dictionary)
 
         if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
-            process(dictionaries: substructure, options: options)
+            process(dictionaries: substructure)
         }
     }
 
     private func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
-                                    to basePath: String, collectionTitle: String) throws -> [MarkdownConvertible] {
+                                    collectionTitle: String) throws -> [MarkdownConvertible] {
         if items.isEmpty {
             return []
         }
@@ -130,7 +132,8 @@ class MarkdownIndex: Writeable {
 
         // Make links for index
         let links: [MarkdownLink] = files.map {
-            let url = "\(collectionTitle)/\($0.filename)"
+            let fileExtension = options.includeFileExtInLinks ? ".md" : ""
+            let url = "\(collectionTitle)/\($0.filename)\(fileExtension)"
             return MarkdownLink(text: $0.filename, url: url)
         }
         return [
