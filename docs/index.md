@@ -1,3 +1,9 @@
+---
+title: SourceDocs
+permalink: /
+desc: Command Line Tool that generates Markdown documentation from inline source code comments
+---
+
 # SourceDocs
 
 [![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)](https://github.com/eneko/SourceDocs/releases)
@@ -95,6 +101,7 @@ repository, so it can be easily browsed inline. GitHub and BitBucket do a great
 job rendering Markdown files, so your documentation will be very nice to read.
 
 **Example Generated Documentation**
+
 ![SourceDocs Example](http://www.enekoalonso.com/media/sourcedocs-example.png)
 
 
