@@ -29,7 +29,8 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil,
                                usage: "Generate documentation for a Swift module.")
-            <*> mode <| Option(key: "link-ending", defaultValue: SourceDocs.defaultLinkEnding, usage: "The text to end links with. Defaults to \(SourceDocs.defaultLinkEnding).")
+            <*> mode <| Option(key: "link-ending", defaultValue: SourceDocs.defaultLinkEnding,
+                               usage: "The text to end links with. Defaults to \(SourceDocs.defaultLinkEnding).")
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
