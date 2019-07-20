@@ -96,7 +96,6 @@ struct GenerateCommand: CommandProtocol {
 
     private func generateDocumentation(docs: [SwiftDocs], options: GenerateCommandOptions, module: String) throws {
         let docsPath = options.includeModuleNameInPath ? "\(options.outputFolder)/\(module)" : options.outputFolder
-        print("Options: \(options)")
         if options.clean {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
