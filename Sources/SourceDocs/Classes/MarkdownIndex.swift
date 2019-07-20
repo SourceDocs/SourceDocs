@@ -28,19 +28,19 @@ class MarkdownIndex {
     var typealiases: [MarkdownTypealias] = []
     var methods: [MarkdownMethod] = []
 
-    func write(to docsPath: String) throws {
+    func write(to docsPath: String, linkEndingText: String) throws {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
         var content: [MarkdownConvertible] = []
 
-        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols"))
-        try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs"))
-        try content.append(writeAndIndexFiles(items: classes, to: docsPath, collectionTitle: "Classes"))
-        try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums"))
-        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions"))
-        try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases"))
-        try content.append(writeAndIndexFiles(items: methods, to: docsPath, collectionTitle: "Methods"))
+        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols", linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs", linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: classes, to: docsPath, collectionTitle: "Classes", linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums", linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions", linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases", linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: methods, to: docsPath, collectionTitle: "Methods", linkEndingText: linkEndingText))
 
         let footer = """
             # Reference Documentation
@@ -54,7 +54,7 @@ class MarkdownIndex {
     }
 
     private func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
-                                    to docsPath: String, collectionTitle: String) throws -> [MarkdownConvertible] {
+                                    to docsPath: String, collectionTitle: String, linkEndingText: String) throws -> [MarkdownConvertible] {
         if items.isEmpty {
             return []
         }
@@ -65,7 +65,7 @@ class MarkdownIndex {
 
         // Make links for index
         let links: [MarkdownLink] = files.map {
-            let url = "\(collectionTitle.lowercased())/\($0.filename).md"
+            let url = "\(collectionTitle.lowercased())/\($0.filename)\(linkEndingText)"
             return MarkdownLink(text: $0.filename, url: url)
         }
         return [

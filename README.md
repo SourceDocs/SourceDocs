@@ -60,6 +60,8 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
 
     [--output-folder (string)]
     	Output directory (defaults to Documentation/Reference).
+        
+    [--link-ending (string)] The string to end links with. Defaults to `".md"`.
 
     --clean|-c
     	Delete output folder before generating documentation.
