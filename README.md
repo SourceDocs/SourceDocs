@@ -57,9 +57,18 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
 
     [--module-name (string)]
     	Generate documentation for a Swift module.
+    	
+    [--input-folder (string)]
+       Input directory (defaults to the current working directory).
 
     [--output-folder (string)]
-    	Output directory (defaults to Documentation/Reference).
+       Output directory (defaults to Documentation/Reference).
+    
+    [--link-beginning (string)]
+       The string to begin links with. Defaults to an empty string.
+       
+    [--link-ending (string)] 
+       The string to end links with. Defaults to `".md"`.
 
     --clean|-c
     	Delete output folder before generating documentation.

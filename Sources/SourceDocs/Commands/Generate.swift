@@ -15,6 +15,9 @@ import SourceKittenFramework
 struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
+    let linkBeginningText: String
+    let linkEndingText: String
+    let inputFolder: String
     let outputFolder: String
     let includeModuleNameInPath: Bool
     let clean: Bool
@@ -28,6 +31,12 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil,
                                usage: "Generate documentation for a Swift module.")
+            <*> mode <| Option(key: "link-beginning", defaultValue: SourceDocs.defaultLinkBeginning,
+                               usage: "The text to begin links with. Defaults to an empty string.")
+            <*> mode <| Option(key: "link-ending", defaultValue: SourceDocs.defaultLinkEnding,
+                               usage: "The text to end links with. Defaults to \(SourceDocs.defaultLinkEnding).")
+            <*> mode <| Option(key: "input-folder", defaultValue: FileManager.default.currentDirectoryPath,
+                               usage: "Path to the input directory (defaults to `FileManager.default.currentDirectoryPath`).")
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
@@ -54,10 +63,10 @@ struct GenerateCommand: CommandProtocol {
                 let docs = try parseSPMModule(moduleName: module)
                 try generateDocumentation(docs: docs, options: options, module: module)
             } else if let module = options.moduleName {
-                let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments)
+                let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments, path: options.inputFolder)
                 try generateDocumentation(docs: docs, options: options, module: module)
             } else {
-                let docs = try parseXcodeProject(args: options.xcodeArguments)
+                let docs = try parseXcodeProject(args: options.xcodeArguments, inputPath: options.inputFolder)
                 try generateDocumentation(docs: docs, options: options, module: "")
             }
             return Result.success(())
@@ -76,16 +85,16 @@ struct GenerateCommand: CommandProtocol {
         return docs
     }
 
-    private func parseSwiftModule(moduleName: String, args: [String]) throws -> [SwiftDocs] {
-        guard let docs = Module(xcodeBuildArguments: args, name: moduleName)?.docs else {
+    private func parseSwiftModule(moduleName: String, args: [String], path: String) throws -> [SwiftDocs] {
+        guard let docs = Module(xcodeBuildArguments: args, name: moduleName, inPath: path)?.docs else {
             let message = "Error: Failed to generate documentation for module '\(moduleName)'."
             throw SourceDocsError.internalError(message: message)
         }
         return docs
     }
 
-    private func parseXcodeProject(args: [String]) throws -> [SwiftDocs] {
-        guard let docs = Module(xcodeBuildArguments: args, name: nil)?.docs else {
+    private func parseXcodeProject(args: [String], inputPath: String) throws -> [SwiftDocs] {
+        guard let docs = Module(xcodeBuildArguments: args, name: nil, inPath: inputPath)?.docs else {
             throw SourceDocsError.internalError(message: "Error: Failed to generate documentation.")
         }
         return docs
@@ -97,7 +106,7 @@ struct GenerateCommand: CommandProtocol {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
         process(docs: docs, options: options)
-        try MarkdownIndex.shared.write(to: docsPath)
+        try MarkdownIndex.shared.write(to: docsPath, linkBeginningText: options.linkBeginningText, linkEndingText: options.linkEndingText)
     }
 
     private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
