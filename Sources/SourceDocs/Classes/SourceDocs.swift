@@ -13,6 +13,7 @@ struct SourceDocs {
     static let version = "0.5.1"
     static let defaultOutputPath = "Documentation/Reference"
     static let defaultLinkEnding = ".md"
+    static let defaultLinkBeginning = ""
 
     func run() {
         let registry = CommandRegistry<SourceDocsError>()

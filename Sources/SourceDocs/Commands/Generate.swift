@@ -15,6 +15,7 @@ import SourceKittenFramework
 struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
+    let linkBeginningText: String
     let linkEndingText: String
     let inputFolder: String
     let outputFolder: String
@@ -30,6 +31,8 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil,
                                usage: "Generate documentation for a Swift module.")
+            <*> mode <| Option(key: "link-beginning", defaultValue: SourceDocs.defaultLinkBeginning,
+                               usage: "The text to begin links with. Defaults to an empty string.")
             <*> mode <| Option(key: "link-ending", defaultValue: SourceDocs.defaultLinkEnding,
                                usage: "The text to end links with. Defaults to \(SourceDocs.defaultLinkEnding).")
             <*> mode <| Option(key: "input-folder", defaultValue: FileManager.default.currentDirectoryPath,
@@ -103,7 +106,7 @@ struct GenerateCommand: CommandProtocol {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
         process(docs: docs, options: options)
-        try MarkdownIndex.shared.write(to: docsPath, linkEndingText: options.linkEndingText)
+        try MarkdownIndex.shared.write(to: docsPath, linkBeginningText: options.linkBeginningText, linkEndingText: options.linkEndingText)
     }
 
     private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
