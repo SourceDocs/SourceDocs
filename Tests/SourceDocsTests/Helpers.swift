@@ -7,7 +7,7 @@
 
 import XCTest
 
-let documentationPath = "/tmp/SourceDocs/docs/reference"
+let documentationPath = "docs/reference"
 
 extension XCTestCase {
 
@@ -44,6 +44,8 @@ extension XCTestCase {
             print(error.localizedDescription)
             return nil
         }
+        #else
+        return nil
         #endif
     }
 
