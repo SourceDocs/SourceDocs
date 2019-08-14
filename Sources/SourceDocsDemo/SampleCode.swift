@@ -55,3 +55,16 @@ extension Dog: Speaker {
         print("Woof, woof!")
     }
 }
+
+/// A simple class to test open access level
+open class OpenClassFoo {
+    /// Prints hello
+    open func sayHello() {
+        print("Hello!")
+    }
+    
+    /// Prints good bye
+    public func sayGoodBye() {
+        print("Good bye!")
+    }
+}

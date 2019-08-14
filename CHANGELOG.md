@@ -10,6 +10,18 @@
 - None
 
 
+## 0.6.0
+
+#### Breaking
+- None
+
+#### Enhancements
+- Add support for `open` ACL #22
+
+#### Bug Fixes
+- Fix Makefile for Swift 5
+
+
 ## 0.5.1
 
 #### Breaking

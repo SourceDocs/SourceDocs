@@ -16,8 +16,11 @@ extension Dictionary where Key == String, Value == Any {
         return self[key.rawValue] as? T
     }
 
-    var hasPublicACL: Bool {
-        return self["key.accessibility"] as? String == "source.lang.swift.accessibility.public"
+    var hasProperACL: Bool {
+        guard let acl = self["key.accessibility"] as? String else {
+            return false
+        }
+        return acl == "source.lang.swift.accessibility.public" || acl == "source.lang.swift.accessibility.open"
     }
 
     func isKind(_ kind: SwiftDeclarationKind) -> Bool {

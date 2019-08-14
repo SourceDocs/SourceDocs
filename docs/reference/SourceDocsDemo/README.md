@@ -8,6 +8,10 @@
 
 -   [Dog](structs/Dog.md)
 
+## Classes
+
+-   [OpenClassFoo](classes/OpenClassFoo.md)
+
 ## Extensions
 
 -   [Dog](extensions/Dog.md)
