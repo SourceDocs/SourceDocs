@@ -13,7 +13,7 @@ install: build
 	install -C -m 755 $(BUILD_PATH) $(INSTALL_PATH)
 
 build:
-	swift build --disable-sandbox -c release -Xswiftc -static-stdlib
+	swift build --disable-sandbox -c release 
 
 uninstall:
 	rm -f $(INSTALL_PATH)
