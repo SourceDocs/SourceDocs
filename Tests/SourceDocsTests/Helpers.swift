@@ -7,7 +7,7 @@
 
 import XCTest
 
-let documentationPath = "docs/reference"
+let documentationPath = ".testdocs/" + UUID().uuidString
 
 extension XCTestCase {
 
