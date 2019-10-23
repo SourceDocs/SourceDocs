@@ -19,6 +19,7 @@ struct GenerateCommandOptions: OptionsProtocol {
     let linkEndingText: String
     let inputFolder: String
     let outputFolder: String
+    let minAcl: String
     let includeModuleNameInPath: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
@@ -39,6 +40,8 @@ struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Path to the input directory (defaults to `FileManager.default.currentDirectoryPath`).")
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.stringValue,
+                               usage: "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.stringValue).")
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean",
@@ -120,7 +123,8 @@ struct GenerateCommand: CommandProtocol {
 
     private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
         let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
-                                              tableOfContents: options.tableOfContents)
+                                              tableOfContents: options.tableOfContents,
+                                              minmumACL: AccessLevel(stringLiteral: options.minAcl))
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
