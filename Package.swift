@@ -7,7 +7,7 @@ let package = Package(
         .executable(name: "sourcedocs", targets: ["SourceDocs"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.21.0"),
+        .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.26.0"),
         .package(url: "https://github.com/Carthage/Commandant.git", from: "0.15.0"),
         .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.4.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
