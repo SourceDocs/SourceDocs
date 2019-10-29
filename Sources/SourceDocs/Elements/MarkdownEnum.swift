@@ -22,7 +22,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
-        guard dictionary.ACL >= options.minmumACL && dictionary.isKind([.enum]) else {
+        guard dictionary.accessLevel >= options.minimumAcl && dictionary.isKind([.enum]) else {
             return nil
         }
         self.dictionary = dictionary

@@ -32,15 +32,15 @@ enum AccessLevel: String {
 
     init(stringLiteral value: String) {
         switch value {
-        case "private":
+        case "source.lang.swift.accessibility.private":
             self = .private
-        case "fileprivate":
+        case "source.lang.swift.accessibility.fileprivate":
             self = .fileprivate
-        case "internal":
+        case "source.lang.swift.accessibility.internal":
             self = .internal
-        case "public":
+        case "source.lang.swift.accessibility.public":
             self = .public
-        case "open":
+        case "source.lang.swift.accessibility.open":
             self = .open
         default:
             self = .public

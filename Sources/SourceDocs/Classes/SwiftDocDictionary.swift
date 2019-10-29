@@ -16,8 +16,9 @@ extension Dictionary where Key == String, Value == Any {
         return self[key.rawValue] as? T
     }
 
-    var ACL: AccessLevel {
-        return AccessLevel(rawValue: self["key.accessibility"] as? String ?? "source.lang.swift.accessibility.public")!
+    var accessLevel: AccessLevel {
+        guard let accessiblityKey = self["key.accessibility"] as? String else { return .public }
+        return AccessLevel(stringLiteral: accessiblityKey)
     }
 
     func isKind(_ kind: SwiftDeclarationKind) -> Bool {
