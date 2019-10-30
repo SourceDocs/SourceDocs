@@ -76,3 +76,4 @@ fastlane/test_output
 
 # code coverage
 default.profraw
+.swiftpm
