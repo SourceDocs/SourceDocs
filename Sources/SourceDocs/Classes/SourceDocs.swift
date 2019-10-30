@@ -43,7 +43,7 @@ enum AccessLevel: String {
         case "source.lang.swift.accessibility.open":
             self = .open
         default:
-            self = .public
+            self = .private
         }
     }
 
