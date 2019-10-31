@@ -124,7 +124,7 @@ struct GenerateCommand: CommandProtocol {
     private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
         let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
                                               tableOfContents: options.tableOfContents,
-                                              minmumACL: AccessLevel(stringLiteral: options.minAcl))
+                                              minimumAcl: AccessLevel(stringLiteral: options.minAcl))
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {

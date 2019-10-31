@@ -63,6 +63,9 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
 
     [--output-folder (string)]
        Output directory (defaults to Documentation/Reference).
+       
+    [--min-acl (private|fileprivate|internal|public|open)]
+       Minimum access level to process the documentation for (defaults to public).
     
     [--link-beginning (string)]
        The string to begin links with. Defaults to an empty string.
