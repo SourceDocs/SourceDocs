@@ -10,6 +10,21 @@
 - None
 
 
+## 0.6.0
+
+#### Breaking 
+- SourceDocs now requires Swift 5.0 or higher
+
+#### Enhancements
+- Add ability to pass in link ending text as a parameter (#20)
+- Add ability to specify input folder (#20)
+- Add customizable file beginning (#20)
+- Add 'min-acl' to let users determine the minimum access level to generate the documentation (#28)
+
+#### Bug Fixes
+- None
+
+
 ## 0.5.1
 
 #### Breaking

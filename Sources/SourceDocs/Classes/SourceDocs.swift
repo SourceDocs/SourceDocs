@@ -10,7 +10,7 @@ import Commandant
 import Rainbow
 
 struct SourceDocs {
-    static let version = "0.5.1"
+    static let version = "0.6.0"
     static let defaultOutputPath = "Documentation/Reference"
     static let defaultLinkEnding = ".md"
     static let defaultLinkBeginning = ""
