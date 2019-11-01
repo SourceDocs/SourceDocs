@@ -32,7 +32,7 @@ class VersionCommandTests: XCTestCase {
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
 
-        XCTAssertEqual(output, "SourceDocs v0.5.1\n")
+        XCTAssertEqual(output, "SourceDocs v0.6.0\n")
         #endif
     }
 
