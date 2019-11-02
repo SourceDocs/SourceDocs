@@ -12,7 +12,7 @@ let package = Package(
         .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.4.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
         .package(url: "https://github.com/thoughtbot/Curry.git", from: "4.0.1"),
-        .package(url: "https://github.com/eneko/System.git", from: "0.1.0")
+        .package(url: "https://github.com/eneko/System.git", from: "0.2.0")
     ],
     targets: [
         .target(name: "SourceDocs", dependencies: [
