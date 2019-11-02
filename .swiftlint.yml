@@ -3,8 +3,9 @@ included:
   - Tests
 
 excluded:
-  - Tests/SourceDocsTests/XCTestManifests.swift
   - Tests/LinuxMain.swift
+  - Tests/UnitTests/XCTestManifests.swift
+  - Tests/BehavioralTests/XCTestManifests.swift
 
 opt_in_rules:
   - attributes

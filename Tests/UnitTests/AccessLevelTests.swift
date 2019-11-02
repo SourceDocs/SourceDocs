@@ -6,7 +6,7 @@
 //
 
 import XCTest
-// TODO: import SourceDocs
+// import SourceDocs
 
 class AccessLevelTests: XCTestCase {
 
