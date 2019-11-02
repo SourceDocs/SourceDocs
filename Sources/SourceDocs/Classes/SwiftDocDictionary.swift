@@ -17,7 +17,9 @@ extension Dictionary where Key == String, Value == Any {
     }
 
     var accessLevel: AccessLevel {
-        guard let accessiblityKey = self["key.accessibility"] as? String else { return .private }
+        guard let accessiblityKey = self["key.accessibility"] as? String else {
+            return .private
+        }
         return AccessLevel(stringLiteral: accessiblityKey)
     }
 

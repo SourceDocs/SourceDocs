@@ -2,6 +2,10 @@ included:
   - Sources
   - Tests
 
+excluded:
+  - Tests/SourceDocsTests/XCTestManifests.swift
+  - Tests/LinuxMain.swift
+
 opt_in_rules:
   - attributes
   - closure_end_indentation

@@ -52,7 +52,7 @@ enum AccessLevel: String {
     case `internal` = "source.lang.swift.accessibility.internal"
     case `public` = "source.lang.swift.accessibility.public"
     case `open` = "source.lang.swift.accessibility.open"
-    
+
     var stringValue: String {
         switch self {
         case .private:
@@ -67,7 +67,7 @@ enum AccessLevel: String {
             return "open"
         }
     }
-    
+
     var priority: Int {
         switch self {
         case .private:
@@ -88,11 +88,11 @@ extension AccessLevel: Comparable, Equatable {
     static func < (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority < rhs.priority
     }
-    
+
     static func > (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority > rhs.priority
     }
-    
+
     static func == (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority == rhs.priority
     }

@@ -3,6 +3,12 @@ language: generic
 jobs:
   include:
   - stage: Continuous Integration
+    name: SwiftLint
+    os: osx
+    osx_image: xcode11
+    script:
+    - make lint
+  - stage: Continuous Integration
     name: SwiftPM macOS
     os: osx
     osx_image: xcode10.3

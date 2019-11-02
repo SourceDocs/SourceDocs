@@ -20,7 +20,7 @@ uninstall:
 
 lint:
 	swiftlint autocorrect --quiet
-	swiftlint lint --quiet
+	swiftlint lint --quiet --strict
 
 docs:
 	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference --module-name-path

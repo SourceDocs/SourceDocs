@@ -35,13 +35,27 @@ class MarkdownIndex {
         fputs("Generating Markdown documentation...\n".green, stdout)
         var content: [MarkdownConvertible] = []
 
-        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols", linkBeginningText: linkBeginningText, linkEndingText: linkEndingText))
-        try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs", linkBeginningText: linkBeginningText, linkEndingText: linkEndingText))
-        try content.append(writeAndIndexFiles(items: classes, to: docsPath, collectionTitle: "Classes", linkBeginningText: linkBeginningText,linkEndingText: linkEndingText))
-        try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums", linkBeginningText: linkBeginningText,linkEndingText: linkEndingText))
-        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions",linkBeginningText: linkBeginningText, linkEndingText: linkEndingText))
-        try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases", linkBeginningText: linkBeginningText, linkEndingText: linkEndingText))
-        try content.append(writeAndIndexFiles(items: methods, to: docsPath, collectionTitle: "Methods", linkBeginningText: linkBeginningText, linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: protocols, to: docsPath, collectionTitle: "Protocols",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: structs, to: docsPath, collectionTitle: "Structs",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: classes, to: docsPath, collectionTitle: "Classes",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: enums, to: docsPath, collectionTitle: "Enums",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: extensions, to: docsPath, collectionTitle: "Extensions",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: typealiases, to: docsPath, collectionTitle: "Typealiases",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
+        try content.append(writeAndIndexFiles(items: methods, to: docsPath, collectionTitle: "Methods",
+                                              linkBeginningText: linkBeginningText,
+                                              linkEndingText: linkEndingText))
 
         let footer = """
             # Reference Documentation
