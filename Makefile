@@ -27,7 +27,6 @@ docs:
 
 xcode:
 	swift package generate-xcodeproj --enable-code-coverage
-	ruby Scripts/setupRunInXcode.rb
 
 linuxmain:
 	swift test --generate-linuxmain
