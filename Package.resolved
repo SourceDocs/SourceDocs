@@ -92,12 +92,39 @@
         }
       },
       {
+        "package": "llbuild",
+        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
+        "state": {
+          "branch": null,
+          "revision": "f73b84bc1525998e5e267f9d830c1411487ac65e",
+          "version": "0.2.0"
+        }
+      },
+      {
+        "package": "SwiftPM",
+        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
+        "state": {
+          "branch": null,
+          "revision": "9abcc2260438177cecd7cf5185b144d13e74122b",
+          "version": "0.5.0"
+        }
+      },
+      {
         "package": "SWXMLHash",
         "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
         "state": {
           "branch": null,
           "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
           "version": "5.0.1"
+        }
+      },
+      {
+        "package": "System",
+        "repositoryURL": "https://github.com/eneko/System.git",
+        "state": {
+          "branch": null,
+          "revision": "cf4cb40114e00623fc8236c0bf941f7802419fad",
+          "version": "0.1.0"
         }
       },
       {
