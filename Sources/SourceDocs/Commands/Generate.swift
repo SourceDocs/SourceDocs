@@ -19,7 +19,7 @@ struct GenerateCommandOptions: OptionsProtocol {
     let linkEndingText: String
     let inputFolder: String
     let outputFolder: String
-    let minAcl: String
+    let minimumAccessLevel: String
     let includeModuleNameInPath: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
@@ -42,9 +42,9 @@ struct GenerateCommandOptions: OptionsProtocol {
             )
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
-            <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.stringValue,
+            <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.rawValue,
                                usage:
-                "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.stringValue)."
+                "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.rawValue)."
             )
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
@@ -129,9 +129,10 @@ struct GenerateCommand: CommandProtocol {
     }
 
     private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
+        let minimumAccessLevel = AccessLevel(rawValue: options.minimumAccessLevel) ?? .public
         let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
                                               tableOfContents: options.tableOfContents,
-                                              minimumAcl: AccessLevel(stringLiteral: options.minAcl))
+                                              minimumAccessLevel: minimumAccessLevel)
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {

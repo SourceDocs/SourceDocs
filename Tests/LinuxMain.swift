@@ -1,8 +1,10 @@
 import XCTest
 
-import SourceDocsTests
+import BehavioralTests
+import UnitTests
 
 var tests = [XCTestCaseEntry]()
-tests += SourceDocsTests.__allTests()
+tests += BehavioralTests.__allTests()
+tests += UnitTests.__allTests()
 
 XCTMain(tests)

@@ -24,7 +24,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
             .functionMethodInstance, .functionMethodStatic, .functionMethodClass,
             .functionFree
         ]
-        guard dictionary.accessLevel >= options.minimumAcl && dictionary.isKind(methods) else {
+        guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind(methods) else {
             return nil
         }
         self.dictionary = dictionary

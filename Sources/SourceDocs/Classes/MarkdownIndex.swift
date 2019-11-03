@@ -13,7 +13,7 @@ import Rainbow
 struct MarkdownOptions {
     var collapsibleBlocks: Bool
     var tableOfContents: Bool
-    var minimumAcl: AccessLevel
+    var minimumAccessLevel: AccessLevel
 }
 
 class MarkdownIndex {
