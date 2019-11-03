@@ -10,6 +10,18 @@
 - None
 
 
+## 0.6.1
+
+#### Breaking
+- None
+
+#### Enhancements
+- None
+
+#### Bug Fixes
+- Fix `--min-acl` parameter (#33)
+
+
 ## 0.6.0
 
 #### Breaking 
