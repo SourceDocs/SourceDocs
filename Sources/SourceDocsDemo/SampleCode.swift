@@ -56,7 +56,7 @@ extension Dog: Speaker {
     }
 }
 
-// MARK - ACL tests
+// MARK: - ACL tests
 
 /// A class to test documentation of different access levels
 /// - By default, only `open` and `public` ACL are documented
