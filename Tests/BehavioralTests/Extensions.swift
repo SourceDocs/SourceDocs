@@ -22,7 +22,7 @@ extension XCTestCase {
 
     /// Path to binary executable.
     var binaryURL: URL {
-        productsDirectory.appendingPathComponent("sourcedocs")
+        return productsDirectory.appendingPathComponent("sourcedocs")
     }
 
 }
