@@ -9,6 +9,7 @@
 /*.xcodeproj
 *.tar.gz
 *.zip
+sha*.txt
 
 ## Build generated
 build/
