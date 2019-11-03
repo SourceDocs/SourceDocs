@@ -5,6 +5,7 @@
 [![codecov](https://codecov.io/gh/eneko/SourceDocs/branch/master/graph/badge.svg)](https://codecov.io/gh/eneko/SourceDocs)
 ![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange.svg)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org/package-manager)
+[![codebeat badge](https://codebeat.co/badges/99fcf00c-0aec-40de-b3fe-0c7ed9a169cb)](https://codebeat.co/projects/github-com-eneko-sourcedocs-master)
 
 ![SourceDocs Header](http://www.enekoalonso.com/media/sourcedocs-header.jpg)
 
