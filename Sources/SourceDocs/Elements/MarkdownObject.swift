@@ -21,7 +21,7 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
-        guard dictionary.accessLevel >= options.minimumAcl && dictionary.isKind([.struct, .class]) else {
+        guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind([.struct, .class]) else {
             return nil
         }
         self.dictionary = dictionary

@@ -8,6 +8,10 @@
 
 -   [Dog](structs/Dog.md)
 
+## Classes
+
+-   [ACLTestClass](classes/ACLTestClass.md)
+
 ## Extensions
 
 -   [Dog](extensions/Dog.md)

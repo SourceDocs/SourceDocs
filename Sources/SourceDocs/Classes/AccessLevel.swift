@@ -8,42 +8,26 @@
 import Foundation
 
 enum AccessLevel: String, CaseIterable {
+    case `private`
+    case `fileprivate`
+    case `internal`
+    case `public`
+    case `open`
 
-    init(stringLiteral value: String) {
-        switch value {
-        case "source.lang.swift.accessibility.private":
+    init(accessiblityKey: String?) {
+        switch accessiblityKey {
+        case .some("source.lang.swift.accessibility.private"):
             self = .private
-        case "source.lang.swift.accessibility.fileprivate":
+        case .some("source.lang.swift.accessibility.fileprivate"):
             self = .fileprivate
-        case "source.lang.swift.accessibility.internal":
+        case .some("source.lang.swift.accessibility.internal"):
             self = .internal
-        case "source.lang.swift.accessibility.public":
+        case .some("source.lang.swift.accessibility.public"):
             self = .public
-        case "source.lang.swift.accessibility.open":
+        case .some("source.lang.swift.accessibility.open"):
             self = .open
         default:
             self = .private
-        }
-    }
-
-    case `private` = "source.lang.swift.accessibility.private"
-    case `fileprivate` = "source.lang.swift.accessibility.fileprivate"
-    case `internal` = "source.lang.swift.accessibility.internal"
-    case `public` = "source.lang.swift.accessibility.public"
-    case `open` = "source.lang.swift.accessibility.open"
-
-    var stringValue: String {
-        switch self {
-        case .private:
-            return "private"
-        case .fileprivate:
-            return "fileprivate"
-        case .internal:
-            return "internal"
-        case .public:
-            return "public"
-        case .open:
-            return "open"
         }
     }
 
@@ -67,10 +51,6 @@ extension AccessLevel: Comparable, Equatable {
     static func < (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority < rhs.priority
     }
-
-//    static func > (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
-//        return lhs.priority > rhs.priority
-//    }
 
     static func == (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority == rhs.priority
