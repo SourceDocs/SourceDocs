@@ -1,5 +1,5 @@
 TOOL_NAME = sourcedocs
-VERSION = 0.6.0
+VERSION = 0.6.1
 
 PREFIX = /usr/local
 INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
@@ -36,6 +36,10 @@ zip: build
 
 get_sha:
 	curl -OLs https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz
-	shasum -a 256 $(TAR_FILENAME)
+	shasum -a 256 $(TAR_FILENAME) | cut -f 1 -d " " > sha_$(VERSION).txt
 	rm $(TAR_FILENAME)
+
+brew_push: get_sha
+	SHA=$(shell cat sha_$(VERSION).txt); \
+	brew bump-formula-pr --url=https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz --sha256=$$SHA
 

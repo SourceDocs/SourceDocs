@@ -51,6 +51,7 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         **EXTENSION**
 
         # `\(name)`
+        \(declaration)
 
         \(properties)
 
