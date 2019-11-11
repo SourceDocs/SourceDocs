@@ -18,22 +18,51 @@ public func globalMethod(param1: String, param2: Int) throws -> Decimal {
     return 42
 }
 
+// MARK: - Protocols and Extensions
+
 /// Describes an animal hierarchy of things
-public protocol Animal {
-    /// Print a greeting message
-    func speak()
+public protocol LivingThing {
+    /// Determines if the animal is alive or not
+    var isAlive: Bool { get set }
+}
+
+/// Defines something that ages with time
+public protocol Aging {
+    /// Determines thel age in years
+    var age: UInt { get set }
+}
+
+/// Six major groups of animals
+public enum AnimalKind {
+    case invertebrate
+    case fish
+    case amphibian
+    case reptile
+    case bird
+    case mammal
+}
+
+public protocol Animal: LivingThing, Aging {
+    var kind: AnimalKind { get }
 }
 
 /// Describes a thing that can be named
 public protocol Nameable: CustomStringConvertible {
     /// Name of the thing being named
-    var name: String { get }
+    var givenName: String { get }
 }
 
 extension Nameable {
     /// Describes a named thing
     public var description: String {
-        return "Hello, my name is \(name)."
+        return "My name is \(givenName)."
+    }
+}
+
+extension Nameable {
+    /// Alternative description for a thing
+    public var alternateDescription: String {
+        return "People call me \(givenName)."
     }
 }
 
@@ -43,10 +72,18 @@ public protocol Speaker {
     func speak()
 }
 
+/// All pets should have a name, and an owner
+public protocol Pet: Animal, Nameable, OwnableAnimal {}
+
 /// Common animal many people have as pet
-public struct Dog: Animal, Nameable {
+public struct Dog: Pet {
+    public var kind = AnimalKind.mammal
+    public var isAlive = true
+    public var owner: AnimalOwner?
+
     /// All dogs should have a name
-    public let name: String
+    public let givenName: String
+    public var age: UInt
 }
 
 extension Dog: Speaker {
@@ -54,6 +91,69 @@ extension Dog: Speaker {
     public func speak() {
         print("Woof, woof!")
     }
+}
+
+public protocol OwnableAnimal {
+    var owner: AnimalOwner? { get set }
+}
+
+public protocol AnimalOwner {
+    /// Animal owners might have 0, 1 or more animals
+    var animals: [OwnableAnimal] { get set }
+}
+
+/// Humans are mammals, age with time, and have a given name.
+public protocol Human: Animal, Nameable, AnimalOwner {
+    /// Most humans have a family name, but some do not.
+    var familyName: String? { get }
+}
+
+/// All persons are humans.
+open class Person: Human {
+    open var kind: AnimalKind = .mammal
+    open var isAlive: Bool
+    open var age: UInt
+    open var givenName: String
+    open var familyName: String?
+    open var animals: [OwnableAnimal] = []
+
+    public init(givenName: String, familyName: String) {
+        self.givenName = givenName
+        self.familyName = familyName
+        self.age = 0
+        self.isAlive = true
+    }
+}
+
+extension AnimalOwner {
+    public mutating func acquire(animal: inout OwnableAnimal) {
+        animal.owner = self
+        animals.append(animal)
+    }
+}
+
+// MARK: - Nested Types
+
+public struct Foo {
+    public struct Bar {
+        public enum Baz {
+            case foo
+            case bar
+            case baz
+        }
+    }
+}
+
+extension Foo {
+    public var foo: Foo.Bar.Baz { Bar.Baz.foo }
+}
+
+extension Foo.Bar {
+    public var bar: Foo.Bar.Baz { Baz.bar }
+}
+
+extension Foo.Bar.Baz {
+    public var baz: Foo.Bar.Baz { .baz }
 }
 
 // MARK: - ACL tests
