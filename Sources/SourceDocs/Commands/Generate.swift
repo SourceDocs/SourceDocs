@@ -67,11 +67,11 @@ struct GenerateCommand: CommandProtocol {
     func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
             if let module = options.spmModule {
-                let docs = try parseSPMModule(moduleName: module)
+                let docs = try parseSPMModule(moduleName: module, inputPath: options.inputFolder)
                 try generateDocumentation(docs: docs, options: options, module: module)
             } else if let module = options.moduleName {
                 let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments,
-                                                path: options.inputFolder)
+                                                inputPath: options.inputFolder)
                 try generateDocumentation(docs: docs, options: options, module: module)
             } else {
                 let docs = try parseXcodeProject(args: options.xcodeArguments, inputPath: options.inputFolder)
@@ -85,16 +85,16 @@ struct GenerateCommand: CommandProtocol {
         }
     }
 
-    private func parseSPMModule(moduleName: String) throws -> [SwiftDocs] {
-        guard let docs = Module(spmName: moduleName)?.docs else {
+    private func parseSPMModule(moduleName: String, inputPath: String) throws -> [SwiftDocs] {
+        guard let docs = Module(spmName: moduleName, inPath: inputPath)?.docs else {
             let message = "Error: Failed to generate documentation for SPM module '\(moduleName)'."
             throw SourceDocsError.internalError(message: message)
         }
         return docs
     }
 
-    private func parseSwiftModule(moduleName: String, args: [String], path: String) throws -> [SwiftDocs] {
-        guard let docs = Module(xcodeBuildArguments: args, name: moduleName, inPath: path)?.docs else {
+    private func parseSwiftModule(moduleName: String, args: [String], inputPath: String) throws -> [SwiftDocs] {
+        guard let docs = Module(xcodeBuildArguments: args, name: moduleName, inPath: inputPath)?.docs else {
             let message = "Error: Failed to generate documentation for module '\(moduleName)'."
             throw SourceDocsError.internalError(message: message)
         }
