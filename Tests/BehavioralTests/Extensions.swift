@@ -25,4 +25,9 @@ extension XCTestCase {
         return productsDirectory.appendingPathComponent("sourcedocs")
     }
 
+    /// Path to the project root (located three levels up from this file)
+    var projectRootDirectory: URL {
+        let fileURL = URL(fileURLWithPath: #file)
+        return fileURL.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+    }
 }

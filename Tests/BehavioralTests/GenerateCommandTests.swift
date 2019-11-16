@@ -14,7 +14,7 @@ class GenerateCommandTests: XCTestCase {
     static override func tearDown() {
         super.tearDown()
         try? FileManager.default.removeItem(atPath: "Documentation")
-        try? FileManager.default.removeItem(atPath: "Temp")
+//        try? FileManager.default.removeItem(atPath: "Temp")
     }
 
     func testUnknownBuildAction() throws {
@@ -62,6 +62,7 @@ class GenerateCommandTests: XCTestCase {
 
     func testREADME() throws {
         let result = try generateDocs(parameters: "--spm-module", "TestSubjects",
+                                      "--input-folder", projectRootDirectory.path,
                                       "--output-folder", "Temp/Docs", "-m")
         XCTAssertTrue(result.standardOutput.hasSuffix("Done 🎉"))
         XCTAssertTrue(FileManager.default.fileExists(atPath: "Temp/Docs/TestSubjects/README.md"))
@@ -69,6 +70,7 @@ class GenerateCommandTests: XCTestCase {
 
     func testPublicClass() throws {
         try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--input-folder", projectRootDirectory.path,
                          "--output-folder", "Temp/Docs", "-m")
 
         let contents = try String(contentsOfFile: "Temp/Docs/TestSubjects/classes/Foo.md")
@@ -86,6 +88,7 @@ class GenerateCommandTests: XCTestCase {
 
     func testPublicClassWithInternalACL() throws {
         try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--input-folder", projectRootDirectory.path,
                          "--output-folder", "Temp/Docs", "-m",
                          "--min-acl", "internal")
 
@@ -104,6 +107,7 @@ class GenerateCommandTests: XCTestCase {
 
     func testPublicClassWithFilePrivateACL() throws {
         try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--input-folder", projectRootDirectory.path,
                          "--output-folder", "Temp/Docs", "-m",
                          "--min-acl", "fileprivate")
 
@@ -122,6 +126,7 @@ class GenerateCommandTests: XCTestCase {
 
     func testPublicClassWithPrivateACL() throws {
         try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--input-folder", projectRootDirectory.path,
                          "--output-folder", "Temp/Docs", "-m",
                          "--min-acl", "private")
 
