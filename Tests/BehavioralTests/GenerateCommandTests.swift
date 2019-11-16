@@ -11,20 +11,13 @@ import System
 
 class GenerateCommandTests: XCTestCase {
 
-    static let subjectsPath = "Tests/Subjects"
-
-    static override func setUp() {
-        super.setUp()
-        _ = try? system(shell: "cd \(subjectsPath) && swift build")
-    }
-
     static override func tearDown() {
         super.tearDown()
         try? FileManager.default.removeItem(atPath: "Documentation")
         try? FileManager.default.removeItem(atPath: "Temp")
     }
 
-    func testDefault() throws {
+    func testUnknownBuildAction() throws {
         let result = try generateDocs(parameters: "")
         XCTAssertEqual(result.standardOutput, "")
         XCTAssertTrue(result.standardError.contains("xcodebuild: error: Unknown build action"))
@@ -67,14 +60,18 @@ class GenerateCommandTests: XCTestCase {
         XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/structs/Foo.md"))
     }
 
-    func testPublicClass() throws {
-        let result = try generateDocs(parameters: "--spm-module", "PublicClass",
-                                      "--input-folder", Self.subjectsPath,
+    func testREADME() throws {
+        let result = try generateDocs(parameters: "--spm-module", "TestSubjects",
                                       "--output-folder", "Temp/Docs", "-m")
         XCTAssertTrue(result.standardOutput.hasSuffix("Done 🎉"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Temp/Docs/PublicClass/README.md"))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: "Temp/Docs/TestSubjects/README.md"))
+    }
 
-        let contents = try String(contentsOfFile: "Temp/Docs/PublicClass/classes/Foo.md")
+    func testPublicClass() throws {
+        try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--output-folder", "Temp/Docs", "-m")
+
+        let contents = try String(contentsOfFile: "Temp/Docs/TestSubjects/classes/Foo.md")
         XCTAssertTrue(contents.contains("This is a public class named Foo"))
         XCTAssertTrue(contents.contains("public class Foo"))
         XCTAssertTrue(contents.contains("This is a public method on a public class"))
@@ -88,14 +85,11 @@ class GenerateCommandTests: XCTestCase {
     }
 
     func testPublicClassWithInternalACL() throws {
-        let result = try generateDocs(parameters: "--spm-module", "PublicClass",
-                                      "--input-folder", Self.subjectsPath,
-                                      "--output-folder", "Temp/Docs", "-m",
-                                      "--min-acl", "internal")
-        XCTAssertTrue(result.standardOutput.hasSuffix("Done 🎉"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Temp/Docs/PublicClass/README.md"))
+        try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--output-folder", "Temp/Docs", "-m",
+                         "--min-acl", "internal")
 
-        let contents = try String(contentsOfFile: "Temp/Docs/PublicClass/classes/Foo.md")
+        let contents = try String(contentsOfFile: "Temp/Docs/TestSubjects/classes/Foo.md")
         XCTAssertTrue(contents.contains("This is a public class named Foo"))
         XCTAssertTrue(contents.contains("public class Foo"))
         XCTAssertTrue(contents.contains("This is a public method on a public class"))
@@ -109,14 +103,11 @@ class GenerateCommandTests: XCTestCase {
     }
 
     func testPublicClassWithFilePrivateACL() throws {
-        let result = try generateDocs(parameters: "--spm-module", "PublicClass",
-                                      "--input-folder", Self.subjectsPath,
-                                      "--output-folder", "Temp/Docs", "-m",
-                                      "--min-acl", "fileprivate")
-        XCTAssertTrue(result.standardOutput.hasSuffix("Done 🎉"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Temp/Docs/PublicClass/README.md"))
+        try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--output-folder", "Temp/Docs", "-m",
+                         "--min-acl", "fileprivate")
 
-        let contents = try String(contentsOfFile: "Temp/Docs/PublicClass/classes/Foo.md")
+        let contents = try String(contentsOfFile: "Temp/Docs/TestSubjects/classes/Foo.md")
         XCTAssertTrue(contents.contains("This is a public class named Foo"))
         XCTAssertTrue(contents.contains("public class Foo"))
         XCTAssertTrue(contents.contains("This is a public method on a public class"))
@@ -130,14 +121,11 @@ class GenerateCommandTests: XCTestCase {
     }
 
     func testPublicClassWithPrivateACL() throws {
-        let result = try generateDocs(parameters: "--spm-module", "PublicClass",
-                                      "--input-folder", Self.subjectsPath,
-                                      "--output-folder", "Temp/Docs", "-m",
-                                      "--min-acl", "private")
-        XCTAssertTrue(result.standardOutput.hasSuffix("Done 🎉"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Temp/Docs/PublicClass/README.md"))
+        try generateDocs(parameters: "--spm-module", "TestSubjects",
+                         "--output-folder", "Temp/Docs", "-m",
+                         "--min-acl", "private")
 
-        let contents = try String(contentsOfFile: "Temp/Docs/PublicClass/classes/Foo.md")
+        let contents = try String(contentsOfFile: "Temp/Docs/TestSubjects/classes/Foo.md")
         XCTAssertTrue(contents.contains("This is a public class named Foo"))
         XCTAssertTrue(contents.contains("public class Foo"))
         XCTAssertTrue(contents.contains("This is a public method on a public class"))
@@ -150,6 +138,7 @@ class GenerateCommandTests: XCTestCase {
         XCTAssertTrue(contents.contains("private func privateMethod()"))
     }
 
+    @discardableResult
     private func generateDocs(parameters: String...) throws -> ProcessResult {
         let params = ["generate"] + parameters
         return try system(command: binaryURL.path, parameters: params, captureOutput: true)
