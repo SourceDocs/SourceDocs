@@ -28,36 +28,36 @@ class GenerateCommandTests: XCTestCase {
         XCTAssertTrue(result.standardOutput.hasPrefix("Generating Markdown documentation..."))
         XCTAssertTrue(result.standardOutput.hasSuffix("Done 🎉"))
 
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/README.md"))
+        let files = [
+            "README.md",
+            "classes/ACLTestClass.md",
+            "classes/Person.md",
+            "enums/AnimalKind.md",
+            "enums/Baz.md",
+            "extensions/AnimalOwner.md",
+            "extensions/Dog.md",
+            "extensions/Foo.Bar.Baz.md",
+            "extensions/Foo.Bar.md",
+            "extensions/Foo.md",
+            "extensions/Nameable.md",
+            "methods/globalMethod(param1:param2:).md",
+            "protocols/Aging.md",
+            "protocols/Animal.md",
+            "protocols/AnimalOwner.md",
+            "protocols/Human.md",
+            "protocols/LivingThing.md",
+            "protocols/Nameable.md",
+            "protocols/OwnableAnimal.md",
+            "protocols/Pet.md",
+            "protocols/Speaker.md",
+            "structs/Bar.md",
+            "structs/Dog.md",
+            "structs/Foo.md"
+        ]
 
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/classes/ACLTestClass.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/classes/Person.md"))
-
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/enums/AnimalKind.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/enums/Baz.md"))
-
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/extensions/AnimalOwner.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/extensions/Dog.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/extensions/Foo.Bar.Baz.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/extensions/Foo.Bar.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/extensions/Foo.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/extensions/Nameable.md"))
-
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/methods/globalMethod(param1:param2:).md"))
-
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/Aging.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/Animal.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/AnimalOwner.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/Human.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/LivingThing.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/Nameable.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/OwnableAnimal.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/Pet.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/protocols/Speaker.md"))
-
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/structs/Bar.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/structs/Dog.md"))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/structs/Foo.md"))
+        for file in files {
+            XCTAssertTrue(FileManager.default.fileExists(atPath: "Documentation/Reference/\(file)"))
+        }
     }
 
     func testREADME() throws {
