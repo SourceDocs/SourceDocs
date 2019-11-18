@@ -146,15 +146,15 @@ public struct Foo {
 }
 
 extension Foo {
-    public var foo: Foo.Bar.Baz { Bar.Baz.foo }
+    public var foo: Foo.Bar.Baz { return Bar.Baz.foo }
 }
 
 extension Foo.Bar {
-    public var bar: Foo.Bar.Baz { Baz.bar }
+    public var bar: Foo.Bar.Baz { return Baz.bar }
 }
 
 extension Foo.Bar.Baz {
-    public var baz: Foo.Bar.Baz { Self.baz }
+    public var baz: Foo.Bar.Baz { return .baz }
 }
 
 // MARK: - ACL tests
