@@ -154,7 +154,7 @@ extension Foo.Bar {
 }
 
 extension Foo.Bar.Baz {
-    public var baz: Foo.Bar.Baz { .baz }
+    public var baz: Foo.Bar.Baz { Self.baz }
 }
 
 // MARK: - ACL tests
