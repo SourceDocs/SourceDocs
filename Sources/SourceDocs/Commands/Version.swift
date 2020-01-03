@@ -7,7 +7,6 @@
 
 import Foundation
 import Commandant
-import Result
 import Rainbow
 
 /// Type that encapsulates the configuration and evaluation of the `version` subcommand.

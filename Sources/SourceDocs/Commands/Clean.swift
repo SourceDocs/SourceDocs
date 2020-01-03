@@ -7,7 +7,6 @@
 
 import Foundation
 import Commandant
-import Result
 import Curry
 import Rainbow
 

@@ -8,7 +8,6 @@
 import Foundation
 import Commandant
 import Rainbow
-import Result
 import Curry
 import SourceKittenFramework
 
