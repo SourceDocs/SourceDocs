@@ -3,16 +3,12 @@
 # `Animal`
 
 ```swift
-public protocol Animal
+public protocol Animal: LivingThing, Aging
 ```
 
-> Describes an animal hierarchy of things
-
-## Methods
-### `speak()`
+## Properties
+### `kind`
 
 ```swift
-func speak()
+var kind: AnimalKind
 ```
-
-> Print a greeting message

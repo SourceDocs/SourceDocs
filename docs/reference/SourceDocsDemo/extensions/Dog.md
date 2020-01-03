@@ -1,6 +1,9 @@
 **EXTENSION**
 
 # `Dog`
+```swift
+extension Dog: Speaker
+```
 
 ## Methods
 ### `speak()`
