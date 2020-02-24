@@ -3,9 +3,15 @@ language: generic
 jobs:
   include:
   - stage: Continuous Integration
+    name: SwiftLint
+    os: osx
+    osx_image: xcode11
+    script:
+    - make lint
+  - stage: Continuous Integration
     name: SwiftPM macOS
     os: osx
-    osx_image: xcode9.3
+    osx_image: xcode10.3
     script:
     - swift test --parallel
   - stage: Continuous Integration
@@ -15,15 +21,15 @@ jobs:
     sudo: required
     install:
     - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-    - swiftenv install 4.1
-    - swiftenv local 4.1
+    - swiftenv install 5.0
+    - swiftenv local 5.0
     - swift --version
     script:
     - swift test --parallel
   - stage: Continuous Integration
-    name: Code Coverage (Xcode 9.3)
+    name: Code Coverage (Xcode 10.3)
     os: osx
-    osx_image: xcode9.3
+    osx_image: xcode10.3
     script:
     - swift package generate-xcodeproj --enable-code-coverage
     - xcodebuild -scheme SourceDocs-Package test
@@ -32,7 +38,7 @@ jobs:
   - stage: Continuous Integration
     name: Installation with Homebrew (macOS)
     os: osx
-    osx_image: xcode9.3
+    osx_image: xcode10.3
     script:
     - brew update
     - brew install sourcedocs
@@ -40,7 +46,7 @@ jobs:
   - stage: Continuous Integration
     name: Installation from Source (macOS)
     os: osx
-    osx_image: xcode9.3
+    osx_image: xcode10.3
     script:
     - git clone --depth 1 https://github.com/eneko/SourceDocs.git
     - cd SourceDocs

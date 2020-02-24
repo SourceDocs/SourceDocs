@@ -3,8 +3,9 @@
 [![Release](https://img.shields.io/github/release/eneko/sourcedocs.svg)](https://github.com/eneko/SourceDocs/releases)
 [![Build Status](https://travis-ci.org/eneko/SourceDocs.svg?branch=master)](https://travis-ci.org/eneko/SourceDocs)
 [![codecov](https://codecov.io/gh/eneko/SourceDocs/branch/master/graph/badge.svg)](https://codecov.io/gh/eneko/SourceDocs)
-![Swift 4.1](https://img.shields.io/badge/Swift-4.1-orange.svg)
+![Swift 5.0](https://img.shields.io/badge/Swift-5.0-orange.svg)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/spm-compatible-brightgreen.svg)](https://swift.org/package-manager)
+[![codebeat badge](https://codebeat.co/badges/99fcf00c-0aec-40de-b3fe-0c7ed9a169cb)](https://codebeat.co/projects/github-com-eneko-sourcedocs-master)
 
 ![SourceDocs Header](http://www.enekoalonso.com/media/sourcedocs-header.jpg)
 
@@ -63,6 +64,9 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
 
     [--output-folder (string)]
        Output directory (defaults to Documentation/Reference).
+       
+    [--min-acl (private|fileprivate|internal|public|open)]
+       Minimum access level to process the documentation for (defaults to public).
     
     [--link-beginning (string)]
        The string to begin links with. Defaults to an empty string.

@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Carthage/Commandant.git",
         "state": {
           "branch": null,
-          "revision": "2cd0210f897fe46c6ce42f52ccfa72b3bbb621a0",
-          "version": "0.16.0"
+          "revision": "ab68611013dec67413628ac87c1f29e8427bc8e4",
+          "version": "0.17.0"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/Quick/Nimble.git",
         "state": {
           "branch": null,
-          "revision": "6abeb3f5c03beba2b9e4dbe20886e773b5b629b6",
-          "version": "8.0.4"
+          "revision": "b02b00b30b6353632aa4a5fb6124f8147f7140c0",
+          "version": "8.0.5"
         }
       },
       {
@@ -74,21 +74,30 @@
         }
       },
       {
-        "package": "Result",
-        "repositoryURL": "https://github.com/antitypical/Result.git",
-        "state": {
-          "branch": null,
-          "revision": "2ca499ba456795616fbc471561ff1d963e6ae160",
-          "version": "4.1.0"
-        }
-      },
-      {
         "package": "SourceKitten",
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
           "branch": null,
-          "revision": "cc1f16acc70630d27498e81078789f5fa55d7463",
-          "version": "0.26.0"
+          "revision": "356551fc513eb12ed779bb369f79cf86a3a01599",
+          "version": "0.27.0"
+        }
+      },
+      {
+        "package": "llbuild",
+        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
+        "state": {
+          "branch": null,
+          "revision": "f1c9ad9a253cdf1aa89a7f5c99c30b4513b06ddb",
+          "version": "0.1.1"
+        }
+      },
+      {
+        "package": "SwiftPM",
+        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
+        "state": {
+          "branch": null,
+          "revision": "8656a25cb906c1896339f950ac960ee1b4fe8034",
+          "version": "0.4.0"
         }
       },
       {
@@ -98,6 +107,15 @@
           "branch": null,
           "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
           "version": "5.0.1"
+        }
+      },
+      {
+        "package": "System",
+        "repositoryURL": "https://github.com/eneko/System.git",
+        "state": {
+          "branch": null,
+          "revision": "381352d9479fb9c75d99a5ae5503f7d560c62449",
+          "version": "0.2.0"
         }
       },
       {

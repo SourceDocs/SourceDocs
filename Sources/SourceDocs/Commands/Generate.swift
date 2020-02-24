@@ -8,7 +8,6 @@
 import Foundation
 import Commandant
 import Rainbow
-import Result
 import Curry
 import SourceKittenFramework
 
@@ -19,6 +18,7 @@ struct GenerateCommandOptions: OptionsProtocol {
     let linkEndingText: String
     let inputFolder: String
     let outputFolder: String
+    let minimumAccessLevel: String
     let includeModuleNameInPath: Bool
     let clean: Bool
     let collapsibleBlocks: Bool
@@ -36,9 +36,15 @@ struct GenerateCommandOptions: OptionsProtocol {
             <*> mode <| Option(key: "link-ending", defaultValue: SourceDocs.defaultLinkEnding,
                                usage: "The text to end links with. Defaults to \(SourceDocs.defaultLinkEnding).")
             <*> mode <| Option(key: "input-folder", defaultValue: FileManager.default.currentDirectoryPath,
-                               usage: "Path to the input directory (defaults to `FileManager.default.currentDirectoryPath`).")
+                               usage:
+                "Path to the input directory (defaults to \(FileManager.default.currentDirectoryPath))."
+            )
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.rawValue,
+                               usage:
+                "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.rawValue)."
+            )
             <*> mode <| Switch(flag: "m", key: "module-name-path",
                                usage: "Include the module name as part of the output folder path.")
             <*> mode <| Switch(flag: "c", key: "clean",
@@ -63,7 +69,8 @@ struct GenerateCommand: CommandProtocol {
                 let docs = try parseSPMModule(moduleName: module)
                 try generateDocumentation(docs: docs, options: options, module: module)
             } else if let module = options.moduleName {
-                let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments, path: options.inputFolder)
+                let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments,
+                                                path: options.inputFolder)
                 try generateDocumentation(docs: docs, options: options, module: module)
             } else {
                 let docs = try parseXcodeProject(args: options.xcodeArguments, inputPath: options.inputFolder)
@@ -106,7 +113,9 @@ struct GenerateCommand: CommandProtocol {
             try CleanCommand.removeReferenceDocs(docsPath: docsPath)
         }
         process(docs: docs, options: options)
-        try MarkdownIndex.shared.write(to: docsPath, linkBeginningText: options.linkBeginningText, linkEndingText: options.linkEndingText)
+        try MarkdownIndex.shared.write(to: docsPath,
+                                       linkBeginningText: options.linkBeginningText,
+                                       linkEndingText: options.linkEndingText)
     }
 
     private func process(docs: [SwiftDocs], options: GenerateCommandOptions) {
@@ -119,8 +128,10 @@ struct GenerateCommand: CommandProtocol {
     }
 
     private func process(dictionary: SwiftDocDictionary, options: GenerateCommandOptions) {
+        let minimumAccessLevel = AccessLevel(rawValue: options.minimumAccessLevel) ?? .public
         let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
-                                              tableOfContents: options.tableOfContents)
+                                              tableOfContents: options.tableOfContents,
+                                              minimumAccessLevel: minimumAccessLevel)
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
@@ -135,7 +146,8 @@ struct GenerateCommand: CommandProtocol {
                 MarkdownIndex.shared.protocols.append(item)
             } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.typealiases.append(item)
-            } else if kind == .functionFree, let item = MarkdownMethod(dictionary: dictionary, options: markdownOptions) {
+            } else if kind == .functionFree,
+                let item = MarkdownMethod(dictionary: dictionary, options: markdownOptions) {
                 MarkdownIndex.shared.methods.append(item)
             }
         }
