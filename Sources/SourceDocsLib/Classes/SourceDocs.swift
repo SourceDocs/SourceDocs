@@ -9,20 +9,22 @@ import Foundation
 import Commandant
 import Rainbow
 
-struct SourceDocs {
-    static let version = "0.6.1"
-    static let defaultOutputPath = "Documentation/Reference"
-    static let defaultLinkEnding = ".md"
-    static let defaultLinkBeginning = ""
+public struct SourceDocs {
+    public static let version = "0.6.1"
+    public static let defaultOutputPath = "Documentation/Reference"
+    public static let defaultLinkEnding = ".md"
+    public static let defaultLinkBeginning = ""
 
-    func run() {
+    public init() {}
+    
+    public func run(arguments: [String] = CommandLine.arguments) {
         let registry = CommandRegistry<SourceDocsError>()
         registry.register(CleanCommand())
         registry.register(GenerateCommand())
         registry.register(VersionCommand())
         registry.register(HelpCommand(registry: registry))
 
-        registry.main(defaultVerb: "help") { error in
+        registry.main(arguments: arguments, defaultVerb: "help") { error in
             fputs("\(error.localizedDescription)\n)".red, stderr)
         }
     }

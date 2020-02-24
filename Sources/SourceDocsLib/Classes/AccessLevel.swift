@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AccessLevel: String, CaseIterable {
+public enum AccessLevel: String, CaseIterable {
     case `private`
     case `fileprivate`
     case `internal`
@@ -48,11 +48,11 @@ enum AccessLevel: String, CaseIterable {
 }
 
 extension AccessLevel: Comparable, Equatable {
-    static func < (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
+    public static func < (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority < rhs.priority
     }
 
-    static func == (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
+    public static func == (lhs: AccessLevel, rhs: AccessLevel) -> Bool {
         return lhs.priority == rhs.priority
     }
 }

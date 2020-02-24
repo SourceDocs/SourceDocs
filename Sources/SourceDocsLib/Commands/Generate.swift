@@ -11,7 +11,7 @@ import Rainbow
 import Curry
 import SourceKittenFramework
 
-struct GenerateCommandOptions: OptionsProtocol {
+public struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
     let moduleName: String?
     let linkBeginningText: String
@@ -24,8 +24,50 @@ struct GenerateCommandOptions: OptionsProtocol {
     let collapsibleBlocks: Bool
     let tableOfContents: Bool
     let xcodeArguments: [String]
+    
+    /// Initializer for options object for the Generate command
+    ///
+    /// - Parameters:
+    ///   - spmModule: Generate documentation for Swift Package Manager module.
+    ///   - moduleName: Generate documentation for a Swift module.
+    ///   - linkBeginningText: The text to begin links with. Defaults to an empty string.
+    ///   - linkEndingText: The text to end links with. Defaults to .md.
+    ///   - inputFolder: Path to the input directory (defaults to the current directory).
+    ///   - outputFolder: Output directory (defaults to "Documentation/Reference").
+    ///   - minimumAccessLevel: The minimum access level to generate documentation. Defaults to public.
+    ///   - includeModuleNameInPath: Include the module name as part of the output folder path. Defaults to false.
+    ///   - clean: Delete output folder before generating documentation. Defaults to false.
+    ///   - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
+    ///   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
+    ///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
+    public init(spmModule: String? = nil,
+                moduleName: String? = nil,
+                linkBeginningText: String = SourceDocs.defaultLinkBeginning,
+                linkEndingText: String = SourceDocs.defaultLinkEnding,
+                inputFolder: String = FileManager.default.currentDirectoryPath,
+                outputFolder: String = SourceDocs.defaultOutputPath,
+                minimumAccessLevel: String = AccessLevel.public.rawValue,
+                includeModuleNameInPath: Bool = false,
+                clean: Bool = false,
+                collapsibleBlocks: Bool = false,
+                tableOfContents: Bool = false,
+                xcodeArguments: [String] = []) {
+        self.spmModule = spmModule
+        self.moduleName = moduleName
+        self.linkBeginningText = linkBeginningText
+        self.linkEndingText = linkEndingText
+        self.inputFolder = inputFolder
+        self.outputFolder = outputFolder
+        self.minimumAccessLevel = minimumAccessLevel
+        self.includeModuleNameInPath = includeModuleNameInPath
+        self.clean = clean
+        self.collapsibleBlocks = collapsibleBlocks
+        self.tableOfContents = tableOfContents
+        self.xcodeArguments = xcodeArguments
+    }
+    
 
-    static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
+    public static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
             <*> mode <| Option(key: "spm-module", defaultValue: nil,
                                usage: "Generate documentation for Swift Package Manager module.")
@@ -57,13 +99,13 @@ struct GenerateCommandOptions: OptionsProtocol {
     }
 }
 
-struct GenerateCommand: CommandProtocol {
-    typealias Options = GenerateCommandOptions
+public struct GenerateCommand: CommandProtocol {
+    public typealias Options = GenerateCommandOptions
 
-    let verb = "generate"
-    let function = "Generates the Markdown documentation"
+    public let verb = "generate"
+    public let function = "Generates the Markdown documentation"
 
-    func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
+    public func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
         do {
             if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module)
@@ -156,5 +198,4 @@ struct GenerateCommand: CommandProtocol {
             process(dictionaries: substructure, options: options)
         }
     }
-
 }

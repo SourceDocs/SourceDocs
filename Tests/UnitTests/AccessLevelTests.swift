@@ -6,13 +6,12 @@
 //
 
 import XCTest
-// import SourceDocs
+ import SourceDocsLib
 
 class AccessLevelTests: XCTestCase {
 
     func testPriority() {
-//        let levels = AccessLevel.allCases
-//        XCTAssertEqual(levels.count, 5)
+        let levels = AccessLevel.allCases
+        XCTAssertEqual(levels.count, 5)
     }
-
 }

@@ -10,23 +10,30 @@ import Commandant
 import Curry
 import Rainbow
 
-struct CleanCommandOptions: OptionsProtocol {
+public struct CleanCommandOptions: OptionsProtocol {
     let outputFolder: String
 
-    static func evaluate(_ mode: CommandMode) -> Result<CleanCommandOptions, CommandantError<SourceDocsError>> {
+    /// Initializer for options for the Clean command.
+    ///
+    /// - Parameter outputFolder: Output directory (defaults to "Documentation/Reference").
+    public init(outputFolder: String = SourceDocs.defaultOutputPath) {
+        self.outputFolder = outputFolder
+    }
+    
+    public static func evaluate(_ mode: CommandMode) -> Result<CleanCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
             <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
                                usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
     }
 }
 
-struct CleanCommand: CommandProtocol {
-    typealias Options = CleanCommandOptions
+public struct CleanCommand: CommandProtocol {
+    public typealias Options = CleanCommandOptions
 
-    let verb = "clean"
-    let function = "Delete the output folder and quit."
+    public let verb = "clean"
+    public let function = "Delete the output folder and quit."
 
-    func run(_ options: CleanCommandOptions) -> Result<(), SourceDocsError> {
+    public func run(_ options: CleanCommandOptions) -> Result<(), SourceDocsError> {
         do {
             try CleanCommand.removeReferenceDocs(docsPath: options.outputFolder)
             return Result.success(())
@@ -35,7 +42,7 @@ struct CleanCommand: CommandProtocol {
         }
     }
 
-    static func removeReferenceDocs(docsPath: String) throws {
+    public static func removeReferenceDocs(docsPath: String) throws {
         var isDir: ObjCBool = false
         if FileManager.default.fileExists(atPath: docsPath, isDirectory: &isDir) {
             fputs("Removing reference documentation at '\(docsPath)'...".green, stdout)

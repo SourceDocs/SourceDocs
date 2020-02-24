@@ -10,11 +10,13 @@ import Commandant
 import Rainbow
 
 /// Type that encapsulates the configuration and evaluation of the `version` subcommand.
-struct VersionCommand: CommandProtocol {
-    let verb = "version"
-    let function = "Display the current version of SourceDocs"
+public struct VersionCommand: CommandProtocol {
+    public let verb = "version"
+    public let function = "Display the current version of SourceDocs"
+    
+    public init() {}
 
-    func run(_ options: NoOptions<SourceDocsError>) -> Result<(), SourceDocsError> {
+    public func run(_ options: NoOptions<SourceDocsError>) -> Result<(), SourceDocsError> {
         fputs("SourceDocs v\(SourceDocs.version)\n".cyan, stdout)
         return .success(())
     }
