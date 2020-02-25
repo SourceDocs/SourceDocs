@@ -119,4 +119,14 @@ class MarkdownIndex {
         }
         return Array(groupedByType.values)
     }
+    
+    internal func reset() {
+        self.structs = []
+        self.classes = []
+        self.extensions = []
+        self.enums = []
+        self.protocols = []
+        self.typealiases = []
+        self.methods = []
+    }
 }

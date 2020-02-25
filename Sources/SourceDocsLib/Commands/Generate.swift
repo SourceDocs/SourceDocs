@@ -104,8 +104,14 @@ public struct GenerateCommand: CommandProtocol {
 
     public let verb = "generate"
     public let function = "Generates the Markdown documentation"
+    
+    public init() {}
 
     public func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {
+        defer {
+            // Reset the markdown index in case multiple libs are having things generated
+            MarkdownIndex.shared.reset()
+        }
         do {
             if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module)
