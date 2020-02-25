@@ -21,8 +21,8 @@ jobs:
     sudo: required
     install:
     - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-    - swiftenv install 5.0
-    - swiftenv local 5.0
+    - swiftenv install 5.1
+    - swiftenv local 5.1
     - swift --version
     script:
     - swift test --parallel
