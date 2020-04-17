@@ -67,35 +67,36 @@ public struct GenerateCommandOptions: OptionsProtocol {
         self.xcodeArguments = xcodeArguments
     }
 
-    public static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
-        return curry(self.init)
-            <*> mode <| Option(key: "spm-module", defaultValue: nil,
-                               usage: "Generate documentation for Swift Package Manager module.")
-            <*> mode <| Option(key: "module-name", defaultValue: nil,
-                               usage: "Generate documentation for a Swift module.")
-            <*> mode <| Option(key: "link-beginning", defaultValue: SourceDocsLib.defaultLinkBeginning,
-                               usage: "The text to begin links with. Defaults to an empty string.")
-            <*> mode <| Option(key: "link-ending", defaultValue: SourceDocsLib.defaultLinkEnding,
-                               usage: "The text to end links with. Defaults to \(SourceDocsLib.defaultLinkEnding).")
-            <*> mode <| Option(key: "input-folder", defaultValue: FileManager.default.currentDirectoryPath,
-                               usage:
-                "Path to the input directory (defaults to \(FileManager.default.currentDirectoryPath))."
-            )
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocsLib.defaultOutputPath,
-                               usage: "Output directory (defaults to \(SourceDocsLib.defaultOutputPath)).")
-            <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.rawValue,
-                               usage:
-                "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.rawValue)."
-            )
-            <*> mode <| Switch(flag: "m", key: "module-name-path",
-                               usage: "Include the module name as part of the output folder path.")
-            <*> mode <| Switch(flag: "c", key: "clean",
-                               usage: "Delete output folder before generating documentation.")
-            <*> mode <| Switch(flag: "l", key: "collapsible",
-                               usage: "Put methods, properties and enum cases inside collapsible blocks.")
-            <*> mode <| Switch(flag: "t", key: "table-of-contents",
-                               usage: "Generate a table of contents with properties and methods for each type.")
-            <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
+    public static func evaluate(_ mode: CommandMode) ->
+        Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
+            return curry(self.init)
+                <*> mode <| Option(key: "spm-module", defaultValue: nil,
+                                   usage: "Generate documentation for Swift Package Manager module.")
+                <*> mode <| Option(key: "module-name", defaultValue: nil,
+                                   usage: "Generate documentation for a Swift module.")
+                <*> mode <| Option(key: "link-beginning", defaultValue: SourceDocsLib.defaultLinkBeginning,
+                                   usage: "The text to begin links with. Defaults to an empty string.")
+                <*> mode <| Option(key: "link-ending", defaultValue: SourceDocsLib.defaultLinkEnding,
+                                   usage: "The text to end links with. Defaults to \(SourceDocsLib.defaultLinkEnding).")
+                <*> mode <| Option(key: "input-folder", defaultValue: FileManager.default.currentDirectoryPath,
+                                   usage:
+                    "Path to the input directory (defaults to \(FileManager.default.currentDirectoryPath))."
+                )
+                <*> mode <| Option(key: "output-folder", defaultValue: SourceDocsLib.defaultOutputPath,
+                                   usage: "Output directory (defaults to \(SourceDocsLib.defaultOutputPath)).")
+                <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.rawValue,
+                                   usage:
+                    "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.rawValue)."
+                )
+                <*> mode <| Switch(flag: "m", key: "module-name-path",
+                                   usage: "Include the module name as part of the output folder path.")
+                <*> mode <| Switch(flag: "c", key: "clean",
+                                   usage: "Delete output folder before generating documentation.")
+                <*> mode <| Switch(flag: "l", key: "collapsible",
+                                   usage: "Put methods, properties and enum cases inside collapsible blocks.")
+                <*> mode <| Switch(flag: "t", key: "table-of-contents",
+                                   usage: "Generate a table of contents with properties and methods for each type.")
+                <*> mode <| Argument(defaultValue: [], usage: "List of arguments to pass to xcodebuild.")
     }
 }
 
