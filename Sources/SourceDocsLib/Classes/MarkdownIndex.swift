@@ -10,26 +10,32 @@ import Foundation
 import MarkdownGenerator
 import Rainbow
 
-struct MarkdownOptions {
-    var collapsibleBlocks: Bool
-    var tableOfContents: Bool
-    var minimumAccessLevel: AccessLevel
+public struct MarkdownOptions {
+    public var collapsibleBlocks: Bool
+    public var tableOfContents: Bool
+    public var minimumAccessLevel: AccessLevel
+
+    public init(collapsibleBlocks: Bool, tableOfContents: Bool, minimumAccessLevel: AccessLevel) {
+        self.collapsibleBlocks = collapsibleBlocks
+        self.tableOfContents = tableOfContents
+        self.minimumAccessLevel = minimumAccessLevel
+    }
 }
 
-class MarkdownIndex {
+public class MarkdownIndex {
 
     // Not very happy with the singleton implementation here, looking for alternatives.
-    static let shared = MarkdownIndex()
+    public static let shared = MarkdownIndex()
 
-    var structs: [MarkdownObject] = []
-    var classes: [MarkdownObject] = []
-    var extensions: [MarkdownExtension] = []
-    var enums: [MarkdownEnum] = []
-    var protocols: [MarkdownProtocol] = []
-    var typealiases: [MarkdownTypealias] = []
-    var methods: [MarkdownMethod] = []
+    public var structs: [MarkdownObject] = []
+    public var classes: [MarkdownObject] = []
+    public var extensions: [MarkdownExtension] = []
+    public var enums: [MarkdownEnum] = []
+    public var protocols: [MarkdownProtocol] = []
+    public var typealiases: [MarkdownTypealias] = []
+    public var methods: [MarkdownMethod] = []
 
-    func write(to docsPath: String, linkBeginningText: String, linkEndingText: String) throws {
+    public func write(to docsPath: String, linkBeginningText: String, linkEndingText: String) throws {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
@@ -119,8 +125,8 @@ class MarkdownIndex {
         }
         return Array(groupedByType.values)
     }
-    
-    internal func reset() {
+
+    public func reset() {
         self.structs = []
         self.classes = []
         self.extensions = []

@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
+public struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
@@ -17,7 +17,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
         fatalError("Not supported")
     }
 
-    init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
+    public init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
         guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind([.protocol]) else {
             return nil
         }
@@ -25,7 +25,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
         self.options = options
     }
 
-    var markdown: String {
+    public var markdown: String {
         return """
         **TYPEALIAS**
 

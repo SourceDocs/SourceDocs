@@ -10,13 +10,8 @@ import Commandant
 import Rainbow
 
 public struct SourceDocs {
-    public static let version = "0.6.1"
-    public static let defaultOutputPath = "Documentation/Reference"
-    public static let defaultLinkEnding = ".md"
-    public static let defaultLinkBeginning = ""
-
     public init() {}
-    
+
     public func run(arguments: [String] = CommandLine.arguments) {
         let registry = CommandRegistry<SourceDocsError>()
         registry.register(CleanCommand())

@@ -9,10 +9,10 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-typealias SwiftDocDictionary = [String: Any]
+public typealias SwiftDocDictionary = [String: Any]
 
 extension Dictionary where Key == String, Value == Any {
-    func get<T>(_ key: SwiftDocKey) -> T? {
+    public func get<T>(_ key: SwiftDocKey) -> T? {
         return self[key.rawValue] as? T
     }
 

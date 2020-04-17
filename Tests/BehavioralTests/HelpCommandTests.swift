@@ -1,6 +1,6 @@
 //
 //  HelpCommandTests.swift
-//  
+//
 //
 //  Created by Eneko Alonso on 11/2/19.
 //

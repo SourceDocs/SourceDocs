@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
+public struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
@@ -21,7 +21,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         fatalError("Not supported")
     }
 
-    init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
+    public init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
         guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind([.enum]) else {
             return nil
         }
@@ -77,7 +77,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         """
     }
 
-    var markdown: String {
+    public var markdown: String {
         let toc = options.tableOfContents ? tableOfContents : ""
         let cases = collectionOutput(title: "## Cases", collection: self.cases)
         let properties = collectionOutput(title: "## Properties", collection: self.properties)

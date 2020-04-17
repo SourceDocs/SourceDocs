@@ -10,6 +10,7 @@ import Commandant
 import Rainbow
 import Curry
 import SourceKittenFramework
+import SourceDocsLib
 
 public struct GenerateCommandOptions: OptionsProtocol {
     let spmModule: String?
@@ -24,7 +25,7 @@ public struct GenerateCommandOptions: OptionsProtocol {
     let collapsibleBlocks: Bool
     let tableOfContents: Bool
     let xcodeArguments: [String]
-    
+
     /// Initializer for options object for the Generate command
     ///
     /// - Parameters:
@@ -42,10 +43,10 @@ public struct GenerateCommandOptions: OptionsProtocol {
     ///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
     public init(spmModule: String? = nil,
                 moduleName: String? = nil,
-                linkBeginningText: String = SourceDocs.defaultLinkBeginning,
-                linkEndingText: String = SourceDocs.defaultLinkEnding,
+                linkBeginningText: String = SourceDocsLib.defaultLinkBeginning,
+                linkEndingText: String = SourceDocsLib.defaultLinkEnding,
                 inputFolder: String = FileManager.default.currentDirectoryPath,
-                outputFolder: String = SourceDocs.defaultOutputPath,
+                outputFolder: String = SourceDocsLib.defaultOutputPath,
                 minimumAccessLevel: String = AccessLevel.public.rawValue,
                 includeModuleNameInPath: Bool = false,
                 clean: Bool = false,
@@ -65,7 +66,6 @@ public struct GenerateCommandOptions: OptionsProtocol {
         self.tableOfContents = tableOfContents
         self.xcodeArguments = xcodeArguments
     }
-    
 
     public static func evaluate(_ mode: CommandMode) -> Result<GenerateCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
@@ -73,16 +73,16 @@ public struct GenerateCommandOptions: OptionsProtocol {
                                usage: "Generate documentation for Swift Package Manager module.")
             <*> mode <| Option(key: "module-name", defaultValue: nil,
                                usage: "Generate documentation for a Swift module.")
-            <*> mode <| Option(key: "link-beginning", defaultValue: SourceDocs.defaultLinkBeginning,
+            <*> mode <| Option(key: "link-beginning", defaultValue: SourceDocsLib.defaultLinkBeginning,
                                usage: "The text to begin links with. Defaults to an empty string.")
-            <*> mode <| Option(key: "link-ending", defaultValue: SourceDocs.defaultLinkEnding,
-                               usage: "The text to end links with. Defaults to \(SourceDocs.defaultLinkEnding).")
+            <*> mode <| Option(key: "link-ending", defaultValue: SourceDocsLib.defaultLinkEnding,
+                               usage: "The text to end links with. Defaults to \(SourceDocsLib.defaultLinkEnding).")
             <*> mode <| Option(key: "input-folder", defaultValue: FileManager.default.currentDirectoryPath,
                                usage:
                 "Path to the input directory (defaults to \(FileManager.default.currentDirectoryPath))."
             )
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
-                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocsLib.defaultOutputPath,
+                               usage: "Output directory (defaults to \(SourceDocsLib.defaultOutputPath)).")
             <*> mode <| Option(key: "min-acl", defaultValue: AccessLevel.public.rawValue,
                                usage:
                 "The minimum access level to generate documentation. Defaults to \(AccessLevel.public.rawValue)."
@@ -104,7 +104,7 @@ public struct GenerateCommand: CommandProtocol {
 
     public let verb = "generate"
     public let function = "Generates the Markdown documentation"
-    
+
     public init() {}
 
     public func run(_ options: GenerateCommandOptions) -> Result<(), SourceDocsError> {

@@ -9,7 +9,7 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
+public struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
@@ -20,7 +20,7 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         fatalError("Not supported")
     }
 
-    init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
+    public init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
         let extensions: [SwiftDeclarationKind] = [
             .extension, .extensionEnum, .extensionClass, .extensionStruct, .extensionProtocol
         ]
@@ -44,7 +44,7 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible {
         }
     }
 
-    var markdown: String {
+    public var markdown: String {
         let properties = collectionOutput(title: "## Properties", collection: self.properties)
         let methods = collectionOutput(title: "## Methods", collection: self.methods)
         return """

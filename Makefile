@@ -19,7 +19,7 @@ uninstall:
 	rm -f $(INSTALL_PATH)
 
 lint:
-	swiftlint autocorrect --quiet
+	swiftlint autocorrect --format --quiet
 	swiftlint lint --quiet --strict
 
 docs:

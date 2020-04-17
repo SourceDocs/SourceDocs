@@ -9,6 +9,7 @@ import Foundation
 import Commandant
 import Curry
 import Rainbow
+import SourceDocsLib
 
 public struct CleanCommandOptions: OptionsProtocol {
     let outputFolder: String
@@ -16,14 +17,14 @@ public struct CleanCommandOptions: OptionsProtocol {
     /// Initializer for options for the Clean command.
     ///
     /// - Parameter outputFolder: Output directory (defaults to "Documentation/Reference").
-    public init(outputFolder: String = SourceDocs.defaultOutputPath) {
+    public init(outputFolder: String = SourceDocsLib.defaultOutputPath) {
         self.outputFolder = outputFolder
     }
-    
+
     public static func evaluate(_ mode: CommandMode) -> Result<CleanCommandOptions, CommandantError<SourceDocsError>> {
         return curry(self.init)
-            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocs.defaultOutputPath,
-                               usage: "Output directory (defaults to \(SourceDocs.defaultOutputPath)).")
+            <*> mode <| Option(key: "output-folder", defaultValue: SourceDocsLib.defaultOutputPath,
+                               usage: "Output directory (defaults to \(SourceDocsLib.defaultOutputPath)).")
     }
 }
 

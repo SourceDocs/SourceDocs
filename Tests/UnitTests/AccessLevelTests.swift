@@ -1,12 +1,12 @@
 //
 //  AccessLevelTests.swift
-//  
+//
 //
 //  Created by Eneko Alonso on 11/1/19.
 //
 
 import XCTest
- import SourceDocsLib
+import SourceDocsLib
 
 class AccessLevelTests: XCTestCase {
 
