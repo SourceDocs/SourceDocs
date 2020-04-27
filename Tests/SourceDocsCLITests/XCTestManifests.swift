@@ -6,7 +6,7 @@ extension HelpCommandTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__HelpCommandTests = [
-        ("testHelp", testHelp),
+        ("testHelp", testHelp)
     ]
 }
 
@@ -15,14 +15,14 @@ extension VersionCommandTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__VersionCommandTests = [
-        ("testVersion", testVersion),
+        ("testVersion", testVersion)
     ]
 }
 
 public func __allTests() -> [XCTestCaseEntry] {
     return [
         testCase(HelpCommandTests.__allTests__HelpCommandTests),
-        testCase(VersionCommandTests.__allTests__VersionCommandTests),
+        testCase(VersionCommandTests.__allTests__VersionCommandTests)
     ]
 }
 #endif
