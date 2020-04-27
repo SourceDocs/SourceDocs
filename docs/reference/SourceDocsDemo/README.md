@@ -1,3 +1,5 @@
+# Reference Documentation
+
 ## Protocols
 
 -   [Aging](protocols/Aging.md)
@@ -39,6 +41,7 @@
 
 -   [globalMethod(param1:param2:)](methods/globalMethod(param1:param2:).md)
 
-# Reference Documentation
 This reference documentation was generated with
 [SourceDocs](https://github.com/eneko/SourceDocs).
+
+Generated at 2020-04-27 18:35:34 +0000

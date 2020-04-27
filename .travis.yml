@@ -11,34 +11,34 @@ jobs:
   - stage: Continuous Integration
     name: SwiftPM macOS
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - swift test --parallel
   - stage: Continuous Integration
     name: SwiftPM Linux
-    os: Linux
+    os: linux
     dist: trusty
-    sudo: required
     install:
     - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-    - swiftenv install 5.0
-    - swiftenv local 5.0
+    - swiftenv install 5.1
+    - swiftenv local 5.1
     - swift --version
     script:
+    - swift build
     - swift test --parallel
   - stage: Continuous Integration
-    name: Code Coverage (Xcode 10.3)
+    name: Code Coverage
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - swift package generate-xcodeproj --enable-code-coverage
-    - xcodebuild -scheme SourceDocs-Package test
+    - xcodebuild -scheme SourceDocs-Package -quiet test
     after_success:
-    - bash <(curl -s https://codecov.io/bash) -J 'SourceDocs'
+    - bash <(curl -s https://codecov.io/bash) -J 'SourceDocsLib'
   - stage: Continuous Integration
     name: Installation with Homebrew (macOS)
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - brew update
     - brew install sourcedocs
@@ -46,7 +46,7 @@ jobs:
   - stage: Continuous Integration
     name: Installation from Source (macOS)
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - git clone --depth 1 https://github.com/eneko/SourceDocs.git
     - cd SourceDocs

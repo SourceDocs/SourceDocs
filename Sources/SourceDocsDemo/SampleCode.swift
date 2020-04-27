@@ -134,6 +134,7 @@ extension AnimalOwner {
 
 // MARK: - Nested Types
 
+// swiftlint:disable nesting
 public struct Foo {
     public struct Bar {
         public enum Baz {

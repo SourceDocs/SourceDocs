@@ -1,11 +1,9 @@
-included:
-  - Sources
-  - Tests
-
 excluded:
+  - .build
   - Tests/LinuxMain.swift
-  - Tests/UnitTests/XCTestManifests.swift
-  - Tests/BehavioralTests/XCTestManifests.swift
+  - Tests/SourceDocsLibTests/XCTestManifests.swift
+  - Tests/SourceDocsCLITests/XCTestManifests.swift
+
 
 opt_in_rules:
   - attributes
@@ -17,7 +15,6 @@ opt_in_rules:
   - first_where
   - force_unwrapping
   - joined_default_parameter
-  - let_var_whitespace
   - nimble_operator
   - no_extension_access_modifier
   - number_separator
