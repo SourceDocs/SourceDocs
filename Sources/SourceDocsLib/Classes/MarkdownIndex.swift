@@ -16,10 +16,6 @@ struct MarkdownOptions {
 }
 
 class MarkdownIndex {
-
-    // Not very happy with the singleton implementation here, looking for alternatives.
-    static let shared = MarkdownIndex()
-
     var structs: [MarkdownObject] = []
     var classes: [MarkdownObject] = []
     var extensions: [MarkdownExtension] = []
@@ -27,6 +23,16 @@ class MarkdownIndex {
     var protocols: [MarkdownProtocol] = []
     var typealiases: [MarkdownTypealias] = []
     var methods: [MarkdownMethod] = []
+
+    func reset() {
+        structs = []
+        classes = []
+        extensions = []
+        enums = []
+        protocols = []
+        typealiases = []
+        methods = []
+    }
 
     func write(to docsPath: String, linkBeginningText: String, linkEndingText: String) throws {
         extensions = flattenedExtensions()
@@ -59,11 +65,11 @@ class MarkdownIndex {
                                               linkEndingText: linkEndingText))
 
         let footer = """
-            This reference documentation was generated with
-            [SourceDocs](https://github.com/eneko/SourceDocs).
+        This reference documentation was generated with
+        [SourceDocs](https://github.com/eneko/SourceDocs).
 
-            Generated at \(Date().description)
-            """
+        Generated at \(Date().description)
+        """
         content.append(footer)
 
         try writeFile(file: MarkdownFile(filename: "README", basePath: docsPath, content: content))
@@ -71,9 +77,9 @@ class MarkdownIndex {
     }
 
     func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
-                                    to docsPath: String, collectionTitle: String,
-                                    linkBeginningText: String,
-                                    linkEndingText: String) throws -> [MarkdownConvertible] {
+                            to docsPath: String, collectionTitle: String,
+                            linkBeginningText: String,
+                            linkEndingText: String) throws -> [MarkdownConvertible] {
         if items.isEmpty {
             return []
         }
@@ -105,7 +111,7 @@ class MarkdownIndex {
     }
 
     func makeFiles(with items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
-                           basePath: String) -> [MarkdownFile] {
+                   basePath: String) -> [MarkdownFile] {
         return items.map { MarkdownFile(filename: $0.name, basePath: basePath, content: [$0]) }
     }
 

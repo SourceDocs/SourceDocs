@@ -8,13 +8,13 @@ extension AccessLevelTests {
     static let __allTests__AccessLevelTests = [
         ("testAccessibilityKey", testAccessibilityKey),
         ("testLevels", testLevels),
-        ("testOrdering", testOrdering),
+        ("testOrdering", testOrdering)
     ]
 }
 
 public func __allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(AccessLevelTests.__allTests__AccessLevelTests),
+        testCase(AccessLevelTests.__allTests__AccessLevelTests)
     ]
 }
 #endif

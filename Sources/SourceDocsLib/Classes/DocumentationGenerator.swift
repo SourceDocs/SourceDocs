@@ -8,6 +8,21 @@
 import Foundation
 import SourceKittenFramework
 
+/// Configuration for DocumentationGenerator
+///
+/// - Parameters:
+///   - spmModule: Generate documentation for Swift Package Manager module.
+///   - moduleName: Generate documentation for a Swift module.
+///   - linkBeginningText: The text to begin links with. Defaults to an empty string.
+///   - linkEndingText: The text to end links with. Defaults to '.md'.
+///   - inputFolder: Path to the input directory.
+///   - outputFolder: Output directory.
+///   - minimumAccessLevel: The minimum access level to generate documentation. Defaults to public.
+///   - includeModuleNameInPath: Include the module name as part of the output folder path. Defaults to false.
+///   - clean: Delete output folder before generating documentation. Defaults to false.
+///   - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
+///   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
+///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
 public struct DocumentOptions {
     public let spmModule: String?
     public let moduleName: String?
@@ -23,11 +38,11 @@ public struct DocumentOptions {
     public let xcodeArguments: [String]
 
     public init(spmModule: String?, moduleName: String?,
-                linkBeginningText: String, linkEndingText: String,
+                linkBeginningText: String = "", linkEndingText: String = ".md",
                 inputFolder: String, outputFolder: String,
-                minimumAccessLevel: AccessLevel, includeModuleNameInPath: Bool,
-                clean: Bool, collapsibleBlocks: Bool, tableOfContents: Bool,
-                xcodeArguments: [String]) {
+                minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
+                clean: Bool = false, collapsibleBlocks: Bool = false, tableOfContents: Bool = false,
+                xcodeArguments: [String] = []) {
         self.spmModule = spmModule
         self.moduleName = moduleName
         self.linkBeginningText = linkBeginningText
@@ -46,12 +61,16 @@ public struct DocumentOptions {
 public final class DocumentationGenerator {
 
     let options: DocumentOptions
+    let markdownIndex: MarkdownIndex
 
     public init(options: DocumentOptions) {
         self.options = options
+        self.markdownIndex = MarkdownIndex()
     }
 
     public func run() throws {
+        markdownIndex.reset()
+
         do {
             if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module)
@@ -100,9 +119,9 @@ public final class DocumentationGenerator {
             try DocumentationEraser(docsPath: docsPath).run()
         }
         process(docs: docs)
-        try MarkdownIndex.shared.write(to: docsPath,
-                                       linkBeginningText: options.linkBeginningText,
-                                       linkEndingText: options.linkEndingText)
+        try markdownIndex.write(to: docsPath,
+                                linkBeginningText: options.linkBeginningText,
+                                linkEndingText: options.linkEndingText)
     }
 
     private func process(docs: [SwiftDocs]) {
@@ -121,20 +140,20 @@ public final class DocumentationGenerator {
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.structs.append(item)
+                markdownIndex.structs.append(item)
             } else if kind == .class, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.classes.append(item)
+                markdownIndex.classes.append(item)
             } else if let item = MarkdownExtension(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.extensions.append(item)
+                markdownIndex.extensions.append(item)
             } else if let item = MarkdownEnum(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.enums.append(item)
+                markdownIndex.enums.append(item)
             } else if let item = MarkdownProtocol(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.protocols.append(item)
+                markdownIndex.protocols.append(item)
             } else if let item = MarkdownTypealias(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.typealiases.append(item)
+                markdownIndex.typealiases.append(item)
             } else if kind == .functionFree,
                 let item = MarkdownMethod(dictionary: dictionary, options: markdownOptions) {
-                MarkdownIndex.shared.methods.append(item)
+                markdownIndex.methods.append(item)
             }
         }
 
