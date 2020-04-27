@@ -11,7 +11,7 @@ jobs:
   - stage: Continuous Integration
     name: SwiftPM macOS
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - swift test --parallel
   - stage: Continuous Integration
@@ -29,7 +29,7 @@ jobs:
   - stage: Continuous Integration
     name: Code Coverage (Xcode 10.3)
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - swift package generate-xcodeproj --enable-code-coverage
     - xcodebuild -scheme SourceDocs-Package test
@@ -38,7 +38,7 @@ jobs:
   - stage: Continuous Integration
     name: Installation with Homebrew (macOS)
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - brew update
     - brew install sourcedocs
@@ -46,7 +46,7 @@ jobs:
   - stage: Continuous Integration
     name: Installation from Source (macOS)
     os: osx
-    osx_image: xcode10.3
+    osx_image: xcode11
     script:
     - git clone --depth 1 https://github.com/eneko/SourceDocs.git
     - cd SourceDocs
