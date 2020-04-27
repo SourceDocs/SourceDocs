@@ -1,8 +1,5 @@
-included:
-  - Sources
-  - Tests
-
 excluded:
+  - .build
   - Tests/LinuxMain.swift
   - Tests/UnitTests/XCTestManifests.swift
   - Tests/BehavioralTests/XCTestManifests.swift
