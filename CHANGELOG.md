@@ -10,6 +10,18 @@
 - None
 
 
+## 1.0.0
+
+#### Breaking
+- Add `SourceDocsLib` so it can be used by other Swift tools to generate documentation.
+
+#### Enhancements
+- Migrated from `Commandant` to [`Swift Argument Parser`](https://github.com/apple/swift-argument-parser) for command line parsing.
+
+#### Bug Fixes
+- None
+
+
 ## 0.6.1
 
 #### Breaking
