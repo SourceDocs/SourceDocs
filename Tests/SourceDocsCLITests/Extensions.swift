@@ -22,7 +22,14 @@ extension XCTestCase {
 
     /// Path to binary executable.
     var binaryURL: URL {
-        return productsDirectory.appendingPathComponent("sourcedocs")
+        let basePath = productsDirectory
+        let filenames = ["sourcedocs", "SourceDocsCLI"]
+        for filename in filenames {
+            let url = basePath.appendingPathComponent(filename)
+            if FileManager.default.isExecutableFile(atPath: url.path) {
+                return url
+            }
+        }
+        fatalError("Binary not found in \(basePath)")
     }
-
 }
