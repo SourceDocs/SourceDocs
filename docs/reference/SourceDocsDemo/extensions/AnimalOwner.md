@@ -9,5 +9,5 @@ extension AnimalOwner
 ### `acquire(animal:)`
 
 ```swift
-public mutating func acquire(animal: inout OwnableAnimal)
+public mutating func acquire<Animal: OwnableAnimal>(animal: inout Animal)
 ```

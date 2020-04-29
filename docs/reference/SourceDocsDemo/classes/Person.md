@@ -3,7 +3,7 @@
 # `Person`
 
 ```swift
-open class Person: Human
+open class Person: Human, Equatable
 ```
 
 > All persons are humans.
@@ -46,6 +46,19 @@ open var animals: [OwnableAnimal] = []
 ```
 
 ## Methods
+### `==(_:_:)`
+
+```swift
+public static func == (lhs: Person, rhs: Person) -> Bool
+```
+
+#### Parameters
+
+| Name | Description |
+| ---- | ----------- |
+| lhs | A value to compare. |
+| rhs | Another value to compare. |
+
 ### `init(givenName:familyName:)`
 
 ```swift

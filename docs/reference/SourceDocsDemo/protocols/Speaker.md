@@ -12,7 +12,7 @@ public protocol Speaker
 ### `speak()`
 
 ```swift
-func speak()
+func speak() -> String
 ```
 
 > Print a greeting message

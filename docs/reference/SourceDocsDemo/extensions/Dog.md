@@ -9,7 +9,7 @@ extension Dog: Speaker
 ### `speak()`
 
 ```swift
-public func speak()
+public func speak() -> String
 ```
 
 > Dogs know how to speak!
