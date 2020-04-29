@@ -59,13 +59,16 @@ public struct DocumentOptions {
 }
 
 public final class DocumentationGenerator {
-
     let options: DocumentOptions
     let markdownIndex: MarkdownIndex
+    let markdownOptions: MarkdownOptions
 
     public init(options: DocumentOptions) {
         self.options = options
-        self.markdownIndex = MarkdownIndex()
+        markdownIndex = MarkdownIndex()
+        markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
+                                          tableOfContents: options.tableOfContents,
+                                          minimumAccessLevel: options.minimumAccessLevel)
     }
 
     public func run() throws {
@@ -114,30 +117,22 @@ public final class DocumentationGenerator {
     }
 
     private func generateDocumentation(docs: [SwiftDocs], module: String) throws {
+        #if DEBUG
+        dump(docs)
+        #endif
         let docsPath = options.includeModuleNameInPath ? "\(options.outputFolder)/\(module)" : options.outputFolder
         if options.clean {
             try DocumentationEraser(docsPath: docsPath).run()
         }
-        process(docs: docs)
+
+        docs.map(\.docsDictionary).forEach(process)
+
         try markdownIndex.write(to: docsPath,
                                 linkBeginningText: options.linkBeginningText,
                                 linkEndingText: options.linkEndingText)
     }
 
-    private func process(docs: [SwiftDocs]) {
-        let dictionaries = docs.compactMap { $0.docsDictionary.bridge() as? SwiftDocDictionary }
-        process(dictionaries: dictionaries)
-    }
-
-    private func process(dictionaries: [SwiftDocDictionary]) {
-        dictionaries.forEach { process(dictionary: $0) }
-    }
-
     private func process(dictionary: SwiftDocDictionary) {
-        let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
-                                              tableOfContents: options.tableOfContents,
-                                              minimumAccessLevel: options.minimumAccessLevel)
-
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {
                 markdownIndex.structs.append(item)
@@ -158,7 +153,7 @@ public final class DocumentationGenerator {
         }
 
         if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
-            process(dictionaries: substructure)
+            substructure.forEach(process)
         }
     }
 }
