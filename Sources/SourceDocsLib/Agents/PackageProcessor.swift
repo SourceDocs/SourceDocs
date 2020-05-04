@@ -24,11 +24,24 @@ public final class PackageProcessor {
     public func run() throws {
         let packageDump = try loadPackageDump()
 
+        if let dot = try whichDot() {
+            let graph = renderTargetGraph(from: packageDump)
+            let graphPath = URL(fileURLWithPath: "PackageModules.dot")
+            try graph.write(to: graphPath, atomically: true, encoding: .utf8)
+            let imagePath = URL(fileURLWithPath: "PackageModules.png")
+            try generateGraphPNG(dot: dot, input: graphPath, output: imagePath)
+        }
+
         let content: [MarkdownConvertible] = [
             MarkdownHeader(title: "Package: " + packageDump.name),
+            MarkdownHeader(title: "Products", level: .h2),
             renderProducts(from: packageDump),
+            MarkdownHeader(title: "Modules", level: .h2),
             renderTargets(from: packageDump),
-            renderTargetGraph(from: packageDump)
+            MarkdownHeader(title: "Module Dependency Graph", level: .h3),
+            MarkdownImage(url: "PackageModules.png"),
+            MarkdownHeader(title: "Package Dependecies", level: .h2),
+            MarkdownHeader(title: "Package Dependency Graph", level: .h3),
         ]
 
         try MarkdownFile(filename: "Package", content: content).write()
@@ -44,12 +57,11 @@ public final class PackageProcessor {
     func renderProducts(from packageDump: PackageDump) -> MarkdownConvertible {
         let rows = packageDump.products.map { productDescription -> [String] in
             let name = productDescription.name
-            let type = productDescription.type.description
+            let type = productDescription.type.label
             let targets = productDescription.targets
             return [name, type, targets.joined(separator: ", ")]
         }
         return [
-            MarkdownHeader(title: "Products", level: .h2),
             MarkdownTable(headers: ["Product", "Type", "Targets"], data: rows),
         ]
     }
@@ -62,12 +74,11 @@ public final class PackageProcessor {
             return [name, type, dependencies.joined(separator: ", ")]
         }
         return [
-            MarkdownHeader(title: "Targets", level: .h2),
-            MarkdownTable(headers: ["Target", "Type", "Dependencies"], data: rows),
+            MarkdownTable(headers: ["Module", "Type", "Dependencies"], data: rows),
         ]
     }
 
-    func renderTargetGraph(from packageDump: PackageDump) -> MarkdownConvertible {
+    func renderTargetGraph(from packageDump: PackageDump) -> String {
         let regularNodes = packageDump.targets.filter { $0.type != .test }.map { $0.name }
         let testNodes = packageDump.targets.filter { $0.type == .test }.map { $0.name }
 
@@ -105,7 +116,7 @@ public final class PackageProcessor {
         """
 
         let graph = """
-            digraph TargetDependenciesGraph {
+            digraph ModuleDependencyGraph {
                 rankdir = LR
                 graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
                 node [shape=box, fontname="Helvetica", style=filled]
@@ -119,7 +130,19 @@ public final class PackageProcessor {
             }
             """
 
-        return MarkdownCodeBlock(code: graph)
+        return graph
+    }
+
+    func generateGraphPNG(dot: String, input: URL, output: URL) throws {
+        try system(command: dot, "-Tpng", input.path, "-o", output.path)
+    }
+
+    func whichDot() throws -> String? {
+        let result = try system(command: "/usr/bin/which dot", captureOutput: true)
+        guard result.standardOutput.isEmpty == false else {
+            return nil
+        }
+        return result.standardOutput
     }
 
     // Package load
@@ -158,6 +181,26 @@ struct PackageDump: Codable {
     let dependencies: [PackageDependencyDescription]
 }
 
+extension ProductType {
+    static let frameworkImage = "💼"
+    static let libraryImage = "🏛"
+    static let binaryImage = "🏎"
+
+    var label: String {
+        switch description {
+        case "automatic":
+            return "\(Self.frameworkImage) Library (automatic)"
+        case "dynamic":
+            return "\(Self.frameworkImage) Library (dynamic)"
+        case "static":
+            return "\(Self.libraryImage) Library (static)"
+        case "executable":
+            return "\(Self.binaryImage) Executable"
+        default:
+            return description.capitalized
+        }
+    }
+}
 extension TargetDescription.Dependency {
     var name: String {
         switch self {

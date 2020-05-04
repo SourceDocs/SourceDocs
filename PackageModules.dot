@@ -1,0 +1,41 @@
+digraph ModuleDependencyGraph {
+    rankdir = LR
+    graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
+    node [shape=box, fontname="Helvetica", style=filled]
+    edge [color="#545454"]
+
+    subgraph clusterRegular {
+    label = "Targets"
+    node [color="#caecec"]
+    SourceDocsCLI
+    SourceDocsLib
+    SourceDocsDemo
+}
+    subgraph clusterTests {
+    label = "Tests"
+    node [color="#aaccee"]
+    SourceDocsCLITests
+    SourceDocsLibTests
+}
+    subgraph clusterExternal {
+    label = "Dependencies"
+    node [color="#fafafa"]
+    SourceKittenFramework
+    MarkdownGenerator
+    ArgumentParser
+    System
+    Rainbow
+    SwiftPM
+}
+
+    SourceDocsCLI -> SourceDocsLib
+    SourceDocsCLI -> ArgumentParser
+    SourceDocsCLI -> Rainbow
+    SourceDocsLib -> SourceKittenFramework
+    SourceDocsLib -> MarkdownGenerator
+    SourceDocsLib -> Rainbow
+    SourceDocsLib -> System
+    SourceDocsLib -> SwiftPM
+    SourceDocsCLITests -> System
+    SourceDocsLibTests -> SourceDocsLib
+}
