@@ -4,18 +4,18 @@
 
 | Product | Type | Targets |
 | ------- | ---- | ------- |
-| sourcedocs | 🏎 Executable | SourceDocsCLI |
-| SourceDocsLib | 💼 Library (automatic) | SourceDocsLib |
+| sourcedocs | Executable | SourceDocsCLI |
+| SourceDocsLib | Library (automatic) | SourceDocsLib |
 
 ## Modules
 
 | Module | Type | Dependencies |
 | ------ | ---- | ------------ |
-| SourceDocsCLI | regular | SourceDocsLib, ArgumentParser, Rainbow |
-| SourceDocsLib | regular | SourceKittenFramework, MarkdownGenerator, Rainbow, System, SwiftPM |
-| SourceDocsDemo | regular |  |
-| SourceDocsCLITests | test | System |
-| SourceDocsLibTests | test | SourceDocsLib |
+| SourceDocsCLI | Regular | SourceDocsLib, ArgumentParser, Rainbow |
+| SourceDocsLib | Regular | SourceKittenFramework, MarkdownGenerator, Rainbow, System, SwiftPM |
+| SourceDocsDemo | Regular |  |
+| SourceDocsCLITests | Test | System |
+| SourceDocsLibTests | Test | SourceDocsLib |
 
 ### Module Dependency Graph
 

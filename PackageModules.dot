@@ -5,27 +5,27 @@ digraph ModuleDependencyGraph {
     edge [color="#545454"]
 
     subgraph clusterRegular {
-    label = "Targets"
+    label = "Regular Modules"
     node [color="#caecec"]
     SourceDocsCLI
     SourceDocsLib
     SourceDocsDemo
 }
     subgraph clusterTests {
-    label = "Tests"
+    label = "Test Modules"
     node [color="#aaccee"]
     SourceDocsCLITests
     SourceDocsLibTests
 }
     subgraph clusterExternal {
-    label = "Dependencies"
+    label = "External Dependencies"
     node [color="#fafafa"]
-    SourceKittenFramework
-    MarkdownGenerator
     ArgumentParser
-    System
+    MarkdownGenerator
     Rainbow
+    SourceKittenFramework
     SwiftPM
+    System
 }
 
     SourceDocsCLI -> SourceDocsLib

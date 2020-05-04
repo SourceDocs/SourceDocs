@@ -69,7 +69,7 @@ public final class PackageProcessor {
     func renderTargets(from packageDump: PackageDump) -> MarkdownConvertible {
         let rows = packageDump.targets.map { targetDescription -> [String] in
             let name = targetDescription.name
-            let type = targetDescription.type.rawValue
+            let type = targetDescription.type.rawValue.capitalized
             let dependencies = targetDescription.dependencies.map { $0.name }
             return [name, type, dependencies.joined(separator: ", ")]
         }
@@ -83,7 +83,7 @@ public final class PackageProcessor {
         let testNodes = packageDump.targets.filter { $0.type == .test }.map { $0.name }
 
         let dependencies = packageDump.targets.flatMap { $0.dependencies.map { $0.name } }
-        let externalNodes = Set(dependencies).subtracting(regularNodes).subtracting(testNodes)
+        let externalNodes = Set(dependencies).subtracting(regularNodes).subtracting(testNodes).sorted()
 
         let edges = packageDump.targets.flatMap { targetDescription -> [String] in
             return targetDescription.dependencies.map { dependency -> String in
@@ -93,7 +93,7 @@ public final class PackageProcessor {
 
         let regularNodeCluster = regularNodes.isEmpty ? "" : """
         subgraph clusterRegular {
-            label = "Targets"
+            label = "Regular Modules"
             node [color="#caecec"]
             \(regularNodes.joined(separator: "\n    "))
         }
@@ -101,7 +101,7 @@ public final class PackageProcessor {
 
         let testNodeCluster = testNodes.isEmpty ? "" : """
         subgraph clusterTests {
-            label = "Tests"
+            label = "Test Modules"
             node [color="#aaccee"]
             \(testNodes.joined(separator: "\n    "))
         }
@@ -109,7 +109,7 @@ public final class PackageProcessor {
 
         let externalNodeCluster = externalNodes.isEmpty ? "" : """
         subgraph clusterExternal {
-            label = "Dependencies"
+            label = "External Dependencies"
             node [color="#fafafa"]
             \(externalNodes.joined(separator: "\n    "))
         }
@@ -182,20 +182,18 @@ struct PackageDump: Codable {
 }
 
 extension ProductType {
-    static let frameworkImage = "💼"
-    static let libraryImage = "🏛"
-    static let binaryImage = "🏎"
+//    static let frameworkImage = "💼"
+//    static let libraryImage = "🏛"
+//    static let binaryImage = "🏎"
 
     var label: String {
         switch description {
         case "automatic":
-            return "\(Self.frameworkImage) Library (automatic)"
+            return "Library (automatic)"
         case "dynamic":
-            return "\(Self.frameworkImage) Library (dynamic)"
+            return "Library (dynamic)"
         case "static":
-            return "\(Self.libraryImage) Library (static)"
-        case "executable":
-            return "\(Self.binaryImage) Executable"
+            return "Library (static)"
         default:
             return description.capitalized
         }
