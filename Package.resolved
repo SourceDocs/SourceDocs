@@ -68,18 +68,27 @@
         "package": "llbuild",
         "repositoryURL": "https://github.com/apple/swift-llbuild.git",
         "state": {
-          "branch": null,
-          "revision": "f1c9ad9a253cdf1aa89a7f5c99c30b4513b06ddb",
-          "version": "0.1.1"
+          "branch": "master",
+          "revision": "eae3ae04139f51b3cc31e226c4a19b1e80e3b5e6",
+          "version": null
         }
       },
       {
         "package": "SwiftPM",
         "repositoryURL": "https://github.com/apple/swift-package-manager",
         "state": {
-          "branch": null,
-          "revision": "8656a25cb906c1896339f950ac960ee1b4fe8034",
-          "version": "0.4.0"
+          "branch": "master",
+          "revision": "0647265582156cfa8808e0101b22baac51337cc7",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-tools-support-core",
+        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
+        "state": {
+          "branch": "master",
+          "revision": "cceb98211e1ec5ac116466549d4c6eac3aec506e",
+          "version": null
         }
       },
       {
@@ -96,8 +105,8 @@
         "repositoryURL": "https://github.com/eneko/System.git",
         "state": {
           "branch": null,
-          "revision": "381352d9479fb9c75d99a5ae5503f7d560c62449",
-          "version": "0.2.0"
+          "revision": "07424d234b23ce8ce4637ddab1beb6ef945903ea",
+          "version": "0.3.0"
         }
       },
       {

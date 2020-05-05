@@ -79,15 +79,15 @@ public final class PackageProcessor {
     }
 
     func renderTargetGraph(from packageDump: PackageDump) -> String {
-        let regularNodes = packageDump.targets.filter { $0.type != .test }.map { $0.name }
-        let testNodes = packageDump.targets.filter { $0.type == .test }.map { $0.name }
+        let regularNodes = packageDump.targets.filter { $0.type != .test }.map { $0.name.quoted }
+        let testNodes = packageDump.targets.filter { $0.type == .test }.map { $0.name.quoted }
 
-        let dependencies = packageDump.targets.flatMap { $0.dependencies.map { $0.name } }
+        let dependencies = packageDump.targets.flatMap { $0.dependencies.map { $0.name.quoted } }
         let externalNodes = Set(dependencies).subtracting(regularNodes).subtracting(testNodes).sorted()
 
         let edges = packageDump.targets.flatMap { targetDescription -> [String] in
             return targetDescription.dependencies.map { dependency -> String in
-                return "\(targetDescription.name) -> \(dependency.name)"
+                return "\(targetDescription.name.quoted) -> \(dependency.name.quoted)"
             }
         }
 
@@ -202,12 +202,18 @@ extension ProductType {
 extension TargetDescription.Dependency {
     var name: String {
         switch self {
-        case let .byName(name):
+        case let .byName(name, _):
             return name
-        case let .product(name, _):
+        case let .product(name, _, _):
             return name
-        case let .target(name):
+        case let .target(name, _):
             return name
         }
+    }
+}
+
+extension String {
+    var quoted: String {
+        return "\"\(self)\""
     }
 }

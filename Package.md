@@ -11,8 +11,8 @@
 
 | Module | Type | Dependencies |
 | ------ | ---- | ------------ |
-| SourceDocsCLI | Regular | SourceDocsLib, ArgumentParser, Rainbow |
-| SourceDocsLib | Regular | SourceKittenFramework, MarkdownGenerator, Rainbow, System, SwiftPM |
+| SourceDocsCLI | Regular | ArgumentParser, SourceDocsLib, Rainbow |
+| SourceDocsLib | Regular | SourceKittenFramework, SwiftPM-auto, MarkdownGenerator, Rainbow, System |
 | SourceDocsDemo | Regular |  |
 | SourceDocsCLITests | Test | System |
 | SourceDocsLibTests | Test | SourceDocsLib |
