@@ -12,7 +12,7 @@ let package = Package(
         .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.29.0"),
         .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.4.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
-        .package(url: "https://github.com/eneko/System.git", from: "0.2.0")
+        .package(url: "https://github.com/eneko/System.git", .exact("0.2.0"))
     ],
     targets: [
         .target(name: "SourceDocsCLI", dependencies: ["SourceDocsLib", "ArgumentParser", "Rainbow"]),
