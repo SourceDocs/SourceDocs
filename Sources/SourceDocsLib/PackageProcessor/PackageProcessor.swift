@@ -10,32 +10,35 @@ import System
 import MarkdownGenerator
 
 public final class PackageProcessor {
-
     let basePath: String
+    let canRenderDOT: Bool
+    let packageDump: PackageDump
+    let packageDependencies: PackageDependency
 
-    public init(basePath: String) {
+    public init(basePath: String) throws {
         self.basePath = basePath
+        self.canRenderDOT = ModuleGraphGenerator.canRenderDOT
+        self.packageDump = try PackageLoader.loadPackageDump()
+        self.packageDependencies = try PackageLoader.loadPackageDependencies()
     }
 
     public func run() throws {
-        let packageDump = try loadPackageDump()
-
-        if GraphGenerator.canRenderDOT {
-            try GraphGenerator(basePath: basePath, packageDump: packageDump).run()
+        if canRenderDOT {
+            try ModuleGraphGenerator(basePath: basePath, packageDump: packageDump).run()
         }
 
         let content: [MarkdownConvertible] = [
             MarkdownHeader(title: "Package: **\(packageDump.name)**"),
-            renderProductsSection(from: packageDump),
-            renderModulesSection(from: packageDump),
-            renderPackageDependenciesSection(from: packageDump),
-            renderRequirementsSection(from: packageDump),
+            renderProductsSection(),
+            renderModulesSection(),
+            renderExternalDependenciesSection(),
+            renderRequirementsSection(),
         ]
 
         try MarkdownFile(filename: "Package", basePath: basePath, content: content).write()
     }
 
-    func renderProductsSection(from packageDump: PackageDump) -> MarkdownConvertible {
+    func renderProductsSection() -> MarkdownConvertible {
         if packageDump.products.isEmpty {
             return ""
         }
@@ -47,22 +50,31 @@ public final class PackageProcessor {
         }
         return [
             MarkdownHeader(title: "Products", level: .h2),
-            "List of products in \(packageDump.name) package.",
+            "List of products in this package:",
             MarkdownTable(headers: ["Product", "Type", "Targets"], data: rows),
             "_Libraries denoted 'automatic' can be both static or dynamic._",
         ]
     }
 
-    func renderModulesSection(from packageDump: PackageDump) -> MarkdownConvertible {
+    func renderModulesSection() -> MarkdownConvertible {
         return [
             MarkdownHeader(title: "Modules", level: .h2),
-            renderTargets(from: packageDump),
+            renderTargets(),
+            renderModuleGraph()
+        ]
+    }
+
+    func renderModuleGraph() -> MarkdownConvertible {
+        guard canRenderDOT else {
+            return ""
+        }
+        return [
             MarkdownHeader(title: "Module Dependency Graph", level: .h3),
             "[![Module Dependency Graph](PackageModules.png)](PackageModules.png)",
         ]
     }
 
-    func renderTargets(from packageDump: PackageDump) -> MarkdownConvertible {
+    func renderTargets() -> MarkdownConvertible {
         let rows = packageDump.targets.map { targetDescription -> [String] in
             let name = targetDescription.name
             let type = targetDescription.type.rawValue.capitalized
@@ -79,8 +91,8 @@ public final class PackageProcessor {
         ]
     }
 
-    func renderPackageDependenciesSection(from packageDump: PackageDump) -> MarkdownConvertible {
-        let title = MarkdownHeader(title: "Package Dependecies", level: .h2)
+    func renderExternalDependenciesSection() -> MarkdownConvertible {
+        let title = MarkdownHeader(title: "External Dependencies", level: .h2)
         if packageDump.dependencies.isEmpty {
             return [
                 title,
@@ -89,29 +101,60 @@ public final class PackageProcessor {
         }
         return [
             title,
-            renderDependenciesTable(from: packageDump),
+            MarkdownHeader(title: "Direct Dependencies", level: .h3),
+            renderDependenciesTable(),
+            MarkdownHeader(title: "Resolved Dependencies", level: .h3),
+            renderDependencyTree(dependency: packageDependencies),
             MarkdownHeader(title: "Package Dependency Graph", level: .h3),
-            "graph"
+            renderExternalDependenciesGraph()
         ]
     }
 
-    func renderDependenciesTable(from packageDump: PackageDump) -> MarkdownConvertible {
-        let rows = packageDump.dependencies.map { dependency -> [String] in
-            let name = dependency.name + " " + (dependency.explicitName ?? "")
+    func renderDependenciesTable() -> MarkdownConvertible {
+        let sortedDependencies = packageDump.dependencies.sorted { $0.name < $1.name }
+        let rows = sortedDependencies.map { dependency -> [String] in
+            let name = MarkdownLink(text: dependency.name, url: dependency.url).markdown
             let versions = dependency.requirement.description
             return [name, versions]
         }
         return MarkdownTable(headers: ["Package", "Versions"], data: rows)
     }
 
-    func renderRequirementsSection(from packageDump: PackageDump) -> MarkdownConvertible {
+    func renderDependencyTree(dependency: PackageDependency) -> MarkdownConvertible {
+        let versionedName = "\(dependency.name) (\(dependency.version))"
+        let link: MarkdownConvertible = dependency.url.hasPrefix("http")
+            ? MarkdownLink(text: versionedName, url: dependency.url)
+            : versionedName
+        let items = [link] + dependency.dependencies.map(renderDependencyTree)
+        return MarkdownList(items: items)
+    }
+
+//    func renderDependencyTree(dependencies: [PackageDependency]) -> MarkdownConvertible {
+//        if dependencies.isEmpty {
+//            return []
+//        }
+//        let items = dependencies.map { dependency -> MarkdownConvertible in
+//            let link = MarkdownLink(text: "\(dependency.name) (\(dependency.version))", url: dependency.url)
+//            return [link] + renderDependencyTree(dependencies: dependency.dependencies)
+//        }
+//        return MarkdownList(items: items)
+//    }
+
+    func renderExternalDependenciesGraph() -> MarkdownConvertible {
+        guard canRenderDOT else {
+            return ""
+        }
+        return "aaa"
+    }
+
+    func renderRequirementsSection() -> MarkdownConvertible {
         return [
             MarkdownHeader(title: "Requirements", level: .h2),
-            renderPlatforms(from: packageDump),
+            renderPlatforms(),
         ]
     }
 
-    func renderPlatforms(from packageDump: PackageDump) -> MarkdownConvertible {
+    func renderPlatforms() -> MarkdownConvertible {
         if packageDump.platforms.isEmpty {
             return ""
         }
@@ -124,12 +167,5 @@ public final class PackageProcessor {
             MarkdownHeader(title: "Minimum Required Versions", level: .h3),
             MarkdownTable(headers: ["Platform", "Version"], data: rows),
         ]
-    }
-
-    func loadPackageDump() throws -> PackageDump {
-        let result = try system(command: "swift package dump-package", captureOutput: true)
-        print(result.standardOutput)
-        let data = Data(result.standardOutput.utf8)
-        return try JSONDecoder().decode(PackageDump.self, from: data)
     }
 }

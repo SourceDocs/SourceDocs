@@ -2,7 +2,7 @@
 
 ## Products
 
-List of products in SourceDocs package.
+List of products in this package:
 
 | Product | Type | Targets |
 | ------- | ---- | ------- |
@@ -32,20 +32,40 @@ _Libraries denoted 'automatic' can be both static or dynamic._
 
 [![Module Dependency Graph](PackageModules.png)](PackageModules.png)
 
-## Package Dependecies
+## External Dependencies
+
+### Direct Dependencies
 
 | Package | Versions |
 | ------- | -------- |
-| swift-argument-parser  | 0.0.1..<1.0.0 |
-| swift-package-manager  | branch[master] |
-| SourceKitten  | 0.29.0..<1.0.0 |
-| MarkdownGenerator  | 0.4.0..<1.0.0 |
-| Rainbow  | 3.0.0..<4.0.0 |
-| System  | 0.3.0..<1.0.0 |
+| [MarkdownGenerator](https://github.com/eneko/MarkdownGenerator.git) | 0.4.0..<1.0.0 |
+| [Rainbow](https://github.com/onevcat/Rainbow) | 3.0.0..<4.0.0 |
+| [SourceKitten](https://github.com/jpsim/SourceKitten.git) | 0.29.0..<1.0.0 |
+| [System](https://github.com/eneko/System.git) | 0.3.0..<1.0.0 |
+| [swift-argument-parser](https://github.com/apple/swift-argument-parser) | 0.0.1..<1.0.0 |
+| [swift-package-manager](https://github.com/apple/swift-package-manager) | branch[master] |
+
+### Resolved Dependencies
+
+-   SourceDocs (unspecified)
+    -   [swift-argument-parser (0.0.5)](https://github.com/apple/swift-argument-parser)
+    -   [SwiftPM (unspecified)](https://github.com/apple/swift-package-manager)
+        -   [llbuild (unspecified)](https://github.com/apple/swift-llbuild.git)
+        -   [swift-tools-support-core (unspecified)](https://github.com/apple/swift-tools-support-core.git)
+    -   [SourceKitten (0.29.0)](https://github.com/jpsim/SourceKitten.git)
+        -   [Commandant (0.17.0)](https://github.com/Carthage/Commandant.git)
+            -   [Quick (2.2.0)](https://github.com/Quick/Quick.git)
+                -   [Nimble (8.0.7)](https://github.com/Quick/Nimble.git)
+            -   [Nimble (8.0.7)](https://github.com/Quick/Nimble.git)
+        -   [SWXMLHash (5.0.1)](https://github.com/drmohundro/SWXMLHash.git)
+        -   [Yams (2.0.0)](https://github.com/jpsim/Yams.git)
+    -   [MarkdownGenerator (0.5.0)](https://github.com/eneko/MarkdownGenerator.git)
+    -   [Rainbow (3.1.5)](https://github.com/onevcat/Rainbow)
+    -   [System (0.3.0)](https://github.com/eneko/System.git)
 
 ### Package Dependency Graph
 
-graph
+aaa
 
 ## Requirements
 

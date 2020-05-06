@@ -1,5 +1,5 @@
 //
-//  GraphGenerator.swift
+//  ModuleGraphGenerator.swift
 //  
 //
 //  Created by Eneko Alonso on 5/5/20.
@@ -8,7 +8,7 @@
 import Foundation
 import System
 
-final class GraphGenerator {
+final class ModuleGraphGenerator {
 
     static var canRenderDOT: Bool {
         let result = try? system(command: "which dot", captureOutput: true)

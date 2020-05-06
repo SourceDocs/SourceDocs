@@ -8,7 +8,8 @@
 import Foundation
 import PackageModel
 
-/// Structure to decode output of command `swift package dump-package`
+// MARK: - Package Dump (swift package dump-package)
+
 struct PackageDump: Codable {
     let name: String
     let platforms: [SimplePlatform]
@@ -22,6 +23,15 @@ struct PackageDump: Codable {
 struct SimplePlatform: Codable {
     let platformName: String
     let version: String?
+}
+
+// MARK: - Package Dependencies (swift package show-dependencies --format json)
+
+struct PackageDependency: Codable {
+    let name: String
+    let url: String
+    let version: String
+    let dependencies: [PackageDependency]
 }
 
 // MARK: Helper extensions for PackageModel
