@@ -19,6 +19,6 @@ struct PackageCommand: ParsableCommand {
     var inputFolder: String
 
     func run() throws {
-        try PackageProcessor(path: inputFolder).run()
+        try PackageProcessor(basePath: inputFolder).run()
     }
 }
