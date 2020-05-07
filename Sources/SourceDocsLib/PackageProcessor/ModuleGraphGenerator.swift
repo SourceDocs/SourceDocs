@@ -26,9 +26,13 @@ final class ModuleGraphGenerator {
     func run() throws {
         let graph = generateDOT(from: packageDump)
         let graphPath = URL(fileURLWithPath: basePath).appendingPathComponent("PackageModules.dot")
+        fputs("  Writing \(graphPath.path)", stdout)
         try graph.write(to: graphPath, atomically: true, encoding: .utf8)
+        fputs(" ✔\n".green, stdout)
         let imagePath = URL(fileURLWithPath: basePath).appendingPathComponent("PackageModules.png")
+        fputs("  Writing \(imagePath.path)", stdout)
         try generatePNG(input: graphPath, output: imagePath)
+        fputs(" ✔\n".green, stdout)
     }
 
     func generateDOT(from packageDump: PackageDump) -> String {

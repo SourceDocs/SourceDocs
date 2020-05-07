@@ -6,18 +6,27 @@
 //
 
 import Foundation
+import Rainbow
 import System
 
 final class PackageLoader {
 
-    static func loadPackageDump() throws -> PackageDump {
-        let result = try system(command: "swift package dump-package", captureOutput: true)
+    static func prebuildPackage(at path: String) throws {
+        fputs("Loading package description and dependencies...".green, stdout)
+        fputs("\n", stdout)
+        try system(command: "swift build", currentDirectoryPath: path)
+    }
+
+    static func loadPackageDump(from path: String) throws -> PackageDump {
+        let result = try system(command: "swift package dump-package",
+                                captureOutput: true, currentDirectoryPath: path)
         let data = Data(result.standardOutput.utf8)
         return try JSONDecoder().decode(PackageDump.self, from: data)
     }
 
-    static func loadPackageDependencies() throws -> PackageDependency {
-        let result = try system(command: "swift package show-dependencies --format json", captureOutput: true)
+    static func loadPackageDependencies(from path: String) throws -> PackageDependency {
+        let result = try system(command: "swift package show-dependencies --format json",
+                                captureOutput: true, currentDirectoryPath: path)
         let data = Data(result.standardOutput.utf8)
         return try JSONDecoder().decode(PackageDependency.self, from: data)
     }
