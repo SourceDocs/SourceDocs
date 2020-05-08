@@ -5,13 +5,13 @@ digraph ModuleDependencyGraph {
     edge [color="#545454"]
 
     subgraph clusterRegular {
-    label = "Regular Modules"
+    label = "Program Modules"
     node [color="#caecec"]
     "SourceDocsCLI"
     "SourceDocsLib"
     "SourceDocsDemo"
 }
-    subgraph clusterTests {
+    subgraph clusterTest {
     label = "Test Modules"
     node [color="#aaccee"]
     "SourceDocsCLITests"

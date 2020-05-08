@@ -15,10 +15,12 @@ struct PackageCommand: ParsableCommand {
         abstract: "Generate PACKAGE.md from Swift package description."
     )
 
-    @Option(name: .shortAndLong, default: FileManager.default.currentDirectoryPath, help: "Directory where Package.swift is located")
+    @Option(name: .shortAndLong, default: FileManager.default.currentDirectoryPath,
+            help: "Directory where Package.swift is located")
     var inputFolder: String
 
-    @Option(name: .shortAndLong, default: FileManager.default.currentDirectoryPath, help: "Directory where Package.md will be placed")
+    @Option(name: .shortAndLong, default: FileManager.default.currentDirectoryPath,
+            help: "Directory where Package.md will be placed")
     var outputFolder: String
 
     func run() throws {
