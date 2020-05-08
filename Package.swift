@@ -2,10 +2,12 @@
 import PackageDescription
 
 #if swift(>=5.2)
-let swiftPMPackage: Package.Dependency = .package(url: "https://github.com/apple/swift-package-manager", .branch("master"))
+let swiftPMPackage: Package.Dependency = .package(url: "https://github.com/apple/swift-package-manager",
+                                                  .branch("master"))
 let swiftPMModule: Target.Dependency = .product(name: "SwiftPM-auto", package: "SwiftPM")
 #else
-let swiftPMPackage: Package.Dependency = .package(url: "https://github.com/apple/swift-package-manager", from: "0.1.0")
+let swiftPMPackage: Package.Dependency = .package(url: "https://github.com/apple/swift-package-manager",
+                                                  from: "0.1.0")
 let swiftPMModule: Target.Dependency = "SwiftPM"
 #endif
 
