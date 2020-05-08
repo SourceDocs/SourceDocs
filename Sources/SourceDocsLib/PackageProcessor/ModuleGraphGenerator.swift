@@ -6,14 +6,8 @@
 //
 
 import Foundation
-import System
 
-final class ModuleGraphGenerator {
-
-    static var canRenderDOT: Bool {
-        let result = try? system(command: "which dot", captureOutput: true)
-        return result?.standardOutput.isEmpty == false
-    }
+final class ModuleGraphGenerator: GraphGenerator {
 
     let basePath: String
     let packageDump: PackageDump
@@ -90,11 +84,4 @@ final class ModuleGraphGenerator {
         return graph
     }
 
-    func generatePNG(input: URL, output: URL) throws {
-        try system(command: "dot", "-Tpng", input.path, "-o", output.path)
-    }
-
-    func quoted(_ string: String) -> String {
-        return "\"\(string)\""
-    }
 }
