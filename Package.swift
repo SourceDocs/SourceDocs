@@ -1,6 +1,12 @@
 // swift-tools-version:5.0
 import PackageDescription
 
+#if swift(>=5.2)
+let swiftPM: Target.Dependency = .product(name: "SwiftPM-auto", package: "SwiftPM")
+#else
+let swiftPM: Target.Dependency = "SwiftPM"
+#endif
+
 let package = Package(
     name: "SourceDocs",
     platforms: [
@@ -26,7 +32,7 @@ let package = Package(
         ]),
         .target(name: "SourceDocsLib", dependencies: [
             .product(name: "SourceKittenFramework", package: "SourceKitten"),
-            .product(name: "SwiftPM-auto", package: "SwiftPM"),
+            swiftPM,
             "MarkdownGenerator",
             "Rainbow",
             "System"
