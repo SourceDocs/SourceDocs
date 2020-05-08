@@ -1,6 +1,6 @@
 //
 //  GraphGenerator.swift
-//  
+//
 //
 //  Created by Eneko Alonso on 5/7/20.
 //

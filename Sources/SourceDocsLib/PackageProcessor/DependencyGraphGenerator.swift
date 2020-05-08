@@ -1,6 +1,6 @@
 //
 //  DependencyGraphGenerator.swift
-//  
+//
 //
 //  Created by Eneko Alonso on 5/7/20.
 //
@@ -37,18 +37,18 @@ final class DependencyGraphGenerator: GraphGenerator {
         let edges = extractEdges(from: dependencyTree)
 
         let graph = """
-            digraph PackageDependencyGraph {
-                rankdir = LR
-                graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
-                node [shape=box, fontname="Helvetica", style=filled, color="#fafafa"]
-                edge [color="#545454"]
+        digraph PackageDependencyGraph {
+        rankdir = LR
+        graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
+        node [shape=box, fontname="Helvetica", style=filled, color="#fafafa"]
+        edge [color="#545454"]
 
-                subgraph cluster {
-                    label = "Package Dependencies"
-                    \(edges.joined(separator: "\n        "))
-                }
-            }
-            """
+        subgraph cluster {
+        label = "Package Dependencies"
+        \(edges.joined(separator: "\n        "))
+        }
+        }
+        """
 
         return graph
     }

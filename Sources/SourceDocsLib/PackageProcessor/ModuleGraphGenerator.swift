@@ -1,6 +1,6 @@
 //
 //  ModuleGraphGenerator.swift
-//  
+//
 //
 //  Created by Eneko Alonso on 5/5/20.
 //
@@ -43,19 +43,19 @@ final class ModuleGraphGenerator: GraphGenerator {
         }
 
         return """
-            digraph ModuleDependencyGraph {
-                rankdir = LR
-                graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
-                node [shape=box, fontname="Helvetica", style=filled]
-                edge [color="#545454"]
+        digraph ModuleDependencyGraph {
+        rankdir = LR
+        graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
+        node [shape=box, fontname="Helvetica", style=filled]
+        edge [color="#545454"]
 
-                \(cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
-                \(cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
-                \(cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#fafafa"))
+        \(cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
+        \(cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
+        \(cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#fafafa"))
 
-                \(edges.joined(separator: "\n    "))
-            }
-            """
+        \(edges.joined(separator: "\n    "))
+        }
+        """
     }
 
     func cluster(with nodes: [String], name: String, label: String, color: String) -> String {
@@ -63,12 +63,12 @@ final class ModuleGraphGenerator: GraphGenerator {
             return ""
         }
         return """
-            subgraph cluster\(name) {
-                label = "\(label)"
-                node [color="\(color)"]
-                \(nodes.joined(separator: "\n    "))
-            }
-            """
+        subgraph cluster\(name) {
+        label = "\(label)"
+        node [color="\(color)"]
+        \(nodes.joined(separator: "\n    "))
+        }
+        """
     }
 
 }
