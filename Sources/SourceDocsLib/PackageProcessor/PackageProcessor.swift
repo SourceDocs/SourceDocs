@@ -17,8 +17,8 @@ public final class PackageProcessor {
     let packageDump: PackageDump
     let packageDependencyTree: PackageDependency
 
-    enum Error: Swift.Error {
-        case invalidOutput(path: String)
+    public enum Error: Swift.Error {
+        case invalidInput
     }
 
     static var canRenderDOT: Bool {
@@ -30,6 +30,10 @@ public final class PackageProcessor {
         self.inputPath = inputPath
         self.outputPath = outputPath
         self.canRenderDOT = Self.canRenderDOT
+
+        guard FileManager.default.fileExists(atPath: URL(fileURLWithPath: inputPath).appendingPathComponent("Package.swift").path) else {
+            throw Error.invalidInput
+        }
 
         // Prebuild and load package description and dependencies
         try PackageLoader.prebuildPackage(at: inputPath)

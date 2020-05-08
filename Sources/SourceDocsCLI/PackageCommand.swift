@@ -22,6 +22,12 @@ struct PackageCommand: ParsableCommand {
     var outputFolder: String
 
     func run() throws {
-        try PackageProcessor(inputPath: inputFolder, outputPath: outputFolder).run()
+        do {
+            try PackageProcessor(inputPath: inputFolder, outputPath: outputFolder).run()
+        } catch PackageProcessor.Error.invalidInput {
+            fputs("Error:".red + " Package.swift not found at \(inputFolder)\n".white, stdout)
+        } catch {
+            throw error
+        }
     }
 }
