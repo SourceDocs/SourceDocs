@@ -25,6 +25,7 @@ lint:
 docs:
 	swift run sourcedocs generate --clean --spm-module SourceDocsDemo --output-folder docs/reference --module-name-path --min-acl private
 	swift run sourcedocs generate --clean --spm-module SourceDocsLib --output-folder docs/reference --module-name-path
+	swift run sourcedocs package -o docs/
 
 linuxmain:
 	swift test --generate-linuxmain
