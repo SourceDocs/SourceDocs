@@ -14,8 +14,10 @@
 
 #### Breaking
 - Add `SourceDocsLib` so it can be used by other Swift tools to generate documentation.
+- SourceDocs now requires Swift 5.1 or higher
 
 #### Enhancements
+- New `package` command to analytize and document Swift packages.
 - Migrated from `Commandant` to [`Swift Argument Parser`](https://github.com/apple/swift-argument-parser) for command line parsing.
 
 #### Bug Fixes
