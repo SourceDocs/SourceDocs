@@ -112,7 +112,11 @@ class MarkdownIndex {
 
     func makeFiles(with items: [MarkdownConvertible & SwiftDocDictionaryInitializable],
                    basePath: String) -> [MarkdownFile] {
-        return items.map { MarkdownFile(filename: $0.name, basePath: basePath, content: [$0]) }
+        let illegal = CharacterSet(charactersIn: "/:\\?%*|\"<>")
+        return items.map { item in
+            let filename = item.name.components(separatedBy: illegal).joined(separator: "_")
+            return MarkdownFile(filename: filename, basePath: basePath, content: [item])
+        }
     }
 
     /// While other types can only have one declaration within a Swift module,
