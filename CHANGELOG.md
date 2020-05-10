@@ -21,7 +21,7 @@
 - Migrated from `Commandant` to [`Swift Argument Parser`](https://github.com/apple/swift-argument-parser) for command line parsing.
 
 #### Bug Fixes
-- None
+- Fix issue #43 preventing GitHub pages from being generated
 
 
 ## 0.6.1
