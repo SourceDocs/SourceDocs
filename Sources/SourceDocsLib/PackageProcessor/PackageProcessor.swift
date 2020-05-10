@@ -36,8 +36,7 @@ public final class PackageProcessor {
             throw Error.invalidInput
         }
 
-        fputs("Loading package description and dependencies...".green, stdout)
-        fputs("\n", stdout)
+        try PackageLoader.resolveDependencies(at: inputPath)
         packageDump = try PackageLoader.loadPackageDump(from: inputPath)
         packageDependencyTree = try PackageLoader.loadPackageDependencies(from: inputPath)
     }
@@ -116,7 +115,7 @@ public final class PackageProcessor {
         let rows = packageDump.targets.map { targetDescription -> [String] in
             let name = targetDescription.name
             let type = targetDescription.type.rawValue.capitalized
-            let dependencies = targetDescription.dependencies.map { $0.name }.sorted()
+            let dependencies = targetDescription.dependencies.map { $0.label }.sorted()
             return [name, type, dependencies.joined(separator: ", ")]
         }
         let regularRows = rows.filter { $0[1] != "Test" }
@@ -148,9 +147,9 @@ public final class PackageProcessor {
     }
 
     func renderDependenciesTable() -> MarkdownConvertible {
-        let sortedDependencies = packageDump.dependencies.sorted { $0.name < $1.name }
+        let sortedDependencies = packageDump.dependencies.sorted { $0.label < $1.label }
         let rows = sortedDependencies.map { dependency -> [String] in
-            let name = MarkdownLink(text: dependency.name, url: dependency.url).markdown
+            let name = MarkdownLink(text: dependency.label, url: dependency.url).markdown
             let versions = dependency.requirement.description
             return [name, versions]
         }

@@ -16,7 +16,7 @@ struct PackageDump: Codable {
     let products: [ProductDescription]
     let targets: [TargetDescription]
     let dependencies: [PackageDependencyDescription]
-    let toolsVersion: ToolsVersion
+    let manifestVersion: String?
     let swiftLanguageVersions: [SwiftLanguageVersion]?
 }
 
@@ -51,14 +51,21 @@ extension ProductType {
     }
 }
 
+extension PackageDependencyDescription {
+    var label: String {
+        let label = URL(string: url)?.lastPathComponent.replacingOccurrences(of: ".git", with: "")
+        return label ?? url
+    }
+}
+
 extension TargetDescription.Dependency {
-    var name: String {
+    var label: String {
         switch self {
-        case let .byName(name, _):
+        case let .byName(name):
             return name
-        case let .product(name, _, _):
+        case let .product(name, _):
             return name
-        case let .target(name, _):
+        case let .target(name):
             return name
         }
     }

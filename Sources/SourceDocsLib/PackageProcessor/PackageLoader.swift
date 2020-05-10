@@ -11,6 +11,12 @@ import System
 
 final class PackageLoader {
 
+    static func resolveDependencies(at path: String) throws {
+        fputs("Loading package description and dependencies...".green, stdout)
+        fputs("\n", stdout)
+        try system(command: "swift package resolve", currentDirectoryPath: path)
+    }
+
     static func loadPackageDump(from path: String) throws -> PackageDump {
         let result = try system(command: "swift package dump-package",
                                 captureOutput: true, currentDirectoryPath: path)
@@ -19,7 +25,6 @@ final class PackageLoader {
     }
 
     static func loadPackageDependencies(from path: String) throws -> PackageDependency {
-        try system(command: "swift package resolve", currentDirectoryPath: path)
         let result = try system(command: "swift package show-dependencies --format json",
                                 captureOutput: true, currentDirectoryPath: path)
         let data = Data(result.standardOutput.utf8)

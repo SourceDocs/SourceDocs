@@ -39,12 +39,12 @@ final class ModuleGraphGenerator: GraphGenerator {
         let regularNodes = packageDump.targets.filter { $0.type != .test }.map { quoted($0.name) }
         let testNodes = packageDump.targets.filter { $0.type == .test }.map { quoted($0.name) }
 
-        let dependencies = packageDump.targets.flatMap { $0.dependencies.map { quoted($0.name) } }
+        let dependencies = packageDump.targets.flatMap { $0.dependencies.map { quoted($0.label) } }
         let externalNodes = Set(dependencies).subtracting(regularNodes).subtracting(testNodes).sorted()
 
         let edges = packageDump.targets.flatMap { targetDescription -> [String] in
             return targetDescription.dependencies.map { dependency -> String in
-                return "\(quoted(targetDescription.name)) -> \(quoted(dependency.name))"
+                return "\(quoted(targetDescription.name)) -> \(quoted(dependency.label))"
             }
         }
 

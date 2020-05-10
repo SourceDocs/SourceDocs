@@ -1,16 +1,6 @@
 // swift-tools-version:5.1
 import PackageDescription
 
-#if swift(>=5.2)
-let swiftPMPackage: Package.Dependency = .package(url: "https://github.com/apple/swift-package-manager",
-                                                  .branch("master"))
-let swiftPMModule: Target.Dependency = .product(name: "SwiftPM-auto", package: "SwiftPM")
-#else
-let swiftPMPackage: Package.Dependency = .package(url: "https://github.com/apple/swift-package-manager",
-                                                  from: "0.1.0")
-let swiftPMModule: Target.Dependency = "SwiftPM"
-#endif
-
 let package = Package(
     name: "SourceDocs",
     platforms: [
@@ -22,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
-        swiftPMPackage,
+        .package(url: "https://github.com/apple/swift-package-manager", .exact("0.4.0")),
         .package(url: "https://github.com/jpsim/SourceKitten.git", from: "0.29.0"),
         .package(url: "https://github.com/eneko/MarkdownGenerator.git", from: "0.4.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
@@ -36,7 +26,7 @@ let package = Package(
         ]),
         .target(name: "SourceDocsLib", dependencies: [
             .product(name: "SourceKittenFramework", package: "SourceKitten"),
-            swiftPMModule,
+            "SwiftPM-auto",
             "MarkdownGenerator",
             "Rainbow",
             "System"
