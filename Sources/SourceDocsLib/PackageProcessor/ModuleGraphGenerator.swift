@@ -9,24 +9,30 @@ import Foundation
 
 final class ModuleGraphGenerator: GraphGenerator {
 
-    let basePath: String
+    let basePath: URL
     let packageDump: PackageDump
+    let canRenderDOT: Bool
 
-    init(basePath: String, packageDump: PackageDump) {
+    init(basePath: URL, packageDump: PackageDump, canRenderDOT: Bool) {
         self.basePath = basePath
         self.packageDump = packageDump
+        self.canRenderDOT = canRenderDOT
     }
 
     func run() throws {
         let graph = generateDOT(from: packageDump)
-        let graphPath = URL(fileURLWithPath: basePath).appendingPathComponent("PackageModules.dot")
+
+        let graphPath = basePath.appendingPathComponent("PackageModules.dot")
         fputs("  Writing \(graphPath.path)", stdout)
         try graph.write(to: graphPath, atomically: true, encoding: .utf8)
         fputs(" ✔\n".green, stdout)
-        let imagePath = URL(fileURLWithPath: basePath).appendingPathComponent("PackageModules.png")
-        fputs("  Writing \(imagePath.path)", stdout)
-        try generatePNG(input: graphPath, output: imagePath)
-        fputs(" ✔\n".green, stdout)
+
+        if canRenderDOT {
+            let imagePath = basePath.appendingPathComponent("PackageModules.png")
+            fputs("  Writing \(imagePath.path)", stdout)
+            try generatePNG(input: graphPath, output: imagePath)
+            fputs(" ✔\n".green, stdout)
+        }
     }
 
     func generateDOT(from packageDump: PackageDump) -> String {
@@ -44,16 +50,16 @@ final class ModuleGraphGenerator: GraphGenerator {
 
         return """
         digraph ModuleDependencyGraph {
-        rankdir = LR
-        graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
-        node [shape=box, fontname="Helvetica", style=filled]
-        edge [color="#545454"]
+            rankdir = LR
+            graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
+            node [shape=box, fontname="Helvetica", style=filled]
+            edge [color="#545454"]
 
-        \(cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
-        \(cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
-        \(cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#fafafa"))
+            \(cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
+            \(cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
+            \(cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#fafafa"))
 
-        \(edges.joined(separator: "\n    "))
+            \(edges.joined(separator: "\n    "))
         }
         """
     }
@@ -64,9 +70,9 @@ final class ModuleGraphGenerator: GraphGenerator {
         }
         return """
         subgraph cluster\(name) {
-        label = "\(label)"
-        node [color="\(color)"]
-        \(nodes.joined(separator: "\n    "))
+            label = "\(label)"
+            node [color="\(color)"]
+            \(nodes.joined(separator: "\n    "))
         }
         """
     }

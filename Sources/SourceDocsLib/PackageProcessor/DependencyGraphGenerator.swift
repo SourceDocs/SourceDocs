@@ -9,12 +9,14 @@ import Foundation
 
 final class DependencyGraphGenerator: GraphGenerator {
 
-    let basePath: String
+    let basePath: URL
     let dependencyTree: PackageDependency
+    let canRenderDOT: Bool
 
-    init(basePath: String, dependencyTree: PackageDependency) {
+    init(basePath: URL, dependencyTree: PackageDependency, canRenderDOT: Bool) {
         self.basePath = basePath
         self.dependencyTree = dependencyTree
+        self.canRenderDOT = canRenderDOT
     }
 
     func run() throws {
@@ -23,14 +25,18 @@ final class DependencyGraphGenerator: GraphGenerator {
         }
 
         let graph = generateDOT(from: dependencyTree)
-        let graphPath = URL(fileURLWithPath: basePath).appendingPathComponent("PackageDependencies.dot")
+
+        let graphPath = basePath.appendingPathComponent("PackageDependencies.dot")
         fputs("  Writing \(graphPath.path)", stdout)
         try graph.write(to: graphPath, atomically: true, encoding: .utf8)
         fputs(" ✔\n".green, stdout)
-        let imagePath = URL(fileURLWithPath: basePath).appendingPathComponent("PackageDependencies.png")
-        fputs("  Writing \(imagePath.path)", stdout)
-        try generatePNG(input: graphPath, output: imagePath)
-        fputs(" ✔\n".green, stdout)
+
+        if canRenderDOT {
+            let imagePath = basePath.appendingPathComponent("PackageDependencies.png")
+            fputs("  Writing \(imagePath.path)", stdout)
+            try generatePNG(input: graphPath, output: imagePath)
+            fputs(" ✔\n".green, stdout)
+        }
     }
 
     func generateDOT(from dependencyTree: PackageDependency) -> String {
@@ -38,15 +44,15 @@ final class DependencyGraphGenerator: GraphGenerator {
 
         let graph = """
         digraph PackageDependencyGraph {
-        rankdir = LR
-        graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
-        node [shape=box, fontname="Helvetica", style=filled, color="#fafafa"]
-        edge [color="#545454"]
+            rankdir = LR
+            graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
+            node [shape=box, fontname="Helvetica", style=filled, color="#fafafa"]
+            edge [color="#545454"]
 
-        subgraph cluster {
-        label = "Package Dependencies"
-        \(edges.joined(separator: "\n        "))
-        }
+            subgraph cluster {
+                label = "Package Dependencies"
+                \(edges.joined(separator: "\n        "))
+            }
         }
         """
 
