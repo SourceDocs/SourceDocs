@@ -17,7 +17,10 @@ class FilenameTests: XCTestCase {
             "key.name": "method(paramA:paramB:paramC:)"
         ]
         let options = MarkdownOptions(collapsibleBlocks: false, tableOfContents: false, minimumAccessLevel: .public)
-        let method = try XCTUnwrap(MarkdownMethod(dictionary: dict, options: options))
+        guard let method = MarkdownMethod(dictionary: dict, options: options) else {
+            XCTFail("Expected method")
+            return
+        }
         let files = MarkdownIndex().makeFiles(with: [method], basePath: ".")
         XCTAssertEqual(files.first?.filePath, "./method(paramA_paramB_paramC_).md")
     }
