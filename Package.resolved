@@ -93,7 +93,7 @@
       },
       {
         "package": "SwiftPM",
-        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
+        "repositoryURL": "https://github.com/apple/swift-package-manager",
         "state": {
           "branch": null,
           "revision": "8656a25cb906c1896339f950ac960ee1b4fe8034",
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/eneko/System.git",
         "state": {
           "branch": null,
-          "revision": "381352d9479fb9c75d99a5ae5503f7d560c62449",
-          "version": "0.2.0"
+          "revision": "3ffd9672edf3799077373add813ba1e10b369950",
+          "version": "1.0.0"
         }
       },
       {

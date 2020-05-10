@@ -18,6 +18,7 @@ struct SourceDocs: ParsableCommand {
         subcommands: [
             CleanCommand.self,
             GenerateCommand.self,
+            PackageCommand.self,
             VersionCommand.self
         ]
     )

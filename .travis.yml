@@ -2,18 +2,39 @@ language: generic
 
 jobs:
   include:
-  - stage: Continuous Integration
+  - stage: Lint
     name: SwiftLint
     os: osx
     osx_image: xcode11
     script:
     - make lint
+
   - stage: Continuous Integration
-    name: SwiftPM macOS
+    name: SwiftPM macOS (Xcode 11)
     os: osx
     osx_image: xcode11
     script:
+    - swift --version
     - swift test --parallel
+
+  - stage: Continuous Integration
+    name: SwiftPM macOS (Xcode 11.3)
+    os: osx
+    osx_image: xcode11.3
+    install:
+    - swift --version
+    script:
+    - swift test --parallel
+
+  - stage: Continuous Integration
+    name: SwiftPM macOS (Xcode 11.4)
+    os: osx
+    osx_image: xcode11.4
+    install:
+    - swift --version
+    script:
+    - swift test --parallel
+
   - stage: Continuous Integration
     name: SwiftPM Linux
     os: linux
@@ -26,29 +47,39 @@ jobs:
     script:
     - swift build
     - swift test --parallel
+
   - stage: Continuous Integration
     name: Code Coverage
     os: osx
     osx_image: xcode11
+    install:
+    - swift --version
     script:
     - swift package generate-xcodeproj --enable-code-coverage
     - xcodebuild -scheme SourceDocs-Package -quiet test
     after_success:
     - bash <(curl -s https://codecov.io/bash) -J 'SourceDocsLib'
+
   - stage: Continuous Integration
     name: Installation with Homebrew (macOS)
     os: osx
     osx_image: xcode11
+    install:
+    - swift --version
     script:
     - brew update
     - brew install sourcedocs
     - sourcedocs version
+
   - stage: Continuous Integration
     name: Installation from Source (macOS)
     os: osx
     osx_image: xcode11
+    install:
+    - swift --version
     script:
     - git clone --depth 1 https://github.com/eneko/SourceDocs.git
     - cd SourceDocs
     - make install
     - sourcedocs version
+

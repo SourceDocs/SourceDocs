@@ -73,7 +73,7 @@ public final class DocumentationGenerator {
 
         do {
             if let module = options.spmModule {
-                let docs = try parseSPMModule(moduleName: module)
+                let docs = try parseSPMModule(moduleName: module, path: options.inputFolder)
                 try generateDocumentation(docs: docs, module: module)
             } else if let module = options.moduleName {
                 let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments,
@@ -90,8 +90,8 @@ public final class DocumentationGenerator {
         }
     }
 
-    private func parseSPMModule(moduleName: String) throws -> [SwiftDocs] {
-        guard let docs = Module(spmName: moduleName)?.docs else {
+    private func parseSPMModule(moduleName: String, path: String) throws -> [SwiftDocs] {
+        guard let docs = Module(spmName: moduleName, inPath: path)?.docs else {
             let message = "Error: Failed to generate documentation for SPM module '\(moduleName)'."
             throw SourceDocsError.internalError(message: message)
         }
