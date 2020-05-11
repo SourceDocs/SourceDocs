@@ -24,7 +24,7 @@ digraph ModuleDependencyGraph {
     "MarkdownGenerator"
     "Rainbow"
     "SourceKittenFramework"
-    "SwiftPM"
+    "SwiftPM-auto"
     "System"
 }
 
@@ -32,7 +32,7 @@ digraph ModuleDependencyGraph {
     "SourceDocsCLI" -> "SourceDocsLib"
     "SourceDocsCLI" -> "Rainbow"
     "SourceDocsLib" -> "SourceKittenFramework"
-    "SourceDocsLib" -> "SwiftPM"
+    "SourceDocsLib" -> "SwiftPM-auto"
     "SourceDocsLib" -> "MarkdownGenerator"
     "SourceDocsLib" -> "Rainbow"
     "SourceDocsLib" -> "System"
