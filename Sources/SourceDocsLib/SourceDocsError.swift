@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum SourceDocsError: Error {
+public enum SourceDocsError: Error {
     case internalError(message: String)
 }
 
 extension SourceDocsError: LocalizedError {
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case let .internalError(message):
             return message
