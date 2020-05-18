@@ -14,9 +14,10 @@ jobs:
 
   from-source:
     name: Install from Source
-    runs-on:
-    - macos-latest
-    - ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
     steps:
     - name: Install
       run: |
