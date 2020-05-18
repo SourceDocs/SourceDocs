@@ -1,0 +1,28 @@
+name: Install SourceDocs
+
+on:
+  push:
+    branches: master
+  pull_request: []
+
+  homebrew:
+    - name: Install with Homebrew
+    runs-on: macos-latest
+    steps:
+    - name: Install
+    run:
+    - brew install sourcedocs
+    - sourcedocs version
+
+  from-source:
+    - name: Install from Source
+    runs-on:
+    - macos-latest
+    - linux-latest
+    steps:
+    - name: Install
+    run:
+    - git clone --depth 1 https://github.com/eneko/SourceDocs.git
+    - cd SourceDocs
+    - make install
+    - sourcedocs version
