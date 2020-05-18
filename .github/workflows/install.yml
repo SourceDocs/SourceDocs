@@ -16,7 +16,7 @@ jobs:
     name: Install from Source
     runs-on:
     - macos-latest
-    - linux-latest
+    - ubuntu-latest
     steps:
     - name: Install
       run: |
