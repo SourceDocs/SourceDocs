@@ -1,0 +1,39 @@
+name: Install SourceDocs
+
+on: [push, pull_request]
+
+jobs:
+  homebrew:
+    name: Install with Homebrew
+    runs-on: macos-latest
+    steps:
+    - name: Install SourceDocs
+      run: |
+        brew install sourcedocs
+        sourcedocs version
+
+  source:
+    name: Install from Source on macOS
+    runs-on: macos-latest
+    steps:
+    - name: Install SourceDocs
+      run: |
+        git clone --depth 1 https://github.com/eneko/SourceDocs.git
+        cd SourceDocs
+        make install
+        sourcedocs version
+
+  ubuntu:
+    name: Install from Source on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libsqlite3-dev libedit-dev
+    - name: Install SourceDocs
+      run: |
+        git clone --depth 1 https://github.com/eneko/SourceDocs.git
+        cd SourceDocs
+        sudo make install
+        sourcedocs version
