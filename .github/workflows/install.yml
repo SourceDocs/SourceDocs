@@ -35,5 +35,5 @@ jobs:
       run: |
         git clone --depth 1 https://github.com/eneko/SourceDocs.git
         cd SourceDocs
-        make install
+        sudo make install
         sourcedocs version
