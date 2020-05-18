@@ -40,5 +40,5 @@ get_sha:
 
 brew_push: get_sha
 	SHA=$(shell cat sha_$(VERSION).txt); \
-	brew bump-formula-pr --url=https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz --sha256=$$SHA
+	brew bump-formula-pr --url=https://github.com/eneko/$(TOOL_NAME)/archive/$(VERSION).tar.gz --sha256=$$SHA $(TOOL_NAME)
 
