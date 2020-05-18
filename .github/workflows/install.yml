@@ -29,8 +29,8 @@ jobs:
     steps:
     - name: Install Dependencies
       run: |
-        apt-get update
-        apt-get install -y libsqlite3-dev libedit-dev
+        sudo apt-get update
+        sudo apt-get install -y libsqlite3-dev libedit-dev
     - name: Install SourceDocs
       run: |
         git clone --depth 1 https://github.com/eneko/SourceDocs.git
