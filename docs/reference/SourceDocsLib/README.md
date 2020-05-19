@@ -14,12 +14,14 @@
 
 -   [AccessLevel](enums/AccessLevel.md)
 -   [Error](enums/Error.md)
+-   [SourceDocsError](enums/SourceDocsError.md)
 
 ## Extensions
 
 -   [AccessLevel](extensions/AccessLevel.md)
+-   [SourceDocsError](extensions/SourceDocsError.md)
 
 This reference documentation was generated with
 [SourceDocs](https://github.com/eneko/SourceDocs).
 
-Generated at 2020-05-10 22:29:09 +0000
+Generated at 2020-05-19 05:14:03 +0000

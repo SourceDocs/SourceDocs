@@ -31,35 +31,3 @@ public func publicMethod()
 ```
 
 > Method with `public` access level
-
-### `implicitInternalMethod()`
-
-```swift
-func implicitInternalMethod()
-```
-
-> Method with implicit `internal` access level
-
-### `explicitInternalMethod()`
-
-```swift
-internal func explicitInternalMethod()
-```
-
-> Method with explicit `internal` access level
-
-### `filePrivateMethod()`
-
-```swift
-fileprivate func filePrivateMethod()
-```
-
-> Method with explicit `fileprivate` access level
-
-### `privateMethod()`
-
-```swift
-private func privateMethod()
-```
-
-> Method with explicit `private` access level

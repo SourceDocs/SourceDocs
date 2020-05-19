@@ -9,6 +9,7 @@ public struct DocumentOptions
 > Configuration for DocumentationGenerator
 >
 > - Parameters:
+>   - allModules: Generate documentation for all modules in a Swift package.
 >   - spmModule: Generate documentation for Swift Package Manager module.
 >   - moduleName: Generate documentation for a Swift module.
 >   - linkBeginningText: The text to begin links with. Defaults to an empty string.
@@ -23,6 +24,12 @@ public struct DocumentOptions
 >   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
 
 ## Properties
+### `allModules`
+
+```swift
+public let allModules: Bool
+```
+
 ### `spmModule`
 
 ```swift
@@ -68,7 +75,7 @@ public let minimumAccessLevel: AccessLevel
 ### `includeModuleNameInPath`
 
 ```swift
-public let includeModuleNameInPath: Bool
+public var includeModuleNameInPath: Bool
 ```
 
 ### `clean`
@@ -96,10 +103,10 @@ public let xcodeArguments: [String]
 ```
 
 ## Methods
-### `init(spmModule:moduleName:linkBeginningText:linkEndingText:inputFolder:outputFolder:minimumAccessLevel:includeModuleNameInPath:clean:collapsibleBlocks:tableOfContents:xcodeArguments:)`
+### `init(allModules:spmModule:moduleName:linkBeginningText:linkEndingText:inputFolder:outputFolder:minimumAccessLevel:includeModuleNameInPath:clean:collapsibleBlocks:tableOfContents:xcodeArguments:)`
 
 ```swift
-public init(spmModule: String?, moduleName: String?,
+public init(allModules: Bool, spmModule: String?, moduleName: String?,
             linkBeginningText: String = "", linkEndingText: String = ".md",
             inputFolder: String, outputFolder: String,
             minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
