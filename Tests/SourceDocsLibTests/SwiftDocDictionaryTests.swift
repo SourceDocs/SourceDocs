@@ -16,7 +16,7 @@ class SwiftDocDictionaryTests: XCTestCase {
 
     func testIsKind() {
         let dict: SwiftDocDictionary = [
-            "key.kind": "source.lang.swift.decl.function.free",
+            "key.kind": "source.lang.swift.decl.function.free"
         ]
         XCTAssertTrue(dict.isKind(.functionFree), "Expected .functionFree")
     }
@@ -28,7 +28,7 @@ class SwiftDocDictionaryTests: XCTestCase {
 
     func testIsOneOf() {
         let dict: SwiftDocDictionary = [
-            "key.kind": "source.lang.swift.decl.function.free",
+            "key.kind": "source.lang.swift.decl.function.free"
         ]
         XCTAssertTrue(dict.isKind([.functionFree, .functionMethodClass]), "Expected match")
     }

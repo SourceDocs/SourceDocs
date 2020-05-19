@@ -83,8 +83,7 @@ public final class DocumentationGenerator {
                     let docs = try parseSPMModule(moduleName: target.name, path: options.inputFolder)
                     try generateDocumentation(docs: docs, module: target.name)
                 }
-            }
-            else if let module = options.spmModule {
+            } else if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module, path: options.inputFolder)
                 try generateDocumentation(docs: docs, module: module)
             } else if let module = options.moduleName {
