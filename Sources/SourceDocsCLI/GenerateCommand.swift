@@ -15,6 +15,10 @@ struct GenerateCommand: ParsableCommand {
         abstract: "Generates the Markdown documentation"
     )
 
+    @Flag(name: .shortAndLong,
+          help: "Generate documentation for all modules in a Swift package")
+    var allModules: Bool
+
     @Option(help: "Generate documentation for Swift Package Manager module")
     var spmModule: String?
 
@@ -57,7 +61,7 @@ struct GenerateCommand: ParsableCommand {
     var xcodeArguments: [String]
 
     func run() throws {
-        let options = DocumentOptions(spmModule: spmModule, moduleName: moduleName,
+        let options = DocumentOptions(allModules: allModules, spmModule: spmModule, moduleName: moduleName,
                                       linkBeginningText: linkBeginning, linkEndingText: linkEnding,
                                       inputFolder: inputFolder, outputFolder: outputFolder,
                                       minimumAccessLevel: minACL, includeModuleNameInPath: moduleNamePath,

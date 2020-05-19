@@ -73,7 +73,6 @@ class MarkdownIndex {
         content.append(footer)
 
         try writeFile(file: MarkdownFile(filename: "README", basePath: docsPath, content: content))
-        fputs("Done 🎉\n".green, stdout)
     }
 
     func writeAndIndexFiles(items: [MarkdownConvertible & SwiftDocDictionaryInitializable],

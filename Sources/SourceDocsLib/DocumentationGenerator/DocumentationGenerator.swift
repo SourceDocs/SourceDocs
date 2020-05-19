@@ -11,6 +11,7 @@ import SourceKittenFramework
 /// Configuration for DocumentationGenerator
 ///
 /// - Parameters:
+///   - allModules: Generate documentation for all modules in a Swift package.
 ///   - spmModule: Generate documentation for Swift Package Manager module.
 ///   - moduleName: Generate documentation for a Swift module.
 ///   - linkBeginningText: The text to begin links with. Defaults to an empty string.
@@ -24,6 +25,7 @@ import SourceKittenFramework
 ///   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
 ///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
 public struct DocumentOptions {
+    public let allModules: Bool
     public let spmModule: String?
     public let moduleName: String?
     public let linkBeginningText: String
@@ -31,18 +33,19 @@ public struct DocumentOptions {
     public let inputFolder: String
     public let outputFolder: String
     public let minimumAccessLevel: AccessLevel
-    public let includeModuleNameInPath: Bool
+    public var includeModuleNameInPath: Bool
     public let clean: Bool
     public let collapsibleBlocks: Bool
     public let tableOfContents: Bool
     public let xcodeArguments: [String]
 
-    public init(spmModule: String?, moduleName: String?,
+    public init(allModules: Bool, spmModule: String?, moduleName: String?,
                 linkBeginningText: String = "", linkEndingText: String = ".md",
                 inputFolder: String, outputFolder: String,
                 minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
                 clean: Bool = false, collapsibleBlocks: Bool = false, tableOfContents: Bool = false,
                 xcodeArguments: [String] = []) {
+        self.allModules = allModules
         self.spmModule = spmModule
         self.moduleName = moduleName
         self.linkBeginningText = linkBeginningText
@@ -60,7 +63,7 @@ public struct DocumentOptions {
 
 public final class DocumentationGenerator {
 
-    let options: DocumentOptions
+    var options: DocumentOptions
     let markdownIndex: MarkdownIndex
 
     public init(options: DocumentOptions) {
@@ -72,7 +75,15 @@ public final class DocumentationGenerator {
         markdownIndex.reset()
 
         do {
-            if let module = options.spmModule {
+            if options.allModules {
+                options.includeModuleNameInPath = true
+                try PackageLoader.resolveDependencies(at: options.inputFolder)
+                let packageDump = try PackageLoader.loadPackageDump(from: options.inputFolder)
+                for target in packageDump.targets where target.type == .regular {
+                    let docs = try parseSPMModule(moduleName: target.name, path: options.inputFolder)
+                    try generateDocumentation(docs: docs, module: target.name)
+                }
+            } else if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module, path: options.inputFolder)
                 try generateDocumentation(docs: docs, module: module)
             } else if let module = options.moduleName {
@@ -80,9 +91,10 @@ public final class DocumentationGenerator {
                                                 path: options.inputFolder)
                 try generateDocumentation(docs: docs, module: module)
             } else {
-                let docs = try parseXcodeProject(args: options.xcodeArguments, inputPath: options.inputFolder)
+                let docs = try parseXcodeProject(args: options.xcodeArguments, path: options.inputFolder)
                 try generateDocumentation(docs: docs, module: "")
             }
+            fputs("Done 🎉\n".green, stdout)
         } catch let error as SourceDocsError {
             throw error
         } catch let error {
@@ -91,14 +103,16 @@ public final class DocumentationGenerator {
     }
 
     private func parseSPMModule(moduleName: String, path: String) throws -> [SwiftDocs] {
+        fputs("Processing SwiftPM module \(moduleName)...\n", stdout)
         guard let docs = Module(spmName: moduleName, inPath: path)?.docs else {
-            let message = "Error: Failed to generate documentation for SPM module '\(moduleName)'."
+            let message = "Error: Failed to generate documentation for SwiftPM module '\(moduleName)'."
             throw SourceDocsError.internalError(message: message)
         }
         return docs
     }
 
     private func parseSwiftModule(moduleName: String, args: [String], path: String) throws -> [SwiftDocs] {
+        fputs("Processing Swift module \(moduleName)...\n", stdout)
         guard let docs = Module(xcodeBuildArguments: args, name: moduleName, inPath: path)?.docs else {
             let message = "Error: Failed to generate documentation for module '\(moduleName)'."
             throw SourceDocsError.internalError(message: message)
@@ -106,8 +120,9 @@ public final class DocumentationGenerator {
         return docs
     }
 
-    private func parseXcodeProject(args: [String], inputPath: String) throws -> [SwiftDocs] {
-        guard let docs = Module(xcodeBuildArguments: args, name: nil, inPath: inputPath)?.docs else {
+    private func parseXcodeProject(args: [String], path: String) throws -> [SwiftDocs] {
+        fputs("Processing Xcode project with arguments \(args)...\n", stdout)
+        guard let docs = Module(xcodeBuildArguments: args, name: nil, inPath: path)?.docs else {
             throw SourceDocsError.internalError(message: "Error: Failed to generate documentation.")
         }
         return docs
@@ -122,6 +137,7 @@ public final class DocumentationGenerator {
         try markdownIndex.write(to: docsPath,
                                 linkBeginningText: options.linkBeginningText,
                                 linkEndingText: options.linkEndingText)
+        markdownIndex.reset()
     }
 
     private func process(docs: [SwiftDocs]) {
