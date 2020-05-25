@@ -13,7 +13,7 @@
 ## Enums
 
 -   [AccessLevel](enums/AccessLevel.md)
--   [Error](enums/Error.md)
+-   [PackageProcessor.Error](enums/PackageProcessor.Error.md)
 -   [SourceDocsError](enums/SourceDocsError.md)
 
 ## Extensions
@@ -23,5 +23,3 @@
 
 This reference documentation was generated with
 [SourceDocs](https://github.com/eneko/SourceDocs).
-
-Generated at 2020-05-19 05:14:03 +0000

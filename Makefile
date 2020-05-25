@@ -23,8 +23,8 @@ lint:
 	swiftlint lint --quiet --strict
 
 docs:
-	swift run sourcedocs generate -ca -o docs/reference
-	swift run sourcedocs package -o docs
+	swift run sourcedocs generate -car -o docs/reference
+	swift run sourcedocs package -r -o docs
 
 linuxmain:
 	swift test --generate-linuxmain

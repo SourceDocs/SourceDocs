@@ -14,9 +14,9 @@
 
 ## Structs
 
--   [Bar](structs/Bar.md)
 -   [Dog](structs/Dog.md)
 -   [Foo](structs/Foo.md)
+-   [Foo.Bar](structs/Foo.Bar.md)
 
 ## Classes
 
@@ -26,7 +26,7 @@
 ## Enums
 
 -   [AnimalKind](enums/AnimalKind.md)
--   [Baz](enums/Baz.md)
+-   [Bar.Baz](enums/Bar.Baz.md)
 
 ## Extensions
 
@@ -43,5 +43,3 @@
 
 This reference documentation was generated with
 [SourceDocs](https://github.com/eneko/SourceDocs).
-
-Generated at 2020-05-10 22:29:03 +0000

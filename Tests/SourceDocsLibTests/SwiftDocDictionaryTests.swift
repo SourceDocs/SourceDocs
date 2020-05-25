@@ -50,6 +50,30 @@ class SwiftDocDictionaryTests: XCTestCase {
         XCTAssertEqual(method.name, "[NO NAME]", "Expected [NO NAME]")
     }
 
+    func testNestedType() {
+        for kind in SwiftDeclarationKind.allCases {
+            let expectedName: String
+
+            switch kind {
+            // Only this kinds require modification of the name to reflect that they are nested
+            case .struct, .class, .typealias, .enum:
+                expectedName = "FirstLevel.SecondLevel.NestedType"
+
+            default:
+                expectedName = "NestedType"
+            }
+
+            let dict: SwiftDocDictionary = [
+                "key.name": "NestedType",
+                "key.sourcedocs.parent_names": ["FirstLevel", "SecondLevel"],
+                "key.kind": kind.rawValue
+            ]
+
+            let object = MarkdownMock(dictionary: dict)
+            XCTAssertEqual(object.name, expectedName, "Nested type was wrong for kind \(kind)")
+        }
+    }
+
     func testComment() {
         let dict: SwiftDocDictionary = [
             "key.doc.comment": "Foo Bar",

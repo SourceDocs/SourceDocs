@@ -24,6 +24,7 @@ import SourceKittenFramework
 ///   - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
 ///   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
 ///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
+///   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources. For example, this will avoid adding timestamps on the generated files. Defaults to false.
 public struct DocumentOptions {
     public let allModules: Bool
     public let spmModule: String?
@@ -38,13 +39,14 @@ public struct DocumentOptions {
     public let collapsibleBlocks: Bool
     public let tableOfContents: Bool
     public let xcodeArguments: [String]
+    public let reproducibleDocs: Bool
 
     public init(allModules: Bool, spmModule: String?, moduleName: String?,
                 linkBeginningText: String = "", linkEndingText: String = ".md",
                 inputFolder: String, outputFolder: String,
                 minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
                 clean: Bool = false, collapsibleBlocks: Bool = false, tableOfContents: Bool = false,
-                xcodeArguments: [String] = []) {
+                xcodeArguments: [String] = [], reproducibleDocs: Bool = false) {
         self.allModules = allModules
         self.spmModule = spmModule
         self.moduleName = moduleName
@@ -58,6 +60,7 @@ public struct DocumentOptions {
         self.collapsibleBlocks = collapsibleBlocks
         self.tableOfContents = tableOfContents
         self.xcodeArguments = xcodeArguments
+        self.reproducibleDocs = reproducibleDocs
     }
 }
 
@@ -81,18 +84,18 @@ public final class DocumentationGenerator {
                 let packageDump = try PackageLoader.loadPackageDump(from: options.inputFolder)
                 for target in packageDump.targets where target.type == .regular {
                     let docs = try parseSPMModule(moduleName: target.name, path: options.inputFolder)
-                    try generateDocumentation(docs: docs, module: target.name)
+                    try generateDocumentation(docs: docs, module: target.name, options: options)
                 }
             } else if let module = options.spmModule {
                 let docs = try parseSPMModule(moduleName: module, path: options.inputFolder)
-                try generateDocumentation(docs: docs, module: module)
+                try generateDocumentation(docs: docs, module: module, options: options)
             } else if let module = options.moduleName {
                 let docs = try parseSwiftModule(moduleName: module, args: options.xcodeArguments,
                                                 path: options.inputFolder)
-                try generateDocumentation(docs: docs, module: module)
+                try generateDocumentation(docs: docs, module: module, options: options)
             } else {
                 let docs = try parseXcodeProject(args: options.xcodeArguments, path: options.inputFolder)
-                try generateDocumentation(docs: docs, module: "")
+                try generateDocumentation(docs: docs, module: "", options: options)
             }
             fputs("Done 🎉\n".green, stdout)
         } catch let error as SourceDocsError {
@@ -128,7 +131,7 @@ public final class DocumentationGenerator {
         return docs
     }
 
-    private func generateDocumentation(docs: [SwiftDocs], module: String) throws {
+    private func generateDocumentation(docs: [SwiftDocs], module: String, options: DocumentOptions) throws {
         let docsPath = options.includeModuleNameInPath ? "\(options.outputFolder)/\(module)" : options.outputFolder
         if options.clean {
             try DocumentationEraser(docsPath: docsPath).run()
@@ -136,7 +139,8 @@ public final class DocumentationGenerator {
         process(docs: docs)
         try markdownIndex.write(to: docsPath,
                                 linkBeginningText: options.linkBeginningText,
-                                linkEndingText: options.linkEndingText)
+                                linkEndingText: options.linkEndingText,
+                                options: options)
         markdownIndex.reset()
     }
 
@@ -174,7 +178,36 @@ public final class DocumentationGenerator {
         }
 
         if let substructure = dictionary[SwiftDocKey.substructure.rawValue] as? [SwiftDocDictionary] {
-            process(dictionaries: substructure)
+            let substructureWithParent: [SwiftDocDictionary]
+            if let parentName: String = dictionary.get(.name) {
+                substructureWithParent = substructure.map {
+                    var dict = $0
+                    dict.parentNames.append(parentName)
+                    return dict
+                }
+            } else {
+                substructureWithParent = substructure
+            }
+
+            process(dictionaries: substructureWithParent)
         }
+    }
+}
+
+extension DocumentationGenerator {
+    static func generateFooter(reproducibleDocs: Bool) -> String {
+        var footer = """
+        This reference documentation was generated with
+        [SourceDocs](https://github.com/eneko/SourceDocs).
+        """
+        if reproducibleDocs == false {
+            footer.append("""
+
+            Generated at \(Date().description)
+            """
+            )
+
+        }
+        return footer
     }
 }

@@ -41,7 +41,14 @@ protocol SwiftDocDictionaryInitializable {
 
 extension SwiftDocDictionaryInitializable {
     var name: String {
-        return dictionary.get(.name) ?? "[NO NAME]"
+        let name = dictionary.get(.name) ?? "[NO NAME]"
+        if dictionary.isKind([.struct, .class, .enum, .typealias]) {
+            var nestedNames: [String] = dictionary.parentNames
+            nestedNames.append(name)
+            return nestedNames.joined(separator: ".")
+        } else {
+            return name
+        }
     }
 
     var comment: String {
@@ -60,5 +67,21 @@ extension SwiftDocDictionaryInitializable {
         \(title)
         \(collection.markdown)
         """
+    }
+}
+
+struct Context {
+    var path: [String]
+}
+
+private extension String {
+    /// The returned string for typeName has a metatype suffix that should be removed
+    /// See: https://docs.swift.org/swift-book/ReferenceManual/Types.html#ID455
+    func dropMetaTypeSuffix(_ name: String) -> String {
+        self.components(separatedBy: ".")
+            .reversed()
+            .drop { $0 != name }
+            .reversed()
+            .joined(separator: ".")
     }
 }

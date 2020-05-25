@@ -34,7 +34,7 @@ class MarkdownIndex {
         methods = []
     }
 
-    func write(to docsPath: String, linkBeginningText: String, linkEndingText: String) throws {
+    func write(to docsPath: String, linkBeginningText: String, linkEndingText: String, options: DocumentOptions) throws {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)
@@ -64,12 +64,7 @@ class MarkdownIndex {
                                               linkBeginningText: linkBeginningText,
                                               linkEndingText: linkEndingText))
 
-        let footer = """
-        This reference documentation was generated with
-        [SourceDocs](https://github.com/eneko/SourceDocs).
-
-        Generated at \(Date().description)
-        """
+        let footer = DocumentationGenerator.generateFooter(reproducibleDocs: options.reproducibleDocs)
         content.append(footer)
 
         try writeFile(file: MarkdownFile(filename: "README", basePath: docsPath, content: content))

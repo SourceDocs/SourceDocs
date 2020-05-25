@@ -17,3 +17,13 @@ jobs:
       run: swift build -v
     - name: Run tests
       run: swift test -v
+    - name: Check docs
+      run: make docs && git diff --exit-code docs
+    - name: Check linux main
+      run: swift test --generate-linuxmain && git diff --exit-code Tests
+    - name: codecov
+      run: |
+        object=".build/debug/SourceDocsLibTests.xctest/Contents/MacOS/SourceDocsLibTests"
+        # Filter which files to add to the report when using llvm-cov: https://stackoverflow.com/questions/44207548/how-to-filter-files-in-llvm-cov-code-coverage-report
+        xcrun llvm-cov export -format="lcov" -instr-profile=".build/debug/codecov/default.profdata" "$object" "Sources/SourceDocsLib/" > info.lcov
+        bash <(curl https://codecov.io/bash) -c

@@ -1,6 +1,6 @@
 **STRUCT**
 
-# `Bar`
+# `Foo.Bar`
 
 ```swift
 public struct Bar

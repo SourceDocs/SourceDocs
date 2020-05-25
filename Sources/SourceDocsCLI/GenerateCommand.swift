@@ -60,13 +60,17 @@ struct GenerateCommand: ParsableCommand {
     @Argument(help: "List of arguments to pass to xcodebuild")
     var xcodeArguments: [String]
 
+    @Flag(name: .shortAndLong, help: "Generate documentation that is reproducible: only depends on the sources. For example, this will avoid adding timestamps on the generated files. Defaults to false.")
+    var reproducibleDocs: Bool
+
     func run() throws {
         let options = DocumentOptions(allModules: allModules, spmModule: spmModule, moduleName: moduleName,
                                       linkBeginningText: linkBeginning, linkEndingText: linkEnding,
                                       inputFolder: inputFolder, outputFolder: outputFolder,
                                       minimumAccessLevel: minACL, includeModuleNameInPath: moduleNamePath,
                                       clean: clean, collapsibleBlocks: collapsible,
-                                      tableOfContents: tableOfContents, xcodeArguments: xcodeArguments)
+                                      tableOfContents: tableOfContents, xcodeArguments: xcodeArguments,
+                                      reproducibleDocs: reproducibleDocs)
 
         try DocumentationGenerator(options: options).run()
     }

@@ -22,6 +22,7 @@ public struct DocumentOptions
 >   - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
 >   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
 >   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
+>   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources. For example, this will avoid adding timestamps on the generated files. Defaults to false.
 
 ## Properties
 ### `allModules`
@@ -102,8 +103,14 @@ public let tableOfContents: Bool
 public let xcodeArguments: [String]
 ```
 
+### `reproducibleDocs`
+
+```swift
+public let reproducibleDocs: Bool
+```
+
 ## Methods
-### `init(allModules:spmModule:moduleName:linkBeginningText:linkEndingText:inputFolder:outputFolder:minimumAccessLevel:includeModuleNameInPath:clean:collapsibleBlocks:tableOfContents:xcodeArguments:)`
+### `init(allModules:spmModule:moduleName:linkBeginningText:linkEndingText:inputFolder:outputFolder:minimumAccessLevel:includeModuleNameInPath:clean:collapsibleBlocks:tableOfContents:xcodeArguments:reproducibleDocs:)`
 
 ```swift
 public init(allModules: Bool, spmModule: String?, moduleName: String?,
@@ -111,5 +118,5 @@ public init(allModules: Bool, spmModule: String?, moduleName: String?,
             inputFolder: String, outputFolder: String,
             minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
             clean: Bool = false, collapsibleBlocks: Bool = false, tableOfContents: Bool = false,
-            xcodeArguments: [String] = [])
+            xcodeArguments: [String] = [], reproducibleDocs: Bool = false)
 ```
