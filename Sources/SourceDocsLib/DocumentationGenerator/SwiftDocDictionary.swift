@@ -43,9 +43,7 @@ extension SwiftDocDictionaryInitializable {
     var name: String {
         let name = dictionary.get(.name) ?? "[NO NAME]"
         if dictionary.isKind([.struct, .class, .enum, .typealias]) {
-            var nestedNames: [String] = dictionary.parentNames
-            nestedNames.append(name)
-            return nestedNames.joined(separator: ".")
+            return (dictionary.parentNames + [name]).joined(separator: ".")
         } else {
             return name
         }

@@ -12,7 +12,7 @@ extension SwiftDocDictionary {
         set { self[key.rawValue] = newValue }
     }
 
-    /// Safe tipe accessor for the parent names
+    /// Type safe accessor for the parent names
     var parentNames: [String] {
         get { self[.parentNames] ?? [] }
         set { self[.parentNames] = newValue }
