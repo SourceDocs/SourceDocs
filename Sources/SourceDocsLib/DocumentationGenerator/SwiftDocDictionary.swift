@@ -69,19 +69,3 @@ extension SwiftDocDictionaryInitializable {
         """
     }
 }
-
-struct Context {
-    var path: [String]
-}
-
-private extension String {
-    /// The returned string for typeName has a metatype suffix that should be removed
-    /// See: https://docs.swift.org/swift-book/ReferenceManual/Types.html#ID455
-    func dropMetaTypeSuffix(_ name: String) -> String {
-        self.components(separatedBy: ".")
-            .reversed()
-            .drop { $0 != name }
-            .reversed()
-            .joined(separator: ".")
-    }
-}

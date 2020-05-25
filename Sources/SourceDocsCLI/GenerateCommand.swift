@@ -60,7 +60,13 @@ struct GenerateCommand: ParsableCommand {
     @Argument(help: "List of arguments to pass to xcodebuild")
     var xcodeArguments: [String]
 
-    @Flag(name: .shortAndLong, help: "Generate documentation that is reproducible: only depends on the sources. For example, this will avoid adding timestamps on the generated files. Defaults to false.")
+    @Flag(
+        name: .shortAndLong,
+        help: """
+        Generate documentation that is reproducible: only depends on the sources.
+        For example, this will avoid adding timestamps on the generated files.
+        """
+        )
     var reproducibleDocs: Bool
 
     func run() throws {

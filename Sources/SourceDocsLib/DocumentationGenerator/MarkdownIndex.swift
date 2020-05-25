@@ -34,7 +34,12 @@ class MarkdownIndex {
         methods = []
     }
 
-    func write(to docsPath: String, linkBeginningText: String, linkEndingText: String, options: DocumentOptions) throws {
+    func write(
+        to docsPath: String,
+        linkBeginningText: String,
+        linkEndingText: String,
+        options: DocumentOptions
+    ) throws {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown documentation...\n".green, stdout)

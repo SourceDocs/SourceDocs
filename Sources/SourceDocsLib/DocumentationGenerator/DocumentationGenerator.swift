@@ -24,7 +24,8 @@ import SourceKittenFramework
 ///   - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
 ///   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
 ///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
-///   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources. For example, this will avoid adding timestamps on the generated files. Defaults to false.
+///   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources.
+///     For example, this will avoid adding timestamps on the generated files. Defaults to false.
 public struct DocumentOptions {
     public let allModules: Bool
     public let spmModule: String?
