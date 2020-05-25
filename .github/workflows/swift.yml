@@ -21,5 +21,5 @@ jobs:
       run: swift test --generate-linuxmain && git diff --exit-code Tests
     - name: Check docs
       run: |
-        brew reinstall graphviz # Needed for generating the dependency graph
+        brew install graphviz # Needed for generating the dependency graph
         make docs && git diff --exit-code docs
