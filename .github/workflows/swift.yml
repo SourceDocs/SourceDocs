@@ -17,3 +17,9 @@ jobs:
       run: swift build -v
     - name: Run tests
       run: swift test -v
+    - name: Check linux main
+      run: swift test --generate-linuxmain && git diff --exit-code Tests
+    - name: Check docs
+      run: |
+        brew install graphviz # Needed for generating the dependency graph
+        make docs && git diff --exit-code docs

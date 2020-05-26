@@ -1,6 +1,6 @@
 **ENUM**
 
-# `Baz`
+# `Bar.Baz`
 
 ```swift
 public enum Baz

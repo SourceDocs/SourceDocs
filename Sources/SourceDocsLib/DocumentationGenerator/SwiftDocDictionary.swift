@@ -41,7 +41,12 @@ protocol SwiftDocDictionaryInitializable {
 
 extension SwiftDocDictionaryInitializable {
     var name: String {
-        return dictionary.get(.name) ?? "[NO NAME]"
+        let name = dictionary.get(.name) ?? "[NO NAME]"
+        if dictionary.isKind([.struct, .class, .enum, .typealias]) {
+            return (dictionary.parentNames + [name]).joined(separator: ".")
+        } else {
+            return name
+        }
     }
 
     var comment: String {

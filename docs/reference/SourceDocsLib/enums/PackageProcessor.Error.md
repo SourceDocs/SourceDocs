@@ -1,6 +1,6 @@
 **ENUM**
 
-# `Error`
+# `PackageProcessor.Error`
 
 ```swift
 public enum Error: Swift.Error

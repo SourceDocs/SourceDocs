@@ -7,10 +7,10 @@ public final class PackageProcessor
 ```
 
 ## Methods
-### `init(inputPath:outputPath:)`
+### `init(inputPath:outputPath:reproducibleDocs:)`
 
 ```swift
-public init(inputPath: String, outputPath: String) throws
+public init(inputPath: String, outputPath: String, reproducibleDocs: Bool) throws
 ```
 
 ### `run()`
