@@ -15,9 +15,12 @@ class PackageCommandTests: XCTestCase {
             .deletingLastPathComponent()
             .deletingLastPathComponent()
             .deletingLastPathComponent()
-        let result = try system(command: binaryURL.path, parameters: ["package"],
+        let outputFolder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+
+        let result = try system(command: binaryURL.path, parameters: ["package", "-o", outputFolder.path],
                                 captureOutput: true, currentDirectoryPath: baseURL.path)
         XCTAssertTrue(result.success, "Expected success")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: outputFolder.appendingPathComponent("Package.md").path))
     }
 
 }
