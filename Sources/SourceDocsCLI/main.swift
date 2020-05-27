@@ -9,7 +9,7 @@ import Foundation
 import ArgumentParser
 
 struct SourceDocs: ParsableCommand {
-    static let version = "1.0.0"
+    static let version = "1.1.0"
     static let defaultOutputPath = "Documentation/Reference"
     static let defaultLinkEnding = ".md"
     static let defaultLinkBeginning = ""

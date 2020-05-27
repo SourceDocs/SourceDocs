@@ -10,6 +10,19 @@
 - None
 
 
+## 1.1.0
+
+#### Breaking
+- None
+
+#### Enhancements
+- New `--all-modules` parameter to generate documentation for all swift modules in a package (#49)
+- New `--reproducible-docs` parameter to generate reproducible documentation (#51) 
+
+#### Bug Fixes
+- Fix issue #50, where nested types where documented out of their parent context (#51)
+
+
 ## 1.0.0
 
 #### Breaking

@@ -17,68 +17,59 @@ documentation files from inline source code comments.
 Similar to Sphinx or Jazzy, SourceDocs parses your Swift source code and
 generates beautiful reference documentation. In contrast to those other tools,
 SourceDocs generates markdown files that you can store and browse inline
-within your project repository or render with GitHub Pages.
+within your project repository. Or even render with GitHub Pages.
 
 ### Features
-- ✅ Browse reference documentation within the project repository (great for
-  private projects)
-- ✅ Browse reference documentation on GitHub Pages (great for public projects)
+- ✅ Generate reference documentation from Xcode projects
+- ✅ Generate reference documentation from Swift Packages
+- ✅ Generate package description documentation from Swift Packages
+
+
+## Generated documentation
+SourceDocs writes documentation files to the `Documentation/Reference` directory relative
+to your project root (path can be configured). This allows for the generated documentation to 
+live along other hand-crafted documentation you might have written or will write in the future.
+
+When specifying a module name, the documentation files will be written to
+`Documentation/Reference/<module name>`.
+
+It's recommended adding this generated documentation to the source code
+repository, so it can be easily browsed inline. GitHub, BitBucket and other source control
+platforms do a great job rendering Markdown files, so documentation is easy to read.
+
+### Examples of Generated Documentation
+- [SourceDocsLib](/docs/reference/SourceDocsLib)
+- [SourceDocsDemo](/docs/reference/SourceDocsDemo)
+- [SourceDocs Package](/docs/Package.md)
+- [Apollo iOS API Reference](https://www.apollographql.com/docs/ios/api-reference/)
+- [Workflow framework (by Square)](https://square.github.io/workflow/swift/api/Workflow/)
+
 
 
 ## Usage
-To generate documentation from your source code, run the `sourcedocs` command
-directly from the root your project.
 
-    $ cd ~/path/to/MyAppOrFramework
+### Swift Packages
+To generate documentation for a Swift Package, run `sourcedocs` from the root
+of your package repository.
+
+    $ cd path/to/MyPackage
+    $ sourcedocs generate --all-modules
+
+This command will generate documentation for each module in your Swift package.
+
+For a specific module, pass the module name using the `--spm-module` parameter.
+
+    $ sourcedocs generate --spm-module SourceDocsDemo
+
+### Xcode Projects
+To generate documentation from your source code, run `sourcedocs` 
+directly from the root your Xcode project.
+
+    $ cd path/to/MyAppOrFramework
     $ sourcedocs generate
 
-This command will analyze your MyAppOrFramework project and generate reference
-documentation from all public types found. The documentation is written to
-the directory `Documentation/Reference` relative to the root of your project repository.
-
-### Usage options
-Typing `sourcedocs help` we get a list of all available commands:
-
-    $ sourcedocs help
-    Available commands:
-
-    clean      Delete the output folder and quit.
-    generate   Generates the Markdown documentation
-    help       Display general or command-specific help
-    version    Display the current version of SourceDocs
-
-Typing `sourcedocs help <command>` we get a list of all options for that command:
-
-    $ sourcedocs help generate
-
-    Generates the Markdown documentation
-
-    [--spm-module (string)]
-    	Generate documentation for Swift Package Manager module.
-
-    [--module-name (string)]
-    	Generate documentation for a Swift module.
-    	
-    [--input-folder (string)]
-       Input directory (defaults to the current working directory).
-
-    [--output-folder (string)]
-       Output directory (defaults to Documentation/Reference).
-       
-    [--min-acl (private|fileprivate|internal|public|open)]
-       Minimum access level to process the documentation for (defaults to public).
-    
-    [--link-beginning (string)]
-       The string to begin links with. Defaults to an empty string.
-       
-    [--link-ending (string)] 
-       The string to end links with. Defaults to `".md"`.
-
-    --clean|-c
-    	Delete output folder before generating documentation.
-
-    [[]]
-    	List of arguments to pass to xcodebuild.
+This command will analyze your Xcode project and generate reference
+documentation from all public types found. 
 
 Usually, for most Xcode projects, no parameters are needed at all. `xcodebuild`
 should be able to find the default project and scheme.
@@ -89,26 +80,55 @@ workspace. Any arguments passed to `sourcedocs` after `--` will be passed to
 
     $ sourcedocs generate -- -scheme MyScheme
 
-For Swift Package Manager modules, you can the module name using the
-`--spm-module` parameter.
 
-    $ sourcedocs generate --spm-module SourceDocsDemo
+## Usage options
+Typing `sourcedocs help` we get a list of all available commands:
 
+    $ sourcedocs help
+    USAGE: source-docs <subcommand>
 
-## Generated documentation
-SourceDocs writes documentation files to the `Documentation/Reference` directory relative
-to your project root. This allows for the generated documentation to live along
-other hand-crafted documentation you might have written or will write in the future.
+    OPTIONS:
+      -h, --help              Show help information.
 
-When specifying a module name, the documentation files will be written to
-`Documentation/Reference/<module name>`.
+    SUBCOMMANDS:
+      clean                   Delete the output folder and quit.
+      generate                Generates the Markdown documentation
+      package                 Generate PACKAGE.md from Swift package description.
+      version                 Display the current version of SourceDocs
 
-We highly recommend adding the generated documentation to your source code
-repository, so it can be easily browsed inline. GitHub and BitBucket do a great
-job rendering Markdown files, so your documentation will be very nice to read.
+Typing `sourcedocs help <command>` we get a list of all options for that command:
 
-**Example Generated Documentation**
-![SourceDocs Example](http://www.enekoalonso.com/media/sourcedocs-example.png)
+    $ sourcedocs generate --help
+
+    OVERVIEW: Generates the Markdown documentation
+
+    USAGE: source-docs generate <options>
+
+    ARGUMENTS:
+      <xcode-arguments>       List of arguments to pass to xcodebuild 
+
+    OPTIONS:
+      -a, --all-modules       Generate documentation for all modules in a Swift package 
+      --spm-module <spm-module>
+                              Generate documentation for Swift Package Manager module 
+      --module-name <module-name>
+                              Generate documentation for a Swift module 
+      --link-beginning <link-beginning>
+                              The text to begin links with 
+      --link-ending <link-ending>
+                              The text to end links with (default: .md)
+      -i, --input-folder <input-folder>
+                              Path to the input directory (default: /Users/ramses.alonso/Development/eneko/SourceDocs)
+      -o, --output-folder <output-folder>
+                              Output directory to clean (default: Documentation/Reference)
+      --min-acl <min-acl>     Access level to include in documentation [private, fileprivate, internal, public, open] (default: public)
+      -m, --module-name-path  Include the module name as part of the output folder path 
+      -c, --clean             Delete output folder before generating documentation 
+      -l, --collapsible       Put methods, properties and enum cases inside collapsible blocks 
+      -t, --table-of-contents Generate a table of contents with properties and methods for each type 
+      -r, --reproducible-docs Generate documentation that is reproducible: only depends on the sources.
+                              For example, this will avoid adding timestamps on the generated files. 
+      -h, --help              Show help information
 
 
 ## Installation
@@ -120,7 +140,7 @@ job rendering Markdown files, so your documentation will be very nice to read.
 
 ### From Sources
 Requirements:
-- Swift 4 runtime and Xcode installed in your computer.
+- Swift 5.1 runtime and Xcode installed in your computer.
 
 #### Using Homebrew
 
