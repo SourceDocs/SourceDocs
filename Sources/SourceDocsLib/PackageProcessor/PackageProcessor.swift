@@ -11,9 +11,11 @@ import System
 import MarkdownGenerator
 
 public final class PackageProcessor {
-    let inputPath: URL
-    let outputPath: URL
-    let reproducibleDocs: Bool
+    public let inputPath: URL
+    public let outputPath: URL
+    public let reproducibleDocs: Bool
+    public var clustersEnabled: Bool = true
+
     let canRenderDOT: Bool
     let packageDump: PackageDump
     let packageDependencyTree: PackageDependency
@@ -46,10 +48,7 @@ public final class PackageProcessor {
     public func run() throws {
         fputs("Processing package...\n".green, stdout)
         try createOutputFolderIfNeeded()
-        try ModuleGraphGenerator(basePath: outputPath, packageDump: packageDump,
-                                 canRenderDOT: canRenderDOT).run()
-        try DependencyGraphGenerator(basePath: outputPath, dependencyTree: packageDependencyTree,
-                                     canRenderDOT: canRenderDOT).run()
+        try generateGraphs()
 
         let content: [MarkdownConvertible] = [
             MarkdownHeader(title: "Package: **\(packageDump.name)**"),
@@ -65,6 +64,18 @@ public final class PackageProcessor {
         try file.write()
         fputs(" ✔\n".green, stdout)
         fputs("Done 🎉\n".green, stdout)
+    }
+
+    func generateGraphs() throws {
+        let modules = ModuleGraphGenerator(basePath: outputPath, packageDump: packageDump)
+        modules.canRenderDOT = canRenderDOT
+        modules.clustersEnabled = clustersEnabled
+        try modules.run()
+
+        let dependencies = DependencyGraphGenerator(basePath: outputPath, dependencyTree: packageDependencyTree)
+        dependencies.canRenderDOT = canRenderDOT
+        dependencies.clustersEnabled = clustersEnabled
+        try dependencies.run()
     }
 
     func createOutputFolderIfNeeded() throws {

@@ -12,7 +12,7 @@ import SourceDocsLib
 struct PackageCommand: ParsableCommand {
     static var configuration = CommandConfiguration(
         commandName: "package",
-        abstract: "Generate PACKAGE.md from Swift package description."
+        abstract: "Generate Package.md from Swift package description."
     )
 
     @Option(name: .shortAndLong, default: FileManager.default.currentDirectoryPath,
@@ -33,13 +33,15 @@ struct PackageCommand: ParsableCommand {
     )
     var reproducibleDocs: Bool
 
+    @Flag(name: .shortAndLong, help: "Disable clusters in module dependency diagram")
+    var noClusters: Bool
+
     func run() throws {
         do {
-            try PackageProcessor(
-                inputPath: inputFolder,
-                outputPath: outputFolder,
-                reproducibleDocs: reproducibleDocs
-            ).run()
+            let processor = try PackageProcessor(inputPath: inputFolder, outputPath: outputFolder,
+                                                 reproducibleDocs: reproducibleDocs)
+            processor.clustersEnabled = noClusters == false
+            try processor.run()
         } catch PackageProcessor.Error.invalidInput {
             fputs("Error:".red + " Package.swift not found at \(inputFolder)\n".white, stdout)
         } catch {

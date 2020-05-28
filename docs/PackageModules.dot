@@ -5,28 +5,28 @@ digraph ModuleDependencyGraph {
     edge [color="#545454"]
 
     subgraph clusterRegular {
-    label = "Program Modules"
-    node [color="#caecec"]
-    "SourceDocsCLI"
-    "SourceDocsLib"
-    "SourceDocsDemo"
-}
+        label = "Program Modules"
+        node [color="#caecec"]
+        "SourceDocsCLI"
+        "SourceDocsLib"
+        "SourceDocsDemo"
+    }
     subgraph clusterTest {
-    label = "Test Modules"
-    node [color="#aaccee"]
-    "SourceDocsCLITests"
-    "SourceDocsLibTests"
-}
+        label = "Test Modules"
+        node [color="#aaccee"]
+        "SourceDocsCLITests"
+        "SourceDocsLibTests"
+    }
     subgraph clusterExternal {
-    label = "External Dependencies"
-    node [color="#fafafa"]
-    "ArgumentParser"
-    "MarkdownGenerator"
-    "Rainbow"
-    "SourceKittenFramework"
-    "SwiftPM-auto"
-    "System"
-}
+        label = "External Dependencies"
+        node [color="#eeccaa"]
+        "ArgumentParser"
+        "MarkdownGenerator"
+        "Rainbow"
+        "SourceKittenFramework"
+        "SwiftPM-auto"
+        "System"
+    }
 
     "SourceDocsCLI" -> "ArgumentParser"
     "SourceDocsCLI" -> "SourceDocsLib"
