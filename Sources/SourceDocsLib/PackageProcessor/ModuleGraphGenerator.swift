@@ -11,12 +11,12 @@ final class ModuleGraphGenerator: GraphGenerator {
 
     let basePath: URL
     let packageDump: PackageDump
-    let canRenderDOT: Bool
+    var canRenderDOT = true
+    var clustersEnabled = true
 
-    init(basePath: URL, packageDump: PackageDump, canRenderDOT: Bool) {
+    init(basePath: URL, packageDump: PackageDump) {
         self.basePath = basePath
         self.packageDump = packageDump
-        self.canRenderDOT = canRenderDOT
     }
 
     func run() throws {
@@ -68,8 +68,11 @@ final class ModuleGraphGenerator: GraphGenerator {
         if nodes.isEmpty {
             return ""
         }
+
+        let clusterPrefix = clustersEnabled ? "cluster" : ""
+
         return """
-        subgraph cluster\(name) {
+        subgraph \(clusterPrefix)\(name) {
             label = "\(label)"
             node [color="\(color)"]
             \(indented: nodes.joined(separator: "\n"))
