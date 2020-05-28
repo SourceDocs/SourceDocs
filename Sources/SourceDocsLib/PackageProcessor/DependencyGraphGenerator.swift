@@ -43,7 +43,7 @@ final class DependencyGraphGenerator: GraphGenerator {
         let edges = extractEdges(from: dependencyTree)
 
         let clusterPrefix = clustersEnabled ? "cluster" : ""
-        
+
         let graph = """
         digraph PackageDependencyGraph {
             rankdir = LR
@@ -55,7 +55,7 @@ final class DependencyGraphGenerator: GraphGenerator {
                 node [color="#caecec"]
                 \(dependencyTree.nodeTitle)
             }
-            
+
             subgraph \(clusterPrefix)Dependencies {
                 label = "Package Dependencies"
                 node [color="#eeccaa"]

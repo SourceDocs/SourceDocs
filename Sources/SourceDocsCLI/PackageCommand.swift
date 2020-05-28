@@ -35,7 +35,7 @@ struct PackageCommand: ParsableCommand {
 
     @Flag(name: .shortAndLong, help: "Disable clusters in module dependency diagram")
     var noClusters: Bool
-    
+
     func run() throws {
         do {
             let processor = try PackageProcessor(inputPath: inputFolder, outputPath: outputFolder,

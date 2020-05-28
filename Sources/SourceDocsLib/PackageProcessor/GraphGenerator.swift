@@ -26,7 +26,10 @@ extension DefaultStringInterpolation {
         if indent.isEmpty {
             appendInterpolation(string)
         } else {
-            appendLiteral(string.split(separator: "\n", omittingEmptySubsequences: false).joined(separator: "\n" + indent))
+            let value = string
+                .split(separator: "\n", omittingEmptySubsequences: false)
+                .joined(separator: "\n" + indent)
+            appendLiteral(value)
         }
     }
 }

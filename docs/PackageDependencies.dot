@@ -8,7 +8,7 @@ digraph PackageDependencyGraph {
         node [color="#caecec"]
         "SourceDocs"
     }
-    
+
     subgraph clusterDependencies {
         label = "Package Dependencies"
         node [color="#eeccaa"]

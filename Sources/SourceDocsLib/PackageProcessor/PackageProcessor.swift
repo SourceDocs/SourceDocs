@@ -15,7 +15,7 @@ public final class PackageProcessor {
     public let outputPath: URL
     public let reproducibleDocs: Bool
     public var clustersEnabled: Bool = true
-    
+
     let canRenderDOT: Bool
     let packageDump: PackageDump
     let packageDependencyTree: PackageDependency
@@ -71,13 +71,13 @@ public final class PackageProcessor {
         modules.canRenderDOT = canRenderDOT
         modules.clustersEnabled = clustersEnabled
         try modules.run()
-        
+
         let dependencies = DependencyGraphGenerator(basePath: outputPath, dependencyTree: packageDependencyTree)
         dependencies.canRenderDOT = canRenderDOT
         dependencies.clustersEnabled = clustersEnabled
         try dependencies.run()
     }
-    
+
     func createOutputFolderIfNeeded() throws {
         if FileManager.default.fileExists(atPath: outputPath.path) {
             return

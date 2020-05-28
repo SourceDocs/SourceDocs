@@ -48,6 +48,12 @@ final class ModuleGraphGenerator: GraphGenerator {
             }
         }
 
+        let clusters = [
+            cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"),
+            cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"),
+            cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#eeccaa")
+        ]
+
         return """
         digraph ModuleDependencyGraph {
             rankdir = LR
@@ -55,9 +61,7 @@ final class ModuleGraphGenerator: GraphGenerator {
             node [shape=box, fontname="Helvetica", style=filled]
             edge [color="#545454"]
 
-            \(indented: cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
-            \(indented: cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
-            \(indented: cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#eeccaa"))
+            \(indented: clusters.joined(separator: "\n"))
 
             \(indented: edges.joined(separator: "\n"))
         }
