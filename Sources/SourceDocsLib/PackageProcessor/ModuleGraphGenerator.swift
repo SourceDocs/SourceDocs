@@ -55,11 +55,11 @@ final class ModuleGraphGenerator: GraphGenerator {
             node [shape=box, fontname="Helvetica", style=filled]
             edge [color="#545454"]
 
-            \(cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
-            \(cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
-            \(cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#fafafa"))
+            \(indented: cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
+            \(indented: cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
+            \(indented: cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#eeccaa"))
 
-            \(edges.joined(separator: "\n    "))
+            \(indented: edges.joined(separator: "\n"))
         }
         """
     }
@@ -72,7 +72,7 @@ final class ModuleGraphGenerator: GraphGenerator {
         subgraph cluster\(name) {
             label = "\(label)"
             node [color="\(color)"]
-            \(nodes.joined(separator: "\n    "))
+            \(indented: nodes.joined(separator: "\n"))
         }
         """
     }

@@ -51,7 +51,7 @@ final class DependencyGraphGenerator: GraphGenerator {
 
             subgraph cluster {
                 label = "Package Dependencies"
-                \(edges.joined(separator: "\n        "))
+                \(indented: edges.joined(separator: "\n"))
             }
         }
         """
