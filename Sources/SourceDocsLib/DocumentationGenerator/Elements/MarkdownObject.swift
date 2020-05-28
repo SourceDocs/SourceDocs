@@ -86,7 +86,7 @@ struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
 
         \(properties)
 

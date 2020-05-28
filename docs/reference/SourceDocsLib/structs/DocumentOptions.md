@@ -6,24 +6,24 @@
 public struct DocumentOptions
 ```
 
-> Configuration for DocumentationGenerator
->
-> - Parameters:
->   - allModules: Generate documentation for all modules in a Swift package.
->   - spmModule: Generate documentation for Swift Package Manager module.
->   - moduleName: Generate documentation for a Swift module.
->   - linkBeginningText: The text to begin links with. Defaults to an empty string.
->   - linkEndingText: The text to end links with. Defaults to '.md'.
->   - inputFolder: Path to the input directory.
->   - outputFolder: Output directory.
->   - minimumAccessLevel: The minimum access level to generate documentation. Defaults to public.
->   - includeModuleNameInPath: Include the module name as part of the output folder path. Defaults to false.
->   - clean: Delete output folder before generating documentation. Defaults to false.
->   - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
->   - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
->   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
->   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources.
->     For example, this will avoid adding timestamps on the generated files. Defaults to false.
+Configuration for DocumentationGenerator
+
+- Parameters:
+  - allModules: Generate documentation for all modules in a Swift package.
+  - spmModule: Generate documentation for Swift Package Manager module.
+  - moduleName: Generate documentation for a Swift module.
+  - linkBeginningText: The text to begin links with. Defaults to an empty string.
+  - linkEndingText: The text to end links with. Defaults to '.md'.
+  - inputFolder: Path to the input directory.
+  - outputFolder: Output directory.
+  - minimumAccessLevel: The minimum access level to generate documentation. Defaults to public.
+  - includeModuleNameInPath: Include the module name as part of the output folder path. Defaults to false.
+  - clean: Delete output folder before generating documentation. Defaults to false.
+  - collapsibleBlocks: Put methods, properties and enum cases inside collapsible blocks. Defaults to false.
+  - tableOfContents: Generate a table of contents with properties and methods for each type. Defaults to false.
+  - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
+  - reproducibleDocs: generate documentation that is reproducible: only depends on the sources.
+    For example, this will avoid adding timestamps on the generated files. Defaults to false.
 
 ## Properties
 ### `allModules`
