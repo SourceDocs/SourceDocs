@@ -17,6 +17,7 @@
 -   [Dog](structs/Dog.md)
 -   [Foo](structs/Foo.md)
 -   [Foo.Bar](structs/Foo.Bar.md)
+-   [FullMarkup](structs/FullMarkup.md)
 
 ## Classes
 
@@ -27,6 +28,7 @@
 
 -   [AnimalKind](enums/AnimalKind.md)
 -   [Bar.Baz](enums/Bar.Baz.md)
+-   [FullMarkup.Error](enums/FullMarkup.Error.md)
 
 ## Extensions
 

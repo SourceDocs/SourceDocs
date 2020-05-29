@@ -4,6 +4,7 @@ excluded:
   - Tests/SourceDocsLibTests/XCTestManifests.swift
   - Tests/SourceDocsCLITests/XCTestManifests.swift
 
+line_length: 160
 
 opt_in_rules:
   - attributes
