@@ -6,7 +6,7 @@
 open class Person: Human
 ```
 
-> All persons are humans.
+All persons are humans.
 
 ## Properties
 ### `kind`

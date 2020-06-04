@@ -10,6 +10,15 @@
 - None
 
 
+## 1.2.0
+
+#### Enhancements
+- Add `--no-clusters` flag to toggle clusters on/off (#55)
+
+#### Other
+- Remove blockquote from docummentation summary
+
+
 ## 1.1.0
 
 #### Breaking

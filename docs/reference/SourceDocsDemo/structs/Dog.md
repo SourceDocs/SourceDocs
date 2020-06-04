@@ -6,7 +6,7 @@
 public struct Dog: Pet
 ```
 
-> Common animal many people have as pet
+Common animal many people have as pet
 
 ## Properties
 ### `kind`
@@ -33,7 +33,7 @@ public var owner: AnimalOwner?
 public let givenName: String
 ```
 
-> All dogs should have a name
+All dogs should have a name
 
 ### `age`
 

@@ -6,7 +6,7 @@
 public enum AnimalKind
 ```
 
-> Six major groups of animals
+Six major groups of animals
 
 ## Cases
 ### `invertebrate`

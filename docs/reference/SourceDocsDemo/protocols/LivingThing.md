@@ -6,7 +6,7 @@
 public protocol LivingThing
 ```
 
-> Describes an animal hierarchy of things
+Describes an animal hierarchy of things
 
 ## Properties
 ### `isAlive`
@@ -15,4 +15,4 @@ public protocol LivingThing
 var isAlive: Bool
 ```
 
-> Determines if the animal is alive or not
+Determines if the animal is alive or not

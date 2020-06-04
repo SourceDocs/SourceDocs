@@ -29,7 +29,7 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let details = """
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
         """
 
         if options.collapsibleBlocks {

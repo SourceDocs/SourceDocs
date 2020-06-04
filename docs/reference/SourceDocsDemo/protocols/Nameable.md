@@ -6,7 +6,7 @@
 public protocol Nameable: CustomStringConvertible
 ```
 
-> Describes a thing that can be named
+Describes a thing that can be named
 
 ## Properties
 ### `givenName`
@@ -15,4 +15,4 @@ public protocol Nameable: CustomStringConvertible
 var givenName: String
 ```
 
-> Name of the thing being named
+Name of the thing being named

@@ -33,7 +33,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
         """
     }
 }

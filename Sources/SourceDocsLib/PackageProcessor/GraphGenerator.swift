@@ -22,7 +22,8 @@ extension GraphGenerator {
 
 extension DefaultStringInterpolation {
     mutating func appendInterpolation(indented string: String) {
-        let indent = String(description.reversed().prefix { " \t".contains($0) })
+        // swiftlint:disable:next compiler_protocol_init
+        let indent = String(stringInterpolation: self).reversed().prefix { " \t".contains($0) }
         if indent.isEmpty {
             appendInterpolation(string)
         } else {

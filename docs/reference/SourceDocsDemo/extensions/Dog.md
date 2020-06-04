@@ -12,4 +12,4 @@ extension Dog: Speaker
 public func speak()
 ```
 
-> Dogs know how to speak!
+Dogs know how to speak!

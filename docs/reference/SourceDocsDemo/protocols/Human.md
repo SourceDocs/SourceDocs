@@ -6,7 +6,7 @@
 public protocol Human: Animal, Nameable, AnimalOwner
 ```
 
-> Humans are mammals, age with time, and have a given name.
+Humans are mammals, age with time, and have a given name.
 
 ## Properties
 ### `familyName`
@@ -15,4 +15,4 @@ public protocol Human: Animal, Nameable, AnimalOwner
 var familyName: String?
 ```
 
-> Most humans have a family name, but some do not.
+Most humans have a family name, but some do not.

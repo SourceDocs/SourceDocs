@@ -6,7 +6,7 @@
 public protocol Speaker
 ```
 
-> Describes an entity that can "speak"
+Describes an entity that can "speak"
 
 ## Methods
 ### `speak()`
@@ -15,4 +15,4 @@ public protocol Speaker
 func speak()
 ```
 
-> Print a greeting message
+Print a greeting message

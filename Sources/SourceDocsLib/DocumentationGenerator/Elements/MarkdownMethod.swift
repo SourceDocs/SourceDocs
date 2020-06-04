@@ -54,7 +54,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let details = """
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
 
         \(parametersTable)
         """

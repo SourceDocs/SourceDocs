@@ -6,7 +6,7 @@
 public protocol Aging
 ```
 
-> Defines something that ages with time
+Defines something that ages with time
 
 ## Properties
 ### `age`
@@ -15,4 +15,4 @@ public protocol Aging
 var age: UInt
 ```
 
-> Determines thel age in years
+Determines thel age in years
