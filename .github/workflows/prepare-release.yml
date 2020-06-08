@@ -50,10 +50,7 @@ jobs:
         swift package --version
 
     - name: Build for release
-      run: |
-        swift package clean
-        swift build -c release
-        zip -j sourcedocs.macos .build/release/sourcedocs
+      run: make zip
 
     - name: Upload Release Asset
       id: upload-release-asset 
