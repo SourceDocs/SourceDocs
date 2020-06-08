@@ -1,0 +1,30 @@
+name-template: '$RESOLVED_VERSION'
+tag-template: '$RESOLVED_VERSION'
+categories:
+- title: 'Breaking'
+  label: 'breaking'
+- title: 'Enhancements'
+  label: 'enhancement'
+- title: 'Bug Fixes'
+  label: 'bugfix'
+- title: 'Maintenance'
+  label: 'maintenance'
+change-template: '* $TITLE (#$NUMBER)'
+version-resolver:
+  major:
+    labels:
+    - 'breaking'
+  minor:
+    labels:
+    - 'enhancement'
+  patch:
+    labels:
+    - 'bugfix'
+    - 'maintenance'
+  default: patch
+template: |
+  $CHANGES
+replacers:
+# Make headings smaller
+- search: '/##/g'
+  replace: '####'

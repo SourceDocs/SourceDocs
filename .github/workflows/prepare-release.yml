@@ -1,0 +1,64 @@
+name: Prepare release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  update_release_draft:
+    outputs:
+      upload_url: ${{ steps.draft_release.outputs.upload_url }}
+    runs-on: ubuntu-latest
+    name: Update release draft
+    steps:
+    # Removing the previously created draft release is a workaround for the fact that
+    # actions/upload-release-asset does not support overriding the existing release
+    # asset. See: https://github.com/actions/upload-release-asset/pull/22
+    - name: Remove existing draft releases
+      uses: hugo19941994/delete-draft-releases@v0.1.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Draft release
+      id: draft_release
+      uses: release-drafter/release-drafter@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  upload_release_artifact:
+    needs: [update_release_draft]
+    runs-on: macos-latest
+    name: Upload release artifact - Xcode ${{ matrix.xcode }}
+    strategy:
+      matrix:
+        xcode: 
+        - 11.5
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Select Xcode version
+      run: |
+        echo "Available Xcode versions:"
+        ls /Applications | grep Xcode
+        echo "Choosing $DEVELOPER_DIR"
+        sudo xcode-select -s "$DEVELOPER_DIR"
+        xcodebuild -version
+        swift --version
+        swift package --version
+
+    - name: Build for release
+      run: make zip
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.update_release_draft.outputs.upload_url }}
+        asset_path: ./sourcedocs.macos.zip
+        asset_name: sourcedocs.macos.zip
+        asset_content_type: application/zip
