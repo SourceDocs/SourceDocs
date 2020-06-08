@@ -135,7 +135,7 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
 
 ### Download Binary
 
-    $ curl -Ls https://github.com/eneko/SourceDocs/releases/download/latest/sourcedocs.macos.zip -o /tmp/sourcedocs.macos.zip
+    $ curl -Ls https://github.com/eneko/SourceDocs/releases/latest/download/sourcedocs.macos.zip -o /tmp/sourcedocs.macos.zip
     $ unzip -j -d /usr/local/bin /tmp/sourcedocs.macos.zip 
 
 ### From Sources
