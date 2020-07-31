@@ -1,5 +1,5 @@
 TOOL_NAME = sourcedocs
-VERSION = 1.2.0
+VERSION = 1.2.1
 
 PREFIX = /usr/local
 INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
@@ -13,7 +13,7 @@ install: build
 	install -C -m 755 $(BUILD_PATH) $(INSTALL_PATH)
 
 build:
-	swift build --disable-sandbox -c release 
+	swift build --disable-sandbox -c release
 
 uninstall:
 	rm -f $(INSTALL_PATH)
