@@ -22,10 +22,10 @@ digraph ModuleDependencyGraph {
         node [color="#eeccaa"]
         "ArgumentParser"
         "MarkdownGenerator"
+        "ProcessRunner"
         "Rainbow"
         "SourceKittenFramework"
         "SwiftPM-auto"
-        "System"
     }
 
     "SourceDocsCLI" -> "ArgumentParser"
@@ -35,7 +35,7 @@ digraph ModuleDependencyGraph {
     "SourceDocsLib" -> "SwiftPM-auto"
     "SourceDocsLib" -> "MarkdownGenerator"
     "SourceDocsLib" -> "Rainbow"
-    "SourceDocsLib" -> "System"
-    "SourceDocsCLITests" -> "System"
+    "SourceDocsLib" -> "ProcessRunner"
+    "SourceDocsCLITests" -> "ProcessRunner"
     "SourceDocsLibTests" -> "SourceDocsLib"
 }

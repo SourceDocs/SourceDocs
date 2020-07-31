@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import System
+import ProcessRunner
 
 class VersionCommandTests: XCTestCase {
 
