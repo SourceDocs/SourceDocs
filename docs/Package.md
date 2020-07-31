@@ -66,6 +66,10 @@ _Libraries denoted 'automatic' can be both static or dynamic._
     -   [Rainbow (3.1.5)](https://github.com/onevcat/Rainbow)
     -   [ProcessRunner (1.1.0)](https://github.com/eneko/ProcessRunner.git)
 
+### Package Dependency Graph
+
+[![Package Dependency Graph](PackageDependencies.png)](PackageDependencies.png)
+
 ## Requirements
 
 ### Minimum Required Versions
