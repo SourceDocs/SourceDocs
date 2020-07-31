@@ -18,14 +18,14 @@ _Libraries denoted 'automatic' can be both static or dynamic._
 | Module | Type | Dependencies |
 | ------ | ---- | ------------ |
 | SourceDocsCLI | Regular | ArgumentParser, Rainbow, SourceDocsLib |
-| SourceDocsLib | Regular | MarkdownGenerator, Rainbow, SourceKittenFramework, SwiftPM-auto, System |
+| SourceDocsLib | Regular | MarkdownGenerator, ProcessRunner, Rainbow, SourceKittenFramework, SwiftPM-auto |
 | SourceDocsDemo | Regular |  |
 
 ### Test Modules
 
 | Module | Type | Dependencies |
 | ------ | ---- | ------------ |
-| SourceDocsCLITests | Test | System |
+| SourceDocsCLITests | Test | ProcessRunner |
 | SourceDocsLibTests | Test | SourceDocsLib |
 
 ### Module Dependency Graph
@@ -39,9 +39,9 @@ _Libraries denoted 'automatic' can be both static or dynamic._
 | Package | Versions |
 | ------- | -------- |
 | [MarkdownGenerator](https://github.com/eneko/MarkdownGenerator.git) | 0.4.0..<1.0.0 |
+| [ProcessRunner](https://github.com/eneko/ProcessRunner.git) | 1.1.0..<2.0.0 |
 | [Rainbow](https://github.com/onevcat/Rainbow) | 3.0.0..<4.0.0 |
 | [SourceKitten](https://github.com/jpsim/SourceKitten.git) | 0.29.0..<1.0.0 |
-| [System](https://github.com/eneko/System.git) | 1.0.0..<2.0.0 |
 | [swift-argument-parser](https://github.com/apple/swift-argument-parser) | 0.0.1..<1.0.0 |
 | [swift-package-manager](https://github.com/apple/swift-package-manager) | 0.4.0 |
 
@@ -64,11 +64,7 @@ _Libraries denoted 'automatic' can be both static or dynamic._
         -   [Yams (2.0.0)](https://github.com/jpsim/Yams.git)
     -   [MarkdownGenerator (0.5.0)](https://github.com/eneko/MarkdownGenerator.git)
     -   [Rainbow (3.1.5)](https://github.com/onevcat/Rainbow)
-    -   [System (1.0.0)](https://github.com/eneko/System.git)
-
-### Package Dependency Graph
-
-[![Package Dependency Graph](PackageDependencies.png)](PackageDependencies.png)
+    -   [ProcessRunner (1.1.0)](https://github.com/eneko/ProcessRunner.git)
 
 ## Requirements
 

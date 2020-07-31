@@ -7,7 +7,7 @@
 
 import Foundation
 import Rainbow
-import System
+import ProcessRunner
 import MarkdownGenerator
 
 public final class PackageProcessor {
