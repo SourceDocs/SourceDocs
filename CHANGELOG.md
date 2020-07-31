@@ -13,7 +13,7 @@
 ## 1.2.1
 
 #### Bug Fixes
-- Fix issue with `System` library renamed to `ProcessRunner`
+- Fix issue with `System` library renamed to `ProcessRunner` (#60)
 
 
 ## 1.2.0
