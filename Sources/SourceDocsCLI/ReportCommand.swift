@@ -68,8 +68,7 @@ struct ReportCommand: ParsableCommand {
         default: 0,
         help: """
     The minimum documentation allowed. A value between 0 and 100. Coverage below the minimum will result in exit code 1.
-    """,
-            valueName: "minimum-documentation"
+    """
         )
     var minimumDocumentation: Int
 
