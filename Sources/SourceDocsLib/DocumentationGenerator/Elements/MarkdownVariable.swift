@@ -9,14 +9,16 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible, MarkdownReportable {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
+    
+    let reportingChildren: [[MarkdownReportable]]? = nil
 
     init?(dictionary: SwiftDocDictionary) {
         fatalError("Not supported")
     }
-
+    
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
         guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind(.varInstance) else {
             return nil

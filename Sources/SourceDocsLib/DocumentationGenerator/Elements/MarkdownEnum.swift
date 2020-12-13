@@ -9,13 +9,18 @@ import Foundation
 import SourceKittenFramework
 import MarkdownGenerator
 
-struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible, MarkdownReportable {
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
     let cases: [MarkdownEnumCaseElement]
     let properties: [MarkdownVariable]
     let methods: [MarkdownMethod]
+    
+    
+    var reportingChildren: [[MarkdownReportable]]? {
+        return [cases, properties, methods]
+    }
 
     init?(dictionary: SwiftDocDictionary) {
         fatalError("Not supported")
@@ -101,9 +106,11 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
         \(methods)
         """
     }
+    
+    
 }
 
-struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvertible {
+struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvertible, MarkdownReportable {
     let dictionary: SwiftDocDictionary
 
     init?(dictionary: SwiftDocDictionary) {
@@ -122,4 +129,6 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
         \(comment)
         """
     }
+    
+    let reportingChildren: [[MarkdownReportable]]? = nil
 }
