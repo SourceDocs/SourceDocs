@@ -10,13 +10,13 @@ import SourceKittenFramework
 import MarkdownGenerator
 
 struct MarkdownObject: SwiftDocDictionaryInitializable, MarkdownConvertible, MarkdownReportable {
-    
+
     let dictionary: SwiftDocDictionary
     let options: MarkdownOptions
 
     let properties: [MarkdownVariable]
     let methods: [MarkdownMethod]
-    
+
     var reportingChildren: [[MarkdownReportable]]? {
         [properties, methods]
     }

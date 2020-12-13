@@ -19,7 +19,7 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible, M
     var reportingChildren: [[MarkdownReportable]]? {
         return [properties, methods]
     }
-    
+
     init?(dictionary: SwiftDocDictionary) {
         fatalError("Not supported")
     }

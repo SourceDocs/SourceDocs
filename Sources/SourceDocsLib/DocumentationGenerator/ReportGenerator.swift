@@ -1,4 +1,3 @@
-
 import Foundation
 import SourceKittenFramework
 
@@ -12,8 +11,8 @@ public final class ReportGenerator {
         self.markdownIndex = MarkdownIndex()
     }
 
-    public func run() throws -> MarkdownReport  {
-        let report : MarkdownReport
+    public func run() throws -> MarkdownReport {
+        let report: MarkdownReport
         markdownIndex.reset()
 
         do {
@@ -81,9 +80,9 @@ public final class ReportGenerator {
         }
         process(docs: docs)
         let report = try markdownIndex.report(to: docsPath,
-                                linkBeginningText: options.linkBeginningText,
-                                linkEndingText: options.linkEndingText,
-                                options: options)
+                                              linkBeginningText: options.linkBeginningText,
+                                              linkEndingText: options.linkEndingText,
+                                              options: options)
         markdownIndex.reset()
         return report
     }

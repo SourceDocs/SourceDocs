@@ -74,6 +74,6 @@ struct ReportCommand: ParsableCommand {
 
         let report = try ReportGenerator(options: options).run()
         fputs("Documentation Complete: \(report.percentage)%".green + "\n", stdout)
-        
+
     }
 }

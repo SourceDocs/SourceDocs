@@ -15,11 +15,11 @@ struct MarkdownExtension: SwiftDocDictionaryInitializable, MarkdownConvertible, 
 
     var properties: [MarkdownVariable]
     var methods: [MarkdownMethod]
-    
+
     var reportingChildren: [[MarkdownReportable]]? {
         return [properties, methods]
     }
-    
+
     init?(dictionary: SwiftDocDictionary) {
         fatalError("Not supported")
     }

@@ -16,7 +16,7 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible, 
     init?(dictionary: SwiftDocDictionary) {
         fatalError("Not supported")
     }
-    
+
     let reportingChildren: [[MarkdownReportable]]? = nil
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
@@ -38,5 +38,5 @@ struct MarkdownTypealias: SwiftDocDictionaryInitializable, MarkdownConvertible, 
         \(comment)
         """
     }
-    
+
 }

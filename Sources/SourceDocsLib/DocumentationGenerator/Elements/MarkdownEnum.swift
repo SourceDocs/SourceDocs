@@ -16,8 +16,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible, Markd
     let cases: [MarkdownEnumCaseElement]
     let properties: [MarkdownVariable]
     let methods: [MarkdownMethod]
-    
-    
+
     var reportingChildren: [[MarkdownReportable]]? {
         return [cases, properties, methods]
     }
@@ -106,8 +105,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible, Markd
         \(methods)
         """
     }
-    
-    
+
 }
 
 struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvertible, MarkdownReportable {
@@ -129,6 +127,6 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
         \(comment)
         """
     }
-    
+
     let reportingChildren: [[MarkdownReportable]]? = nil
 }

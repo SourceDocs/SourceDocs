@@ -70,7 +70,7 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible, Mar
             """
         }
     }
-    
+
 }
 
 struct MarkdownMethodParameter: SwiftDocDictionaryInitializable {

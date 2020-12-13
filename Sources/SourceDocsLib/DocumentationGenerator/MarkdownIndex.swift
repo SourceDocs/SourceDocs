@@ -10,18 +10,18 @@ import MarkdownGenerator
 import Rainbow
 
 public struct MarkdownReport {
-    public let total : Int
-    public let processed : Int
-    
+    public let total: Int
+    public let processed: Int
+
 }
 
-public extension MarkdownReport {
-    var percentage : Double {
-        round(Double(processed * 10000)/Double(total)) / 100.0
+extension MarkdownReport {
+    public var percentage: Double {
+        round(Double(processed * 10_000) / Double(total)) / 100.0
     }
 }
 
-func +(lhs: MarkdownReport, rhs: MarkdownReport) -> MarkdownReport {
+func + (lhs: MarkdownReport, rhs: MarkdownReport) -> MarkdownReport {
     return MarkdownReport(total: lhs.total + rhs.total, processed: lhs.processed + rhs.processed)
 }
 
@@ -49,7 +49,7 @@ class MarkdownIndex {
         typealiases = []
         methods = []
     }
-    
+
     func report(
         to docsPath: String,
         linkBeginningText: String,
@@ -60,27 +60,27 @@ class MarkdownIndex {
         extensions = flattenedExtensions()
 
         fputs("Generating Markdown report...\n".green, stdout)
-        report = protocols.map{ $0.report(whereAccessLevel: options.minimumAccessLevel)  }
+        report = protocols.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
-        report = structs.map{ $0.report(whereAccessLevel: options.minimumAccessLevel) }
+
+        report = structs.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
-        report = classes.map{ $0.report(whereAccessLevel: options.minimumAccessLevel)  }
+
+        report = classes.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
-        report = enums.map{ $0.report(whereAccessLevel: options.minimumAccessLevel)  }
+
+        report = enums.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
-        report = extensions.map{ $0.report(whereAccessLevel: options.minimumAccessLevel)  }
+
+        report = extensions.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
-        report = typealiases.map{ $0.report(whereAccessLevel: options.minimumAccessLevel)  }
+
+        report = typealiases.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
-        report = methods.map{ $0.report(whereAccessLevel: options.minimumAccessLevel)  }
+
+        report = methods.map { $0.report(whereAccessLevel: options.minimumAccessLevel) }
             .reduce(report, +)
-        
+
         return report
     }
 
