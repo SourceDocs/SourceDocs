@@ -63,6 +63,16 @@ struct ReportCommand: ParsableCommand {
         )
     var reproducibleDocs: Bool
 
+    @Option(
+        name: [.customLong("minimum"), .customShort("v")],
+        default: 0,
+        help: """
+    The minimum documentation allowed. A value between 0 and 100. Coverage below the minimum will result in exit code 1.
+    """,
+            valueName: "minimum-documentation"
+        )
+    var minimumDocumentation: Int
+
     func run() throws {
         let options = DocumentOptions(allModules: allModules, spmModule: spmModule, moduleName: moduleName,
                                       linkBeginningText: linkBeginning, linkEndingText: linkEnding,
@@ -73,7 +83,15 @@ struct ReportCommand: ParsableCommand {
                                       reproducibleDocs: reproducibleDocs)
 
         let report = try ReportGenerator(options: options).run()
-        fputs("Documentation Complete: \(report.percentage)%".green + "\n", stdout)
+        let percentage = report.percentage
+        fputs("Documentation Complete: \(percentage)%".green + "\n", stdout)
+
+        guard percentage > Double(minimumDocumentation) else {
+            print("""
+                The overall documentation (\(percentage)) did not meet the minimum threshold of \(minimumDocumentation)%
+                """)
+            throw ExitCode.failure
+        }
 
     }
 }
