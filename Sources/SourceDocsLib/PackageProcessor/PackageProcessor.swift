@@ -7,7 +7,7 @@
 
 import Foundation
 import Rainbow
-import System
+import ProcessRunner
 import MarkdownGenerator
 
 public final class PackageProcessor {
@@ -152,7 +152,7 @@ public final class PackageProcessor {
         let sortedDependencies = packageDump.dependencies.sorted { $0.label < $1.label }
         let rows = sortedDependencies.map { dependency -> [String] in
             let name = MarkdownLink(text: dependency.label, url: dependency.url).markdown
-            let versions = dependency.requirement.description
+            let versions = dependency.requirement?.description ?? ""
             return [name, versions]
         }
         return MarkdownTable(headers: ["Package", "Versions"], data: rows)
