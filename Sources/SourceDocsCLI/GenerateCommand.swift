@@ -56,7 +56,7 @@ extension SourceDocs {
         var tableOfContents = false
 
         @Argument(help: "List of arguments to pass to xcodebuild")
-        var xcodeArguments: [String]
+        var xcodeArguments: [String] = []
 
         @Flag(
             name: .shortAndLong,

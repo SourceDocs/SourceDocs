@@ -9,6 +9,11 @@
 #### Bug Fixes
 - None
 
+## 2.0.0
+
+- Remove dependency on SwiftPM module for package dump decoding
+- Updates required for Xcode 13
+
 
 ## 1.0.0
 
