@@ -9,16 +9,18 @@ import Foundation
 import ArgumentParser
 import SourceDocsLib
 
-struct CleanCommand: ParsableCommand {
-    static var configuration = CommandConfiguration(
-        commandName: "clean",
-        abstract: "Delete the output folder and quit."
-    )
+extension SourceDocs {
+    struct CleanCommand: ParsableCommand {
+        static var configuration = CommandConfiguration(
+            commandName: "clean",
+            abstract: "Delete the output folder and quit."
+        )
 
-    @Option(name: .shortAndLong, default: SourceDocs.defaultOutputPath, help: "Output directory to clean")
-    var outputFolder: String
+        @Option(name: .shortAndLong, help: "Output directory to clean")
+        var outputFolder = SourceDocs.defaultOutputPath
 
-    func run() throws {
-        try DocumentationEraser(docsPath: outputFolder).run()
+        func run() throws {
+            try DocumentationEraser(docsPath: outputFolder).run()
+        }
     }
 }

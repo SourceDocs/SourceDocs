@@ -10,9 +10,11 @@ import ProcessRunner
 
 class VersionCommandTests: XCTestCase {
 
+    let expectedVersion = "2.0.0"
+
     func testVersion() throws {
         let result = try system(command: binaryURL.path, parameters: ["version"], captureOutput: true)
-        XCTAssertEqual(result.standardOutput, "SourceDocs v1.0.0")
+        XCTAssertEqual(result.standardOutput, "SourceDocs v\(expectedVersion)")
     }
 
 }
