@@ -20,19 +20,17 @@ digraph ModuleDependencyGraph {
     subgraph clusterExternal {
         label = "External Dependencies"
         node [color="#eeccaa"]
-        "ArgumentParser"
+        "ArgumentParser, swift-argument-parser"
         "MarkdownGenerator"
         "ProcessRunner"
         "Rainbow"
-        "SourceKittenFramework"
-        "SwiftPM-auto"
+        "SourceKittenFramework, SourceKitten"
     }
 
-    "SourceDocsCLI" -> "ArgumentParser"
+    "SourceDocsCLI" -> "ArgumentParser, swift-argument-parser"
     "SourceDocsCLI" -> "SourceDocsLib"
     "SourceDocsCLI" -> "Rainbow"
-    "SourceDocsLib" -> "SourceKittenFramework"
-    "SourceDocsLib" -> "SwiftPM-auto"
+    "SourceDocsLib" -> "SourceKittenFramework, SourceKitten"
     "SourceDocsLib" -> "MarkdownGenerator"
     "SourceDocsLib" -> "Rainbow"
     "SourceDocsLib" -> "ProcessRunner"

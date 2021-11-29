@@ -9,13 +9,15 @@ import Foundation
 import ArgumentParser
 import Rainbow
 
-struct VersionCommand: ParsableCommand {
-    static var configuration = CommandConfiguration(
-        commandName: "version",
-        abstract: "Display the current version of SourceDocs"
-    )
+extension SourceDocs {
+    struct VersionCommand: ParsableCommand {
+        static var configuration = CommandConfiguration(
+            commandName: "version",
+            abstract: "Display the current version of SourceDocs"
+        )
 
-    func run() throws {
-        fputs("SourceDocs v\(SourceDocs.version)\n".cyan, stdout)
+        func run() throws {
+            fputs("SourceDocs v\(SourceDocs.version)\n".cyan, stdout)
+        }
     }
 }

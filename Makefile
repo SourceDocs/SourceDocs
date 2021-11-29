@@ -1,5 +1,5 @@
 TOOL_NAME = sourcedocs
-VERSION = 1.2.1
+VERSION = 2.0.0
 
 PREFIX = /usr/local
 INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
@@ -23,7 +23,7 @@ lint:
 	swiftlint lint --quiet --strict
 
 docs:
-	swift run sourcedocs generate -car -o docs/reference
+	swift run sourcedocs generate --clean -ar -o docs/reference
 	swift run sourcedocs package -r -o docs
 
 linuxmain:
