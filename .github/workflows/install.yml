@@ -16,15 +16,15 @@ jobs:
     name: Install from Source on macOS
     runs-on: macos-latest
     steps:
-    - name: Setup Swift
-      uses: fwal/setup-swift@v1.9.0
-      with:
-        swift-version: 5.5
+#     - name: Setup Swift
+#       uses: fwal/setup-swift@v1.9.0
+#       with:
+#         swift-version: 5.5
     - name: Checkout
       uses: actions/checkout@v2.4.0
     - name: Install SourceDocs
       run: |
-        cd SourceDocs
+        swift --version
         make install
         sourcedocs version
 
@@ -36,14 +36,14 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y libsqlite3-dev libedit-dev
-    - name: Setup Swift
-      uses: fwal/setup-swift@v1.9.0
-      with:
-        swift-version: 5.5
+#     - name: Setup Swift
+#       uses: fwal/setup-swift@v1.9.0
+#       with:
+#         swift-version: 5.5
     - name: Checkout
       uses: actions/checkout@v2.4.0
     - name: Install SourceDocs
       run: |
-        cd SourceDocs
+        swift --version
         sudo make install
         sourcedocs version
