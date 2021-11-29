@@ -1,0 +1,30 @@
+name: Run Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  macOS:
+    name: Unit Test on macOS
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.0
+    - name: Unit Test
+      run: |
+        swift --version
+        swift test
+
+  ubuntu:
+    name: Unit Test on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libsqlite3-dev libedit-dev
+    - name: Checkout
+      uses: actions/checkout@v2.4.0
+    - name: Install SourceDocs
+      run: |
+        swift --version
+        swift test
