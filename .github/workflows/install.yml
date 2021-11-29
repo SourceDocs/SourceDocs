@@ -16,6 +16,10 @@ jobs:
     name: Install from Source on macOS
     runs-on: macos-latest
     steps:
+    - name: Setup Swift
+      uses: fwal/setup-swift@v1.9.0
+      with:
+        swift-version: 5.5
     - name: Install SourceDocs
       run: |
         git clone --depth 1 https://github.com/eneko/SourceDocs.git
@@ -31,6 +35,10 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y libsqlite3-dev libedit-dev
+    - name: Setup Swift
+      uses: fwal/setup-swift@v1.9.0
+      with:
+        swift-version: 5.5
     - name: Install SourceDocs
       run: |
         git clone --depth 1 https://github.com/eneko/SourceDocs.git
