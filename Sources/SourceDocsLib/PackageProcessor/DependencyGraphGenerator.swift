@@ -11,12 +11,12 @@ final class DependencyGraphGenerator: GraphGenerator {
 
     let basePath: URL
     let dependencyTree: PackageDependency
-    let canRenderDOT: Bool
+    var canRenderDOT = true
+    var clustersEnabled = true
 
-    init(basePath: URL, dependencyTree: PackageDependency, canRenderDOT: Bool) {
+    init(basePath: URL, dependencyTree: PackageDependency) {
         self.basePath = basePath
         self.dependencyTree = dependencyTree
-        self.canRenderDOT = canRenderDOT
     }
 
     func run() throws {
@@ -42,16 +42,24 @@ final class DependencyGraphGenerator: GraphGenerator {
     func generateDOT(from dependencyTree: PackageDependency) -> String {
         let edges = extractEdges(from: dependencyTree)
 
+        let clusterPrefix = clustersEnabled ? "cluster" : ""
+
         let graph = """
         digraph PackageDependencyGraph {
             rankdir = LR
             graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
-            node [shape=box, fontname="Helvetica", style=filled, color="#fafafa"]
+            node [shape=box, fontname="Helvetica", style=filled]
             edge [color="#545454"]
 
-            subgraph cluster {
+            subgraph \(clusterPrefix)Package {
+                node [color="#caecec"]
+                \(dependencyTree.nodeTitle)
+            }
+
+            subgraph \(clusterPrefix)Dependencies {
                 label = "Package Dependencies"
-                \(edges.joined(separator: "\n        "))
+                node [color="#eeccaa"]
+                \(indented: edges.joined(separator: "\n"))
             }
         }
         """
@@ -69,6 +77,9 @@ final class DependencyGraphGenerator: GraphGenerator {
 
 extension PackageDependency {
     var nodeTitle: String {
-        return "\"\(name)\\n\(version)\""
+        let versionLabel = version == "unspecified" ? "" : "\\n\(version)"
+        return """
+            "\(name)\(versionLabel)"
+            """
     }
 }

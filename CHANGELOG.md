@@ -15,6 +15,34 @@
 - Updates required for Xcode 13
 
 
+## 1.2.1
+
+#### Bug Fixes
+- Fix issue with `System` library renamed to `ProcessRunner` (#60)
+
+
+## 1.2.0
+
+#### Enhancements
+- Add `--no-clusters` flag to toggle clusters on/off (#55)
+
+#### Other
+- Remove blockquote from docummentation summary
+
+
+## 1.1.0
+
+#### Breaking
+- None
+
+#### Enhancements
+- New `--all-modules` parameter to generate documentation for all swift modules in a package (#49)
+- New `--reproducible-docs` parameter to generate reproducible documentation (#51)
+
+#### Bug Fixes
+- Fix issue #50, where nested types where documented out of their parent context (#51)
+
+
 ## 1.0.0
 
 #### Breaking
@@ -43,7 +71,7 @@
 
 ## 0.6.0
 
-#### Breaking 
+#### Breaking
 - SourceDocs now requires Swift 5.0 or higher
 
 #### Enhancements

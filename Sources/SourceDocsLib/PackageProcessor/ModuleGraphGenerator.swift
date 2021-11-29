@@ -11,12 +11,12 @@ final class ModuleGraphGenerator: GraphGenerator {
 
     let basePath: URL
     let packageDump: PackageDump
-    let canRenderDOT: Bool
+    var canRenderDOT = true
+    var clustersEnabled = true
 
-    init(basePath: URL, packageDump: PackageDump, canRenderDOT: Bool) {
+    init(basePath: URL, packageDump: PackageDump) {
         self.basePath = basePath
         self.packageDump = packageDump
-        self.canRenderDOT = canRenderDOT
     }
 
     func run() throws {
@@ -48,6 +48,12 @@ final class ModuleGraphGenerator: GraphGenerator {
             }
         }
 
+        let clusters = [
+            cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"),
+            cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"),
+            cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#eeccaa")
+        ]
+
         return """
         digraph ModuleDependencyGraph {
             rankdir = LR
@@ -55,11 +61,9 @@ final class ModuleGraphGenerator: GraphGenerator {
             node [shape=box, fontname="Helvetica", style=filled]
             edge [color="#545454"]
 
-            \(cluster(with: regularNodes, name: "Regular", label: "Program Modules", color: "#caecec"))
-            \(cluster(with: testNodes, name: "Test", label: "Test Modules", color: "#aaccee"))
-            \(cluster(with: externalNodes, name: "External", label: "External Dependencies", color: "#fafafa"))
+            \(indented: clusters.joined(separator: "\n"))
 
-            \(edges.joined(separator: "\n    "))
+            \(indented: edges.joined(separator: "\n"))
         }
         """
     }
@@ -68,11 +72,14 @@ final class ModuleGraphGenerator: GraphGenerator {
         if nodes.isEmpty {
             return ""
         }
+
+        let clusterPrefix = clustersEnabled ? "cluster" : ""
+
         return """
-        subgraph cluster\(name) {
+        subgraph \(clusterPrefix)\(name) {
             label = "\(label)"
             node [color="\(color)"]
-            \(nodes.joined(separator: "\n    "))
+            \(indented: nodes.joined(separator: "\n"))
         }
         """
     }

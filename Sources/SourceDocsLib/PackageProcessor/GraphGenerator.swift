@@ -19,3 +19,18 @@ extension GraphGenerator {
         return "\"\(string)\""
     }
 }
+
+extension DefaultStringInterpolation {
+    mutating func appendInterpolation(indented string: String) {
+        // swiftlint:disable:next compiler_protocol_init
+        let indent = String(stringInterpolation: self).reversed().prefix { " \t".contains($0) }
+        if indent.isEmpty {
+            appendInterpolation(string)
+        } else {
+            let value = string
+                .split(separator: "\n", omittingEmptySubsequences: false)
+                .joined(separator: "\n" + indent)
+            appendLiteral(value)
+        }
+    }
+}

@@ -18,7 +18,8 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
     }
 
     init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
-        guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind(.varInstance) else {
+        let variables: [SwiftDeclarationKind] = [.varInstance, .varStatic]
+        guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind(variables) else {
             return nil
         }
         self.dictionary = dictionary
@@ -29,7 +30,7 @@ struct MarkdownVariable: SwiftDocDictionaryInitializable, MarkdownConvertible {
         let details = """
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
         """
 
         if options.collapsibleBlocks {

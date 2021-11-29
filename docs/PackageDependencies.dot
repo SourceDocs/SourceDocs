@@ -1,16 +1,22 @@
 digraph PackageDependencyGraph {
     rankdir = LR
     graph [fontname="Helvetica-light", style = filled, color = "#eaeaea"]
-    node [shape=box, fontname="Helvetica", style=filled, color="#fafafa"]
+    node [shape=box, fontname="Helvetica", style=filled]
     edge [color="#545454"]
 
-    subgraph cluster {
+    subgraph clusterPackage {
+        node [color="#caecec"]
+        "SourceDocs"
+    }
+
+    subgraph clusterDependencies {
         label = "Package Dependencies"
-        "SourceDocs\nunspecified" -> "swift-argument-parser\n1.0.2"
-        "SourceDocs\nunspecified" -> "SourceKitten\n0.31.1"
-        "SourceDocs\nunspecified" -> "MarkdownGenerator\n0.5.0"
-        "SourceDocs\nunspecified" -> "Rainbow\n3.1.5"
-        "SourceDocs\nunspecified" -> "ProcessRunner\n1.1.0"
+        node [color="#eeccaa"]
+        "SourceDocs" -> "swift-argument-parser\n1.0.2"
+        "SourceDocs" -> "SourceKitten\n0.31.1"
+        "SourceDocs" -> "MarkdownGenerator\n0.5.0"
+        "SourceDocs" -> "Rainbow\n3.1.5"
+        "SourceDocs" -> "ProcessRunner\n1.1.0"
         "SourceKitten\n0.31.1" -> "swift-argument-parser\n1.0.2"
         "SourceKitten\n0.31.1" -> "SWXMLHash\n5.0.1"
         "SourceKitten\n0.31.1" -> "Yams\n4.0.6"

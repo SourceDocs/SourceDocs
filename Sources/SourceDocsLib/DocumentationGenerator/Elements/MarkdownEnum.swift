@@ -92,7 +92,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
 
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
 
         \(cases)
 
@@ -119,7 +119,7 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
 
         \(declaration)
 
-        \(comment.blockquoted)
+        \(comment)
         """
     }
 }

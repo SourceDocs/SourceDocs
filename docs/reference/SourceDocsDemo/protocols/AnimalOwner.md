@@ -13,4 +13,4 @@ public protocol AnimalOwner
 var animals: [OwnableAnimal]
 ```
 
-> Animal owners might have 0, 1 or more animals
+Animal owners might have 0, 1 or more animals

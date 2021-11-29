@@ -12,7 +12,7 @@ extension Nameable
 public var description: String
 ```
 
-> Describes a named thing
+Describes a named thing
 
 ### `alternateDescription`
 
@@ -20,4 +20,4 @@ public var description: String
 public var alternateDescription: String
 ```
 
-> Alternative description for a thing
+Alternative description for a thing
