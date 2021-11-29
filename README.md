@@ -45,6 +45,13 @@ platforms do a great job rendering Markdown files, so documentation is easy to r
 - [Workflow framework (by Square)](https://square.github.io/workflow/swift/api/Workflow/)
 
 
+## Requirements
+
+| SourceDocs Version | Xcode Version | Swift Version |
+| ------------------ | ------------- | ------------- |
+| 2.x                | 13.1          | 5.5           |
+| 1.x                | 11.5          | 5.1           |
+
 
 ## Usage
 
