@@ -1,0 +1,15 @@
+name: Check Docs
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build -v
+    - name: Check for stale docs
+      run: |
+        brew install graphviz # Needed for generating the dependency graph
+        make docs && git diff --exit-code docs
