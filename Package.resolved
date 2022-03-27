@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/onevcat/Rainbow",
         "state": {
           "branch": null,
-          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
-          "version": "3.1.5"
+          "revision": "626c3d4b6b55354b4af3aa309f998fae9b31a3d9",
+          "version": "3.2.0"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/jpsim/SourceKitten.git",
         "state": {
           "branch": null,
-          "revision": "558628392eb31d37cb251cfe626c53eafd330df6",
-          "version": "0.31.1"
+          "revision": "817dfa6f2e09b0476f3a6c9dbc035991f02f0241",
+          "version": "0.32.0"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "e1465042f195f374b94f915ba8ca49de24300a0d",
-          "version": "1.0.2"
+          "revision": "82905286cc3f0fa8adc4674bf49437cab65a8373",
+          "version": "1.1.1"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
         "state": {
           "branch": null,
-          "revision": "a4931e5c3bafbedeb1601d3bb76bbe835c6d475a",
-          "version": "5.0.1"
+          "revision": "6469881a3f30417c5bb02404ea4b69207f297592",
+          "version": "6.0.0"
         }
       },
       {
