@@ -12,13 +12,13 @@ digraph PackageDependencyGraph {
     subgraph clusterDependencies {
         label = "Package Dependencies"
         node [color="#eeccaa"]
-        "SourceDocs" -> "swift-argument-parser\n1.0.2"
-        "SourceDocs" -> "SourceKitten\n0.31.1"
+        "SourceDocs" -> "swift-argument-parser\n1.1.1"
+        "SourceDocs" -> "SourceKitten\n0.32.0"
         "SourceDocs" -> "MarkdownGenerator\n0.5.0"
-        "SourceDocs" -> "Rainbow\n3.1.5"
+        "SourceDocs" -> "Rainbow\n3.2.0"
         "SourceDocs" -> "ProcessRunner\n1.1.0"
-        "SourceKitten\n0.31.1" -> "swift-argument-parser\n1.0.2"
-        "SourceKitten\n0.31.1" -> "SWXMLHash\n5.0.1"
-        "SourceKitten\n0.31.1" -> "Yams\n4.0.6"
+        "SourceKitten\n0.32.0" -> "swift-argument-parser\n1.1.1"
+        "SourceKitten\n0.32.0" -> "SWXMLHash\n6.0.0"
+        "SourceKitten\n0.32.0" -> "Yams\n4.0.6"
     }
 }
