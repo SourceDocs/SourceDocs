@@ -1,5 +1,5 @@
 TOOL_NAME = sourcedocs
-VERSION = 2.0.0
+VERSION = 2.0.1
 
 PREFIX = /usr/local
 INSTALL_PATH = $(PREFIX)/bin/$(TOOL_NAME)
