@@ -3,13 +3,20 @@ name: Check Docs
 on: [push, pull_request]
 
 jobs:
-  build:
+  ubuntu:
+    name: Generate Docs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.4.0
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libsqlite3-dev libedit-dev
+        brew install graphviz # Needed for generating the dependency graph
     - name: Build
-      run: swift build -v
+      run: |
+        swift build -v
     - name: Check for stale docs
       run: |
-        brew install graphviz # Needed for generating the dependency graph
-        make docs && git diff --exit-code docs
+        make docs
+        git diff --exit-code docs

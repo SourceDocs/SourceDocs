@@ -38,22 +38,22 @@ _Libraries denoted 'automatic' can be both static or dynamic._
 
 | Package | Versions |
 | ------- | -------- |
-| [markdowngenerator](https://github.com/eneko/MarkdownGenerator.git) | 0.4.0..<1.0.0 |
-| [processrunner](https://github.com/eneko/ProcessRunner.git) | 1.1.0..<2.0.0 |
-| [rainbow](https://github.com/onevcat/Rainbow) | 3.0.0..<4.0.0 |
-| [sourcekitten](https://github.com/jpsim/SourceKitten.git) | 0.29.0..<1.0.0 |
-| [swift-argument-parser](https://github.com/apple/swift-argument-parser) | 1.0.0..<2.0.0 |
+| [[]]() |  |
+| [[]]() |  |
+| [[]]() |  |
+| [[]]() |  |
+| [[]]() |  |
 
 ### Resolved Dependencies
 
 -   SourceDocs (unspecified)
-    -   [swift-argument-parser (1.0.2)](https://github.com/apple/swift-argument-parser)
-    -   [SourceKitten (0.31.1)](https://github.com/jpsim/SourceKitten.git)
-        -   [swift-argument-parser (1.0.2)](https://github.com/apple/swift-argument-parser)
-        -   [SWXMLHash (5.0.1)](https://github.com/drmohundro/SWXMLHash.git)
+    -   [swift-argument-parser (1.1.1)](https://github.com/apple/swift-argument-parser)
+    -   [SourceKitten (0.32.0)](https://github.com/jpsim/SourceKitten.git)
+        -   [swift-argument-parser (1.1.1)](https://github.com/apple/swift-argument-parser)
+        -   [SWXMLHash (6.0.0)](https://github.com/drmohundro/SWXMLHash.git)
         -   [Yams (4.0.6)](https://github.com/jpsim/Yams.git)
     -   [MarkdownGenerator (0.5.0)](https://github.com/eneko/MarkdownGenerator.git)
-    -   [Rainbow (3.1.5)](https://github.com/onevcat/Rainbow)
+    -   [Rainbow (3.2.0)](https://github.com/onevcat/Rainbow)
     -   [ProcessRunner (1.1.0)](https://github.com/eneko/ProcessRunner.git)
 
 ### Package Dependency Graph
