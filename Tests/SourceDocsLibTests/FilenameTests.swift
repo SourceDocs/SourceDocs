@@ -16,7 +16,7 @@ class FilenameTests: XCTestCase {
             "key.kind": "source.lang.swift.decl.function.free",
             "key.name": "method(paramA:paramB:paramC:)"
         ]
-        let options = MarkdownOptions(collapsibleBlocks: false, tableOfContents: false, minimumAccessLevel: .public)
+        let options = MarkdownOptions(collapsibleBlocks: false, tableOfContents: false, minimumAccessLevel: .public, skipEmpty: false)
         guard let method = MarkdownMethod(dictionary: dict, options: options) else {
             XCTFail("Expected method")
             return

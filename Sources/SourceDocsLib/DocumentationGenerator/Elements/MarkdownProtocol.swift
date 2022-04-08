@@ -34,6 +34,11 @@ struct MarkdownProtocol: SwiftDocDictionaryInitializable, MarkdownConvertible {
             properties = []
             methods = []
         }
+
+        let topLevelDoc: String? = dictionary.get(.documentationComment)
+        guard !options.skipEmpty || topLevelDoc?.isEmpty == false || !properties.isEmpty || !methods.isEmpty else {
+            return nil
+        }
     }
 
     var markdown: String {

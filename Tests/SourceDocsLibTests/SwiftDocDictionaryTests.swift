@@ -12,7 +12,7 @@ import SourceKittenFramework
 class SwiftDocDictionaryTests: XCTestCase {
 
     let defaultOptions = MarkdownOptions(collapsibleBlocks: false, tableOfContents: false,
-                                         minimumAccessLevel: .public)
+                                         minimumAccessLevel: .public, skipEmpty: false)
 
     func testIsKind() {
         let dict: SwiftDocDictionary = [

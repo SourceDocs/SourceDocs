@@ -55,6 +55,10 @@ extension SourceDocs {
               help: "Generate a table of contents with properties and methods for each type")
         var tableOfContents = false
 
+        @Flag(name: .shortAndLong,
+              help: "Do not generate documentation for files with no comments.")
+        var skipEmpty = false
+
         @Argument(help: "List of arguments to pass to xcodebuild")
         var xcodeArguments: [String] = []
 
@@ -74,7 +78,7 @@ extension SourceDocs {
                                           minimumAccessLevel: minACL, includeModuleNameInPath: moduleNamePath,
                                           clean: clean, collapsibleBlocks: collapsible,
                                           tableOfContents: tableOfContents, xcodeArguments: xcodeArguments,
-                                          reproducibleDocs: reproducibleDocs)
+                                          reproducibleDocs: reproducibleDocs, skipEmpty: skipEmpty)
 
             try DocumentationGenerator(options: options).run()
         }

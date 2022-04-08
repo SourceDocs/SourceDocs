@@ -34,7 +34,7 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
                     let first = substructure.first else {
                         return nil
                 }
-                return MarkdownEnumCaseElement(dictionary: first)
+                return MarkdownEnumCaseElement(dictionary: first, options: options)
             }
             properties = structure.compactMap { MarkdownVariable(dictionary: $0, options: options) }
             methods = structure.compactMap { MarkdownMethod(dictionary: $0, options: options) }
@@ -42,6 +42,11 @@ struct MarkdownEnum: SwiftDocDictionaryInitializable, MarkdownConvertible {
             cases = []
             properties = []
             methods = []
+        }
+
+        let topLevelDoc: String? = dictionary.get(.documentationComment)
+        guard !options.skipEmpty || topLevelDoc?.isEmpty == false || !cases.isEmpty || !properties.isEmpty || !methods.isEmpty else {
+            return nil
         }
     }
 
@@ -107,7 +112,15 @@ struct MarkdownEnumCaseElement: SwiftDocDictionaryInitializable, MarkdownConvert
     let dictionary: SwiftDocDictionary
 
     init?(dictionary: SwiftDocDictionary) {
+        fatalError("Not supported")
+    }
+
+    init?(dictionary: SwiftDocDictionary, options: MarkdownOptions) {
         guard dictionary.isKind([.enumelement]) else {
+            return nil
+        }
+        let topLevelDoc: String? = dictionary.get(.documentationComment)
+        guard !options.skipEmpty || topLevelDoc?.isEmpty == false else {
             return nil
         }
         self.dictionary = dictionary

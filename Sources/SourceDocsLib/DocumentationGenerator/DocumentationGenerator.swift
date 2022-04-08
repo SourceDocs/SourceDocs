@@ -26,6 +26,7 @@ import SourceKittenFramework
 ///   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
 ///   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources.
 ///     For example, this will avoid adding timestamps on the generated files. Defaults to false.
+///   - skipEmpty: Do not generate documentation for files with no comments.
 public struct DocumentOptions {
     public let allModules: Bool
     public let spmModule: String?
@@ -41,13 +42,14 @@ public struct DocumentOptions {
     public let tableOfContents: Bool
     public let xcodeArguments: [String]
     public let reproducibleDocs: Bool
+    public let skipEmpty: Bool
 
     public init(allModules: Bool, spmModule: String?, moduleName: String?,
                 linkBeginningText: String = "", linkEndingText: String = ".md",
                 inputFolder: String, outputFolder: String,
                 minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
                 clean: Bool = false, collapsibleBlocks: Bool = false, tableOfContents: Bool = false,
-                xcodeArguments: [String] = [], reproducibleDocs: Bool = false) {
+                xcodeArguments: [String] = [], reproducibleDocs: Bool = false, skipEmpty: Bool = false) {
         self.allModules = allModules
         self.spmModule = spmModule
         self.moduleName = moduleName
@@ -62,6 +64,7 @@ public struct DocumentOptions {
         self.tableOfContents = tableOfContents
         self.xcodeArguments = xcodeArguments
         self.reproducibleDocs = reproducibleDocs
+        self.skipEmpty = skipEmpty
     }
 }
 
@@ -157,7 +160,8 @@ public final class DocumentationGenerator {
     private func process(dictionary: SwiftDocDictionary) {
         let markdownOptions = MarkdownOptions(collapsibleBlocks: options.collapsibleBlocks,
                                               tableOfContents: options.tableOfContents,
-                                              minimumAccessLevel: options.minimumAccessLevel)
+                                              minimumAccessLevel: options.minimumAccessLevel,
+                                              skipEmpty: options.skipEmpty)
 
         if let value: String = dictionary.get(.kind), let kind = SwiftDeclarationKind(rawValue: value) {
             if kind == .struct, let item = MarkdownObject(dictionary: dictionary, options: markdownOptions) {

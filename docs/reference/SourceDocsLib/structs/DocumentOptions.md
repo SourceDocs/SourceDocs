@@ -24,6 +24,7 @@ Configuration for DocumentationGenerator
   - xcodeArguments: Array of `String` arguments to pass to xcodebuild. Defaults to an empty array.
   - reproducibleDocs: generate documentation that is reproducible: only depends on the sources.
     For example, this will avoid adding timestamps on the generated files. Defaults to false.
+  - skipEmpty: Do not generate documentation for files with no comments.
 
 ## Properties
 ### `allModules`
@@ -110,8 +111,14 @@ public let xcodeArguments: [String]
 public let reproducibleDocs: Bool
 ```
 
+### `skipEmpty`
+
+```swift
+public let skipEmpty: Bool
+```
+
 ## Methods
-### `init(allModules:spmModule:moduleName:linkBeginningText:linkEndingText:inputFolder:outputFolder:minimumAccessLevel:includeModuleNameInPath:clean:collapsibleBlocks:tableOfContents:xcodeArguments:reproducibleDocs:)`
+### `init(allModules:spmModule:moduleName:linkBeginningText:linkEndingText:inputFolder:outputFolder:minimumAccessLevel:includeModuleNameInPath:clean:collapsibleBlocks:tableOfContents:xcodeArguments:reproducibleDocs:skipEmpty:)`
 
 ```swift
 public init(allModules: Bool, spmModule: String?, moduleName: String?,
@@ -119,5 +126,5 @@ public init(allModules: Bool, spmModule: String?, moduleName: String?,
             inputFolder: String, outputFolder: String,
             minimumAccessLevel: AccessLevel = .public, includeModuleNameInPath: Bool = false,
             clean: Bool = false, collapsibleBlocks: Bool = false, tableOfContents: Bool = false,
-            xcodeArguments: [String] = [], reproducibleDocs: Bool = false)
+            xcodeArguments: [String] = [], reproducibleDocs: Bool = false, skipEmpty: Bool = false)
 ```
