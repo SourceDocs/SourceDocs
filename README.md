@@ -132,7 +132,8 @@ Typing `sourcedocs help <command>` we get a list of all options for that command
       -m, --module-name-path  Include the module name as part of the output folder path 
       -c, --clean             Delete output folder before generating documentation 
       -l, --collapsible       Put methods, properties and enum cases inside collapsible blocks 
-      -t, --table-of-contents Generate a table of contents with properties and methods for each type 
+      -t, --table-of-contents Generate a table of contents with properties and methods for each type
+      -s, --skip-empty        Do not generate documentation for files with no comments. 
       -r, --reproducible-docs Generate documentation that is reproducible: only depends on the sources.
                               For example, this will avoid adding timestamps on the generated files. 
       -h, --help              Show help information

@@ -13,6 +13,7 @@ struct MarkdownOptions {
     var collapsibleBlocks: Bool
     var tableOfContents: Bool
     var minimumAccessLevel: AccessLevel
+    var skipEmpty: Bool
 }
 
 class MarkdownIndex {

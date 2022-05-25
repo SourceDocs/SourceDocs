@@ -27,6 +27,10 @@ struct MarkdownMethod: SwiftDocDictionaryInitializable, MarkdownConvertible {
         guard dictionary.accessLevel >= options.minimumAccessLevel && dictionary.isKind(methods) else {
             return nil
         }
+        let topLevelDoc: String? = dictionary.get(.documentationComment)
+        guard !options.skipEmpty || topLevelDoc?.isEmpty == false else {
+            return nil
+        }
         self.dictionary = dictionary
         self.options = options
 
