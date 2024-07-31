@@ -1,11 +1,11 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.7
 import PackageDescription
 import Foundation
 
 let package = Package(
     name: "SourceDocs",
     platforms: [
-        .macOS(.v10_15)
+        .macOS(.v12)
     ],
     products: [
         .executable(name: "sourcedocs", targets: ["SourceDocsCLI"]),
@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/eneko/ProcessRunner.git", from: "1.1.0")
     ],
     targets: [
-        .target(name: "SourceDocsCLI", dependencies: [
+        .executableTarget(name: "SourceDocsCLI", dependencies: [
             .product(name: "ArgumentParser", package: "swift-argument-parser"),
             "SourceDocsLib",
             "Rainbow"

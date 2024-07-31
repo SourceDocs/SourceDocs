@@ -8,6 +8,7 @@
 import Foundation
 import ArgumentParser
 
+@main
 struct SourceDocs: ParsableCommand {
     static let version = "2.0.1"
     static let defaultOutputPath = "Documentation/Reference"
@@ -23,5 +24,3 @@ struct SourceDocs: ParsableCommand {
         ]
     )
 }
-
-SourceDocs.main()

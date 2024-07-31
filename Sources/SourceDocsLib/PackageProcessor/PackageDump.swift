@@ -95,6 +95,7 @@ struct PackageDump: Codable {
         enum TargetType: String, Codable {
             case regular
             case test
+            case executable
         }
     }
 }
